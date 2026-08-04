@@ -102,6 +102,15 @@ if (function_exists('acf_add_options_page')) {
         'icon_url'   => 'dashicons-edit-page',
         'redirect'   => false,
     ]);
+
+    acf_add_options_page([
+        'page_title' => 'Providers Page',
+        'menu_title' => 'Providers Page',
+        'menu_slug'  => 'providers-page',
+        'capability' => 'edit_posts',
+        'icon_url'   => 'dashicons-groups',
+        'redirect'   => false,
+    ]);
 }
 
 if (function_exists('acf_add_local_field_group')) {
@@ -932,6 +941,137 @@ if (function_exists('acf_add_local_field_group')) {
                     'param' => 'options_page',
                     'operator' => '==',
                     'value' => 'homepage-content',
+                ],
+            ],
+        ],
+    ]);
+
+    /**
+     * ---------------------------------------------------------------
+     * Providers page — banner/intro copy and the provider grid, on
+     * their own "Providers Page" options page. Same pattern as the
+     * Homepage Content groups above.
+     */
+
+    acf_add_local_field_group([
+        'key' => 'group_providers_banner',
+        'title' => 'Providers — Banner & Intro',
+        'fields' => [
+            [
+                'key' => 'field_providers_page_title',
+                'label' => 'Page Title',
+                'name' => 'providers_page_title',
+                'type' => 'text',
+                'default_value' => 'Our Providers',
+            ],
+            [
+                'key' => 'field_providers_intro_heading',
+                'label' => 'Intro Heading (optional)',
+                'name' => 'providers_intro_heading',
+                'type' => 'text',
+            ],
+            [
+                'key' => 'field_providers_intro_body',
+                'label' => 'Intro Body',
+                'name' => 'providers_intro_body',
+                'type' => 'textarea',
+                'rows' => 3,
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'providers-page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_providers_grid',
+        'title' => 'Providers — Grid',
+        'fields' => [
+            [
+                'key' => 'field_providers_list',
+                'label' => 'Providers',
+                'name' => 'providers_list',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Provider',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_provider_photo',
+                        'label' => 'Photo',
+                        'name' => 'photo',
+                        'type' => 'image',
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                    ],
+                    [
+                        'key' => 'field_provider_name',
+                        'label' => 'Name & Credentials',
+                        'name' => 'name',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_provider_title',
+                        'label' => 'Title / Role',
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_provider_link',
+                        'label' => 'Profile Link',
+                        'name' => 'link',
+                        'type' => 'link',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_providers_closing_photo',
+                'label' => 'Closing Card Photo',
+                'name' => 'providers_closing_photo',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+            ],
+            [
+                'key' => 'field_providers_closing_role',
+                'label' => 'Closing Card Role',
+                'name' => 'providers_closing_role',
+                'type' => 'text',
+                'default_value' => 'Clinic Operations Manager',
+            ],
+            [
+                'key' => 'field_providers_closing_heading',
+                'label' => 'Closing Card Heading',
+                'name' => 'providers_closing_heading',
+                'type' => 'text',
+                'default_value' => 'Book a Consultation',
+            ],
+            [
+                'key' => 'field_providers_closing_cta_text',
+                'label' => 'Closing Card Button Text',
+                'name' => 'providers_closing_cta_text',
+                'type' => 'text',
+                'default_value' => 'Schedule Consultation',
+            ],
+            [
+                'key' => 'field_providers_closing_cta_link',
+                'label' => 'Closing Card Button Link',
+                'name' => 'providers_closing_cta_link',
+                'type' => 'text',
+                'default_value' => '/contact',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'providers-page',
                 ],
             ],
         ],
