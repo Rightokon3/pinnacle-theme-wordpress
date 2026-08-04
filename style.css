@@ -1732,6 +1732,10 @@ body.mobile-nav-open {
    Specialists
    ===================================================== */
 
+/* =====================================================
+   Specialists
+   ===================================================== */
+
 .specialists {
     max-width: 1280px;
     margin: 0 auto;
@@ -1757,11 +1761,33 @@ body.mobile-nav-open {
     transform: translateY(-4px);
 }
 
+.specialists__photo-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+/* blue gradient fade at the bottom of every photo */
+.specialists__photo-wrap::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 45%;
+    background: linear-gradient(to top, var(--primary) 0%, rgba(21, 131, 199, 0) 100%);
+    pointer-events: none;
+}
+
 .specialists__photo {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     display: block;
+}
+
+/* founder card: taller photo than the rest */
+.specialists__card--featured .specialists__photo {
+    aspect-ratio: 4 / 6.2;
 }
 
 .specialists__body {
@@ -1803,6 +1829,7 @@ body.mobile-nav-open {
 @media (min-width: 640px) {
     .specialists__grid {
         grid-template-columns: repeat(2, 1fr);
+        align-items: start;
     }
 }
 
