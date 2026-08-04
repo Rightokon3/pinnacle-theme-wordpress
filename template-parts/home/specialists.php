@@ -62,7 +62,7 @@ if (empty($specialists)) {
                 <div class="specialists__body">
                     <p class="specialists__name"><?php echo esc_html($doc['name']); ?></p>
                     <p class="specialists__title"><?php echo esc_html($doc['title']); ?></p>
-                    
+                    <a
                         href="<?php echo esc_url($link_url); ?>"
                         class="specialists__link"
                         <?php echo $link_target === '_blank' ? 'target="_blank" rel="noopener"' : ''; ?>
