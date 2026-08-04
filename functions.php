@@ -111,6 +111,15 @@ if (function_exists('acf_add_options_page')) {
         'icon_url'   => 'dashicons-groups',
         'redirect'   => false,
     ]);
+
+    acf_add_options_page([
+        'page_title' => 'Services Page',
+        'menu_title' => 'Services Page',
+        'menu_slug'  => 'services-page',
+        'capability' => 'edit_posts',
+        'icon_url'   => 'dashicons-heart',
+        'redirect'   => false,
+    ]);
 }
 
 if (function_exists('acf_add_local_field_group')) {
@@ -1072,6 +1081,118 @@ if (function_exists('acf_add_local_field_group')) {
                     'param' => 'options_page',
                     'operator' => '==',
                     'value' => 'providers-page',
+                ],
+            ],
+        ],
+    ]);
+
+    /**
+     * ---------------------------------------------------------------
+     * Services page — alternating service list and the supplement
+     * promo banner, on their own "Services Page" options page. Same
+     * pattern as the Providers Page groups above.
+     */
+
+    acf_add_local_field_group([
+        'key' => 'group_services_list',
+        'title' => 'Services — List',
+        'fields' => [
+            [
+                'key' => 'field_services_list',
+                'label' => 'Services',
+                'name' => 'services_list',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Service',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_service_image',
+                        'label' => 'Image',
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                    ],
+                    [
+                        'key' => 'field_service_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_service_body',
+                        'label' => 'Body',
+                        'name' => 'body',
+                        'type' => 'textarea',
+                        'rows' => 3,
+                    ],
+                    [
+                        'key' => 'field_service_link',
+                        'label' => 'Link',
+                        'name' => 'link',
+                        'type' => 'link',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'services-page',
+                ],
+            ],
+        ],
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_services_supplement_banner',
+        'title' => 'Services — Supplement Banner',
+        'fields' => [
+            [
+                'key' => 'field_services_supplement_image',
+                'label' => 'Image',
+                'name' => 'services_supplement_image',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+            ],
+            [
+                'key' => 'field_services_supplement_heading',
+                'label' => 'Heading',
+                'name' => 'services_supplement_heading',
+                'type' => 'text',
+                'default_value' => 'The Best Quality Supplement Brands Available',
+            ],
+            [
+                'key' => 'field_services_supplement_body',
+                'label' => 'Body',
+                'name' => 'services_supplement_body',
+                'type' => 'textarea',
+                'rows' => 3,
+            ],
+            [
+                'key' => 'field_services_supplement_cta_text',
+                'label' => 'Button Text',
+                'name' => 'services_supplement_cta_text',
+                'type' => 'text',
+                'default_value' => 'Shop Now',
+            ],
+            [
+                'key' => 'field_services_supplement_cta_link',
+                'label' => 'Button Link',
+                'name' => 'services_supplement_cta_link',
+                'type' => 'text',
+                'default_value' => '/dispensary',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'services-page',
                 ],
             ],
         ],
