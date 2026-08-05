@@ -71,14 +71,14 @@ $cta_link = get_field('service_cta_link') ?: home_url('/contact/');
                     <p>
                        <a href="<?php echo esc_url(home_url('/')); ?>" style="color: #0073aa; text-decoration: none;">Pinnacle Behavioral Healthcare</a> is proud to offer mental Telehealth Psychiatric Medication Management in addition to in-person, face-to-face visits at our Edina clinic in Edina. This allows you the option of meeting with your provider in the clinic or from the comfort of your own home or office using a computer, tablet, or smartphone.
 
-Telehealth Psychiatric Medication Management is a convenient and effective way to receive psychiatric medication management services. You will be able to meet with your provider on a regular basis, without having to travel to our office.
+           Telehealth Psychiatric Medication Management is a convenient and effective way to receive psychiatric medication management services. You will be able to meet with your provider on a regular basis, without having to travel to our office.
 
-We offer comprehensive mental telehealth evaluations to determine the best course of treatment, which may or may not include medication. Our providers for mental health work with you to find the right medication at the right dose to help improve your symptoms. We understand that each person is unique and will respond differently to various medications. We will work with you to find the best medication for you, taking into account your individual needs and preferences.
+        We offer comprehensive mental telehealth evaluations to determine the best course of treatment, which may or may not include medication. Our providers for mental health work with you to find the right medication at the right dose to help improve your symptoms. We understand that each person is unique and will respond differently to various medications. We will work with you to find the best medication for you, taking into account your individual needs and preferences.
 
-In order to participate in Telehealth Psychiatric Medication Management, you will need:
+         In order to participate in Telehealth Psychiatric Medication Management, you will need:
 
-<li>A computer, tablet, or smartphone with a webcam and microphone</li>
-<li>A high-speed internet connection</li>
+       <li>A computer, tablet, or smartphone with a webcam and microphone</li>
+       <li>A high-speed internet connection</li>
                     </p>
                 </div>
             <?php endif; ?>

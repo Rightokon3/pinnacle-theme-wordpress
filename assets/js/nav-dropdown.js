@@ -141,6 +141,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // ---------------------------------------------------
+  // FAQ accordion (Service Pillar page)
+  // ---------------------------------------------------
+  document.querySelectorAll(".pillar-faq__item").forEach(function (item) {
+    var question = item.querySelector(".pillar-faq__question");
+    if (!question) return;
+    question.addEventListener("click", function () {
+      item.classList.toggle("is-open");
+    });
+  });
+
   // desktop dropdown accordion state for keyboard/touch (hover handled in CSS)
   document.querySelectorAll(".primary-menu .menu-item-has-children > a").forEach(function (link) {
     link.addEventListener("click", function (e) {

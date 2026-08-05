@@ -3116,3 +3116,848 @@ body.mobile-nav-open {
         gap: 56px;
     }
 }
+/* =========================================================
+   Service Pillar page (page-service-pillar.php)
+   ========================================================= */
+
+.pillar-hero {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+}
+
+.pillar-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pillar-banner {
+    background: var(--surface-blue);
+}
+
+.pillar-banner__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pillar-banner__heading {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+}
+
+.pillar-banner__cta {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 8px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+}
+
+.pillar-banner__cta:hover {
+    background: var(--primary-dark);
+}
+
+.pillar-page {
+    padding: 0 16px 64px;
+}
+
+.pillar-page__grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+
+.pillar-page__main {
+    min-width: 0;
+}
+
+/* ---------------------------------------------------
+   Fact strip — alternating navy / purple full-bleed blocks
+--------------------------------------------------- */
+
+.pillar-fact-strip {
+    display: flex;
+    flex-direction: column;
+}
+
+.pillar-fact {
+    padding: 32px 24px;
+    color: #fff;
+    scroll-margin-top: 96px;
+}
+
+.pillar-fact--navy {
+    background: #1e2a5e;
+}
+
+.pillar-fact--purple {
+    background: #6b5b95;
+}
+
+.pillar-fact__icon {
+    display: inline-flex;
+    margin-bottom: 12px;
+}
+
+.pillar-fact__heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+
+.pillar-fact__description {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 40rem;
+}
+
+/* ---------------------------------------------------
+   Video embed
+--------------------------------------------------- */
+
+.pillar-video {
+    padding: 40px 0;
+}
+
+.pillar-video__frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+}
+
+.pillar-video__frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ---------------------------------------------------
+   FAQ accordion
+--------------------------------------------------- */
+
+.pillar-faq {
+    padding: 16px 0 40px;
+    scroll-margin-top: 96px;
+}
+
+.pillar-faq__heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 8px;
+}
+
+.pillar-faq__intro {
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin: 0 0 24px;
+}
+
+.pillar-faq__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.pillar-faq__item {
+    border-top: 1px solid #e5e7eb;
+}
+
+.pillar-faq__item:last-child {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.pillar-faq__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border: none;
+    background: none;
+    padding: 20px 4px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.pillar-faq__toggle {
+    flex-shrink: 0;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--primary);
+    transition: transform 0.2s ease;
+}
+
+.pillar-faq__item.is-open .pillar-faq__toggle {
+    transform: rotate(45deg);
+}
+
+.pillar-faq__answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+}
+
+.pillar-faq__answer p {
+    overflow: hidden;
+    margin: 0 4px 20px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    min-height: 0;
+}
+
+.pillar-faq__item.is-open .pillar-faq__answer {
+    grid-template-rows: 1fr;
+}
+
+.pillar-faq__answer > p {
+    grid-row: 1 / -1;
+}
+
+/* fallback wrapper needed for the grid-rows collapse trick */
+.pillar-faq__answer {
+    display: grid;
+}
+
+/* ---------------------------------------------------
+   Contact form
+--------------------------------------------------- */
+
+.pillar-contact {
+    padding: 24px 0 40px;
+    scroll-margin-top: 96px;
+}
+
+.pillar-contact__heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0 0 24px;
+}
+
+.pillar-contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 640px;
+}
+
+.pillar-contact__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.pillar-contact__input {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #d1d5db;
+    background: transparent;
+    padding: 0 0 8px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--ink);
+    transition: border-color 0.2s ease;
+}
+
+.pillar-contact__input::placeholder {
+    color: var(--ink-soft);
+}
+
+.pillar-contact__input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.pillar-contact__textarea {
+    resize: none;
+}
+
+.pillar-contact__submit {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.pillar-contact__submit:hover {
+    background: var(--primary-dark);
+}
+
+@media (min-width: 640px) {
+    .pillar-contact__row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ---------------------------------------------------
+   Sticky sidebar table of contents
+--------------------------------------------------- */
+
+.pillar-sidebar__inner {
+    background: var(--surface-blue);
+    border-radius: 1.25rem;
+    padding: 24px;
+    position: sticky;
+    top: 96px;
+}
+
+.pillar-sidebar__title {
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 20px;
+}
+
+.pillar-sidebar__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.pillar-sidebar__list li {
+    border-top: 1px solid rgba(21, 131, 199, 0.15);
+}
+
+.pillar-sidebar__list li:first-child {
+    border-top: none;
+}
+
+.pillar-sidebar__list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 4px;
+    color: var(--ink);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.pillar-sidebar__list a:hover {
+    color: var(--primary);
+}
+
+.pillar-sidebar__list a svg {
+    flex-shrink: 0;
+    color: var(--primary);
+}
+
+@media (min-width: 640px) {
+    .pillar-hero {
+        height: 420px;
+    }
+
+    .pillar-banner__inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .pillar-banner__cta {
+        align-self: auto;
+    }
+
+    .pillar-fact {
+        padding: 40px 40px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .pillar-hero {
+        height: 520px;
+    }
+
+    .pillar-page {
+        padding: 0 32px 96px;
+    }
+
+    .pillar-page__grid {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+        gap: 48px;
+    }
+}
+
+.nero-logo{
+    display:block;
+
+}
+@media (max-width: 767px) {
+    .nero-logo {
+        display: none;
+    }
+}
+
+/* =========================================================
+   NEUROSTAR TMS LONG-FORM CONTENT
+   Matches the existing Pinnacle TMS page layout
+   ========================================================= */
+
+.tms-page-content {
+    width: 100%;
+    max-width: 810px;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ---------------------------------------------------------
+   Individual Section
+   --------------------------------------------------------- */
+
+.tms-page-section {
+    width: 100%;
+    margin: 0 0 48px;
+    padding: 0;
+}
+
+
+/* ---------------------------------------------------------
+   Image
+   --------------------------------------------------------- */
+
+.tms-page-section__image {
+    width: 100%;
+    margin: 0 0 14px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.tms-page-section__image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+}
+
+
+/* ---------------------------------------------------------
+   Content
+   --------------------------------------------------------- */
+
+.tms-page-section__content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ---------------------------------------------------------
+   Headings
+   Matches the older Pinnacle article-style headings
+   --------------------------------------------------------- */
+
+.tms-page-section__content h2 {
+    margin: 12px 0 12px;
+    padding: 0;
+    color: #111;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+
+/* ---------------------------------------------------------
+   Paragraphs
+   --------------------------------------------------------- */
+
+.tms-page-section__content p {
+    margin: 0 0 18px;
+    padding: 0;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.95;
+}
+
+.tms-page-section__content p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ---------------------------------------------------------
+   Links
+   --------------------------------------------------------- */
+
+.tms-page-section__content a {
+    color: #2196d2;
+    text-decoration: none;
+}
+
+.tms-page-section__content a:hover {
+    text-decoration: underline;
+}
+
+
+/* ---------------------------------------------------------
+   Desktop
+   --------------------------------------------------------- */
+
+@media (min-width: 768px) {
+
+    .tms-page-content {
+        max-width: 810px;
+    }
+
+    .tms-page-section {
+        margin-bottom: 52px;
+    }
+
+    .tms-page-section__image {
+        margin-bottom: 12px;
+    }
+
+    .tms-page-section__content h2 {
+        font-size: 32px;
+        line-height: 1.25;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   Large Desktop
+   --------------------------------------------------------- */
+
+@media (min-width: 1024px) {
+
+    .tms-page-content {
+        max-width: 810px;
+    }
+
+    .tms-page-section {
+        margin-bottom: 54px;
+    }
+
+    .tms-page-section__content h2 {
+        font-size: 32px;
+    }
+
+    .tms-page-section__content p {
+        font-size: 16px;
+        line-height: 2;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   Mobile
+   --------------------------------------------------------- */
+
+@media (max-width: 767px) {
+
+    .tms-page-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .tms-page-section {
+        margin-bottom: 42px;
+    }
+
+    .tms-page-section__image {
+        margin-bottom: 12px;
+    }
+
+    .tms-page-section__image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .tms-page-section__content h2 {
+        font-size: 27px;
+        line-height: 1.3;
+        margin: 10px 0 12px;
+    }
+
+    .tms-page-section__content p {
+        font-size: 15px;
+        line-height: 1.85;
+        margin-bottom: 17px;
+    }
+
+}
+/* =========================================================
+   NEUROSTAR YOUTUBE VIDEO
+   ========================================================= */
+
+.tms-youtube-video {
+    width: 100%;
+    max-width: 810px;
+    margin: 0 0 50px;
+    padding: 0;
+}
+
+.tms-youtube-video__wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.tms-youtube-video__wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+
+/* Desktop */
+@media (min-width: 768px) {
+
+    .tms-youtube-video {
+        margin-bottom: 55px;
+    }
+
+}
+
+
+/* Mobile */
+@media (max-width: 767px) {
+
+    .tms-youtube-video {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .tms-youtube-video__wrapper {
+        aspect-ratio: 16 / 9;
+    }
+
+}
+
+/* =========================================================
+   TMS PAGE SIDEBAR
+   Desktop: right sidebar
+   Mobile: moves below the main content
+   ========================================================= */
+
+.pillar-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+
+/* ---------------------------------------------------------
+   TMS Treatments card
+--------------------------------------------------------- */
+
+.pillar-sidebar__inner {
+    background: var(--surface-blue);
+    border-radius: 1.25rem;
+    padding: 24px;
+    position: sticky;
+    top: 96px;
+}
+
+
+/* ---------------------------------------------------------
+   Contact Us card
+--------------------------------------------------------- */
+
+.pillar-sidebar .pillar-contact {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 1.25rem;
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+}
+
+
+/* Contact heading */
+
+.pillar-sidebar .pillar-contact__heading {
+    margin: 0 0 24px;
+    color: var(--primary);
+    font-size: 1.5rem;
+    line-height: 1.3;
+}
+
+
+/* Form */
+
+.pillar-sidebar .pillar-contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* Form rows */
+
+.pillar-sidebar .pillar-contact__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+
+/* Inputs */
+
+.pillar-sidebar .pillar-contact__input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* Textarea */
+
+.pillar-sidebar .pillar-contact__textarea {
+    min-height: 100px;
+}
+
+
+/* Button */
+
+.pillar-sidebar .pillar-contact__submit {
+    width: 100%;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1024px) {
+
+    .pillar-page__grid {
+        grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+        align-items: start;
+        gap: 48px;
+    }
+
+    .pillar-sidebar {
+        position: relative;
+    }
+
+    /*
+     * Keep the TMS Treatments navigation visible
+     * while scrolling.
+     */
+    .pillar-sidebar__inner {
+        position: sticky;
+        top: 96px;
+    }
+
+    /*
+     * Contact form should remain part of the
+     * right sidebar rather than the main content.
+     */
+    .pillar-sidebar .pillar-contact {
+        position: relative;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 1023px) {
+
+    .pillar-page__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pillar-sidebar {
+        width: 100%;
+    }
+
+    .pillar-sidebar__inner {
+        position: relative;
+        top: auto;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .pillar-page__grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pillar-page__main {
+        order: 1;
+    }
+
+    .pillar-sidebar {
+        order: 2;
+    }
+
+    .pillar-sidebar__inner {
+        position: relative;
+        top: auto;
+    }
+
+    .pillar-sidebar .pillar-contact {
+        padding: 20px;
+    }
+
+    .pillar-sidebar .pillar-contact__row {
+        grid-template-columns: 1fr;
+    }
+
+}
