@@ -1197,4 +1197,74 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
+    /**
+     * ---------------------------------------------------------------
+     * Service Detail page (page-service-detail.php) — this field
+     * group was in an earlier version of this file and had been
+     * dropped; re-added here since style.css's .service-detail
+     * classes depend on it.
+     */
+
+    acf_add_local_field_group([
+        'key' => 'group_service_detail',
+        'title' => 'Service Detail Page',
+        'fields' => [
+            [
+                'key' => 'field_service_banner_image',
+                'label' => 'Banner Image',
+                'name' => 'service_banner_image',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+            ],
+            [
+                'key' => 'field_service_intro_content',
+                'label' => 'Content',
+                'name' => 'service_intro_content',
+                'type' => 'wysiwyg',
+                'tabs' => 'visual',
+                'media_upload' => 0,
+            ],
+            [
+                'key' => 'field_service_requirements',
+                'label' => 'What You\'ll Need (optional)',
+                'name' => 'service_requirements',
+                'type' => 'repeater',
+                'layout' => 'table',
+                'button_label' => 'Add Item',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_service_requirement_item',
+                        'label' => 'Item',
+                        'name' => 'item',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_service_cta_text',
+                'label' => 'Sidebar Button Text',
+                'name' => 'service_cta_text',
+                'type' => 'text',
+                'default_value' => 'Schedule Consultation',
+            ],
+            [
+                'key' => 'field_service_cta_link',
+                'label' => 'Sidebar Button Link',
+                'name' => 'service_cta_link',
+                'type' => 'text',
+                'instructions' => 'Defaults to the Contact page if left blank.',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-service-detail.php',
+                ],
+            ],
+        ],
+    ]);
 }

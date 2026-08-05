@@ -18,9 +18,11 @@ if (function_exists('WC') && WC()->cart) {
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
+
+    <link rel="icon" type="image/png" href="https://pinnaclebhc.com/wp-content/uploads/2024/03/favicon-1.png" />
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <title>Mental Healthcare in Edina</title>
     <?php wp_head(); ?>
 </head>
 

@@ -129,6 +129,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (searchOverlay && searchOverlay.classList.contains("is-open")) closeSearch();
   });
 
+  // ---------------------------------------------------
+  // Copy-link share button (service detail page)
+  // ---------------------------------------------------
+  document.querySelectorAll("[data-copy-link]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var url = btn.getAttribute("data-copy-link");
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url);
+      }
+    });
+  });
+
   // desktop dropdown accordion state for keyboard/touch (hover handled in CSS)
   document.querySelectorAll(".primary-menu .menu-item-has-children > a").forEach(function (link) {
     link.addEventListener("click", function (e) {
