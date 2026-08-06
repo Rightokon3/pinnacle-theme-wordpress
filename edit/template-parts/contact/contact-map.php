@@ -1,8 +1,8 @@
 <?php
 /**
- * Contact page — Google Maps embed (no API key required, uses the
- * plain "?output=embed" iframe form) with a floating business-info
- * card. Pure PHP; no JS dependency, since the embed is just an iframe.
+ * Contact page — free OpenStreetMap embed (no API key required) with a
+ * floating business-info card. Pure PHP; no JS dependency, since the OSM
+ * embed is just an iframe.
  *
  * Expects $args['latitude'], $args['longitude'], $args['business_name'],
  * $args['address_lines'] (array of ['line' => '']).
@@ -12,11 +12,18 @@ $latitude      = $args['latitude'] ?? 44.9778;
 $longitude     = $args['longitude'] ?? -93.265;
 $business_name = $args['business_name'] ?? 'Pinnacle Behavioral Healthcare';
 $address_lines = $args['address_lines'] ?? [];
+$zoom_offset   = 0.01;
 
-$map_query        = urlencode($latitude . ',' . $longitude);
-$embed_src        = "https://www.google.com/maps?q={$map_query}&z=15&output=embed";
-$large_map_href    = "https://www.google.com/maps/search/?api=1&query={$map_query}";
-$directions_href  = "https://www.google.com/maps/dir/?api=1&destination={$map_query}";
+$bbox = implode(',', [
+    $longitude - $zoom_offset,
+    $latitude - ($zoom_offset * 0.6),
+    $longitude + $zoom_offset,
+    $latitude + ($zoom_offset * 0.6),
+]);
+
+$embed_src       = "https://www.openstreetmap.org/export/embed.html?bbox={$bbox}&layer=mapnik&marker={$latitude},{$longitude}";
+$large_map_href  = "https://www.openstreetmap.org/?mlat={$latitude}&mlon={$longitude}#map=16/{$latitude}/{$longitude}";
+$directions_href = "https://www.openstreetmap.org/directions?to={$latitude}%2C{$longitude}";
 ?>
 
 <div class="contact-map">
@@ -25,7 +32,6 @@ $directions_href  = "https://www.google.com/maps/dir/?api=1&destination={$map_qu
         src="<?php echo esc_url($embed_src); ?>"
         class="contact-map__iframe"
         loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
 
     <div class="contact-map__card">
@@ -65,5 +71,5 @@ $directions_href  = "https://www.google.com/maps/dir/?api=1&destination={$map_qu
         </a>
     </div>
 
-    <p class="contact-map__attribution">Map data &copy;Google</p>
+    <p class="contact-map__attribution">&copy; OpenStreetMap contributors</p>
 </div>

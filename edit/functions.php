@@ -123,241 +123,162 @@ if (function_exists('acf_add_options_page')) {
 }
 
 if (function_exists('acf_add_local_field_group')) {
-
-    /**
-     * ---------------------------------------------------------------
-     * Hero Section (Homepage Content options page)
-     * ---------------------------------------------------------------
-     * NOTE: this group was accidentally dropped from the file when
-     * the Service Pillar page group was added below. Restored here —
-     * the homepage hero template part depends on these fields.
-     */
-    acf_add_local_field_group([
-        'key' => 'group_homepage_hero',
-        'title' => 'Hero Section',
-        'fields' => [
-            [
-                'key' => 'field_hero_headline',
-                'label' => 'Headline',
-                'name' => 'hero_headline',
-                'type' => 'text',
-                'default_value' => 'Mental Healthcare, Personalized For You',
-            ],
-            [
-                'key' => 'field_hero_subtitle',
-                'label' => 'Subtitle',
-                'name' => 'hero_subtitle',
-                'type' => 'textarea',
-                'rows' => 3,
-                'default_value' => 'Providing cutting-edge mental health treatment plans and psychiatric services for patients of every age.',
-            ],
-            [
-                'key' => 'field_hero_image',
-                'label' => 'Background Photo',
-                'name' => 'hero_image',
-                'type' => 'image',
-                'return_format' => 'array',
-                'preview_size' => 'medium',
-            ],
-            [
-                'key' => 'field_appointment_form_title',
-                'label' => 'Appointment Form — Title',
-                'name' => 'appointment_form_title',
-                'type' => 'text',
-                'default_value' => 'Book a Consultation',
-            ],
-            [
-                'key' => 'field_appointment_form_services',
-                'label' => 'Appointment Form — Services',
-                'name' => 'appointment_form_services',
-                'type' => 'repeater',
-                'layout' => 'table',
-                'button_label' => 'Add Service',
-                'sub_fields' => [
-                    [
-                        'key' => 'field_service_name',
-                        'label' => 'Service Name',
-                        'name' => 'service_name',
-                        'type' => 'text',
-                    ],
-                ],
-            ],
+acf_add_local_field_group([
+    'key' => 'group_service_pillar',
+    'title' => 'Service Pillar Page',
+    'fields' => [
+        [
+            'key' => 'field_pillar_hero_image',
+            'label' => 'Hero Image',
+            'name' => 'hero_image',
+            'type' => 'image',
+            'return_format' => 'array',
+            'preview_size' => 'medium',
         ],
-        'location' => [
-            [
+        [
+            'key' => 'field_pillar_banner_heading',
+            'label' => 'Banner Heading',
+            'name' => 'banner_heading',
+            'type' => 'text',
+            'default_value' => 'Book a Consultation',
+        ],
+        [
+            'key' => 'field_pillar_banner_cta_text',
+            'label' => 'Banner Button Text',
+            'name' => 'banner_cta_text',
+            'type' => 'text',
+            'default_value' => 'Schedule Consultation',
+        ],
+        [
+            'key' => 'field_pillar_banner_cta_link',
+            'label' => 'Banner Button Link',
+            'name' => 'banner_cta_link',
+            'type' => 'text',
+            'instructions' => 'Defaults to the contact form at the bottom of this page (#contact-form) if left blank.',
+        ],
+        [
+            'key' => 'field_pillar_fact_strip',
+            'label' => 'Fact Strip',
+            'name' => 'fact_strip',
+            'type' => 'repeater',
+            'layout' => 'block',
+            'button_label' => 'Add Fact',
+            'instructions' => 'Colors alternate automatically (navy / purple) — no need to set that per item.',
+            'sub_fields' => [
                 [
-                    'param' => 'options_page',
-                    'operator' => '==',
-                    'value' => 'homepage-content',
+                    'key' => 'field_pillar_fact_icon',
+                    'label' => 'Icon',
+                    'name' => 'icon',
+                    'type' => 'select',
+                    'choices' => [
+                        'brain' => 'Brain',
+                        'pill' => 'Pill',
+                        'calendar' => 'Calendar',
+                        'clock' => 'Clock',
+                        'check' => 'Checkmark',
+                    ],
+                    'default_value' => 'brain',
                 ],
-            ],
-        ],
-    ]);
-
-    /**
-     * ---------------------------------------------------------------
-     * Service Pillar page (page-service-pillar.php)
-     * ---------------------------------------------------------------
-     * Newer long-form service landing page template: hero image,
-     * banner CTA, alternating fact strip, optional video embed, FAQ
-     * accordion, contact form, and a sticky sidebar table of contents.
-     */
-    acf_add_local_field_group([
-        'key' => 'group_service_pillar',
-        'title' => 'Service Pillar Page',
-        'fields' => [
-            [
-                'key' => 'field_pillar_hero_image',
-                'label' => 'Hero Image',
-                'name' => 'hero_image',
-                'type' => 'image',
-                'return_format' => 'array',
-                'preview_size' => 'medium',
-            ],
-            [
-                'key' => 'field_pillar_banner_heading',
-                'label' => 'Banner Heading',
-                'name' => 'banner_heading',
-                'type' => 'text',
-                'default_value' => 'Book a Consultation',
-            ],
-            [
-                'key' => 'field_pillar_banner_cta_text',
-                'label' => 'Banner Button Text',
-                'name' => 'banner_cta_text',
-                'type' => 'text',
-                'default_value' => 'Schedule Consultation',
-            ],
-            [
-                'key' => 'field_pillar_banner_cta_link',
-                'label' => 'Banner Button Link',
-                'name' => 'banner_cta_link',
-                'type' => 'text',
-                'instructions' => 'Defaults to the contact form at the bottom of this page (#contact-form) if left blank.',
-            ],
-            [
-                'key' => 'field_pillar_fact_strip',
-                'label' => 'Fact Strip',
-                'name' => 'fact_strip',
-                'type' => 'repeater',
-                'layout' => 'block',
-                'button_label' => 'Add Fact',
-                'instructions' => 'Colors alternate automatically (navy / purple) — no need to set that per item.',
-                'sub_fields' => [
-                    [
-                        'key' => 'field_pillar_fact_icon',
-                        'label' => 'Icon',
-                        'name' => 'icon',
-                        'type' => 'select',
-                        'choices' => [
-                            'brain' => 'Brain',
-                            'pill' => 'Pill',
-                            'calendar' => 'Calendar',
-                            'clock' => 'Clock',
-                            'check' => 'Checkmark',
-                        ],
-                        'default_value' => 'brain',
-                    ],
-                    [
-                        'key' => 'field_pillar_fact_heading',
-                        'label' => 'Heading',
-                        'name' => 'heading',
-                        'type' => 'text',
-                    ],
-                    [
-                        'key' => 'field_pillar_fact_description',
-                        'label' => 'Description',
-                        'name' => 'description',
-                        'type' => 'textarea',
-                        'rows' => 2,
-                    ],
-                ],
-            ],
-            [
-                'key' => 'field_pillar_video_url',
-                'label' => 'Video Embed URL',
-                'name' => 'video_url',
-                'type' => 'url',
-                'instructions' => 'YouTube/Vimeo embed URL. Leave blank to hide the video section.',
-            ],
-            [
-                'key' => 'field_pillar_faq_heading',
-                'label' => 'FAQ Heading',
-                'name' => 'faq_heading',
-                'type' => 'text',
-                'default_value' => 'Frequently Asked Questions (FAQs)',
-            ],
-            [
-                'key' => 'field_pillar_faq_intro',
-                'label' => 'FAQ Intro Text',
-                'name' => 'faq_intro',
-                'type' => 'textarea',
-                'rows' => 2,
-            ],
-            [
-                'key' => 'field_pillar_faqs',
-                'label' => 'FAQs',
-                'name' => 'faqs',
-                'type' => 'repeater',
-                'layout' => 'block',
-                'button_label' => 'Add FAQ',
-                'sub_fields' => [
-                    [
-                        'key' => 'field_pillar_faq_question',
-                        'label' => 'Question',
-                        'name' => 'question',
-                        'type' => 'text',
-                    ],
-                    [
-                        'key' => 'field_pillar_faq_answer',
-                        'label' => 'Answer',
-                        'name' => 'answer',
-                        'type' => 'textarea',
-                        'rows' => 3,
-                    ],
-                ],
-            ],
-            [
-                'key' => 'field_pillar_contact_heading',
-                'label' => 'Contact Form Heading',
-                'name' => 'contact_heading',
-                'type' => 'text',
-                'default_value' => 'Contact Us',
-            ],
-            [
-                'key' => 'field_pillar_sidebar_links',
-                'label' => 'Sidebar Table of Contents',
-                'name' => 'sidebar_links',
-                'type' => 'repeater',
-                'layout' => 'table',
-                'button_label' => 'Add Link',
-                'instructions' => 'The anchor must match the id on the section it should jump to — the Fact Strip items get one automatically from their heading; add a matching #anchor manually for other sections (e.g. "faq" or "contact-form" are already built in).',
-                'sub_fields' => [
-                    [
-                        'key' => 'field_pillar_sidebar_label',
-                        'label' => 'Label',
-                        'name' => 'label',
-                        'type' => 'text',
-                    ],
-                    [
-                        'key' => 'field_pillar_sidebar_anchor',
-                        'label' => 'Anchor (no #)',
-                        'name' => 'anchor',
-                        'type' => 'text',
-                    ],
-                ],
-            ],
-        ],
-        'location' => [
-            [
                 [
-                    'param' => 'page_template',
-                    'operator' => '==',
-                    'value' => 'page-service-pillar.php',
+                    'key' => 'field_pillar_fact_heading',
+                    'label' => 'Heading',
+                    'name' => 'heading',
+                    'type' => 'text',
+                ],
+                [
+                    'key' => 'field_pillar_fact_description',
+                    'label' => 'Description',
+                    'name' => 'description',
+                    'type' => 'textarea',
+                    'rows' => 2,
                 ],
             ],
         ],
-    ]);
+        [
+            'key' => 'field_pillar_video_url',
+            'label' => 'Video Embed URL',
+            'name' => 'video_url',
+            'type' => 'url',
+            'instructions' => 'YouTube/Vimeo embed URL. Leave blank to hide the video section.',
+        ],
+        [
+            'key' => 'field_pillar_faq_heading',
+            'label' => 'FAQ Heading',
+            'name' => 'faq_heading',
+            'type' => 'text',
+            'default_value' => 'Frequently Asked Questions (FAQs)',
+        ],
+        [
+            'key' => 'field_pillar_faq_intro',
+            'label' => 'FAQ Intro Text',
+            'name' => 'faq_intro',
+            'type' => 'textarea',
+            'rows' => 2,
+        ],
+        [
+            'key' => 'field_pillar_faqs',
+            'label' => 'FAQs',
+            'name' => 'faqs',
+            'type' => 'repeater',
+            'layout' => 'block',
+            'button_label' => 'Add FAQ',
+            'sub_fields' => [
+                [
+                    'key' => 'field_pillar_faq_question',
+                    'label' => 'Question',
+                    'name' => 'question',
+                    'type' => 'text',
+                ],
+                [
+                    'key' => 'field_pillar_faq_answer',
+                    'label' => 'Answer',
+                    'name' => 'answer',
+                    'type' => 'textarea',
+                    'rows' => 3,
+                ],
+            ],
+        ],
+        [
+            'key' => 'field_pillar_contact_heading',
+            'label' => 'Contact Form Heading',
+            'name' => 'contact_heading',
+            'type' => 'text',
+            'default_value' => 'Contact Us',
+        ],
+        [
+            'key' => 'field_pillar_sidebar_links',
+            'label' => 'Sidebar Table of Contents',
+            'name' => 'sidebar_links',
+            'type' => 'repeater',
+            'layout' => 'table',
+            'button_label' => 'Add Link',
+            'instructions' => 'The anchor must match the id on the section it should jump to — the Fact Strip items get one automatically from their heading; add a matching #anchor manually for other sections (e.g. "faq" or "contact-form" are already built in).',
+            'sub_fields' => [
+                [
+                    'key' => 'field_pillar_sidebar_label',
+                    'label' => 'Label',
+                    'name' => 'label',
+                    'type' => 'text',
+                ],
+                [
+                    'key' => 'field_pillar_sidebar_anchor',
+                    'label' => 'Anchor (no #)',
+                    'name' => 'anchor',
+                    'type' => 'text',
+                ],
+            ],
+        ],
+    ],
+    'location' => [
+        [
+            [
+                'param' => 'page_template',
+                'operator' => '==',
+                'value' => 'page-service-pillar.php',
+            ],
+        ],
+    ],
+]);
 
     acf_add_local_field_group([
         'key' => 'group_homepage_staff_announcement',
@@ -1374,11 +1295,10 @@ if (function_exists('acf_add_local_field_group')) {
 
     /**
      * ---------------------------------------------------------------
-     * Service Detail page (page-service-detail.php) — restored the
-     * optional per-service map override fields (service_map_lat,
-     * service_map_lng, service_map_business_name) that were dropped
-     * when the Service Pillar group was added; style.css's
-     * .service-sidebar-card--map classes depend on them.
+     * Service Detail page (page-service-detail.php) — this field
+     * group was in an earlier version of this file and had been
+     * dropped; re-added here since style.css's .service-detail
+     * classes depend on it.
      */
 
     acf_add_local_field_group([
@@ -1400,71 +1320,6 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'wysiwyg',
                 'tabs' => 'visual',
                 'media_upload' => 0,
-                'instructions' => 'Used when "Content Blocks" below is left empty. Simple pages (a single block of copy) can just use this field.',
-            ],
-            [
-                'key' => 'field_service_content_blocks',
-                'label' => 'Content Blocks (optional)',
-                'name' => 'service_content_blocks',
-                'type' => 'flexible_content',
-                'button_label' => 'Add Block',
-                'instructions' => 'For pages that interleave text with videos/images (e.g. Spravato) — add blocks in the order they should appear. Leave empty to just use the plain "Content" field above instead.',
-                'layouts' => [
-                    'layout_block_text' => [
-                        'key' => 'layout_block_text',
-                        'name' => 'text',
-                        'label' => 'Text',
-                        'display' => 'block',
-                        'sub_fields' => [
-                            [
-                                'key' => 'field_block_text_content',
-                                'label' => 'Text',
-                                'name' => 'content',
-                                'type' => 'wysiwyg',
-                                'tabs' => 'visual',
-                                'media_upload' => 0,
-                            ],
-                        ],
-                    ],
-                    'layout_block_video' => [
-                        'key' => 'layout_block_video',
-                        'name' => 'video',
-                        'label' => 'Video Embed',
-                        'display' => 'block',
-                        'sub_fields' => [
-                            [
-                                'key' => 'field_block_video_url',
-                                'label' => 'Embed URL',
-                                'name' => 'embed_url',
-                                'type' => 'url',
-                                'instructions' => 'Brightcove / YouTube / Vimeo embed (iframe src) URL.',
-                            ],
-                            [
-                                'key' => 'field_block_video_title',
-                                'label' => 'Accessible Title',
-                                'name' => 'title',
-                                'type' => 'text',
-                                'default_value' => 'Video',
-                            ],
-                        ],
-                    ],
-                    'layout_block_image' => [
-                        'key' => 'layout_block_image',
-                        'name' => 'image',
-                        'label' => 'Image',
-                        'display' => 'block',
-                        'sub_fields' => [
-                            [
-                                'key' => 'field_block_image_image',
-                                'label' => 'Image',
-                                'name' => 'image',
-                                'type' => 'image',
-                                'return_format' => 'array',
-                                'preview_size' => 'medium',
-                            ],
-                        ],
-                    ],
-                ],
             ],
             [
                 'key' => 'field_service_requirements',
@@ -1495,43 +1350,6 @@ if (function_exists('acf_add_local_field_group')) {
                 'name' => 'service_cta_link',
                 'type' => 'text',
                 'instructions' => 'Defaults to the Contact page if left blank.',
-            ],
-            [
-                'key' => 'field_service_map_lat',
-                'label' => 'Map Latitude (optional)',
-                'name' => 'service_map_lat',
-                'type' => 'number',
-                'step' => '0.000001',
-                'instructions' => 'Leave blank to use the same location as the main Contact page.',
-            ],
-            [
-                'key' => 'field_service_map_lng',
-                'label' => 'Map Longitude (optional)',
-                'name' => 'service_map_lng',
-                'type' => 'number',
-                'step' => '0.000001',
-                'instructions' => 'Leave blank to use the same location as the main Contact page.',
-            ],
-            [
-                'key' => 'field_service_map_business_name',
-                'label' => 'Map Business Name (optional)',
-                'name' => 'service_map_business_name',
-                'type' => 'text',
-                'instructions' => 'Leave blank to use the same name as the main Contact page.',
-            ],
-            [
-                'key' => 'field_service_map_address',
-                'label' => 'Map Address Line (optional)',
-                'name' => 'service_map_address',
-                'type' => 'text',
-                'instructions' => 'Leave blank to use the same address as the main Contact page.',
-            ],
-            [
-                'key' => 'field_service_map_directions_url',
-                'label' => 'Map "Get Directions" Link (optional)',
-                'name' => 'service_map_directions_url',
-                'type' => 'url',
-                'instructions' => 'Google Maps share link. Leave blank to use the same link as the main Contact page.',
             ],
         ],
         'location' => [

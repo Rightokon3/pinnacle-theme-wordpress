@@ -3116,28 +3116,6 @@ body.mobile-nav-open {
         gap: 56px;
     }
 }
-
-/* ---------------------------------------------------------
-   Service detail sidebar — map + address card variant
-   (restored: relies on the service_map_lat/lng/business_name
-   ACF fields on page-service-detail.php)
---------------------------------------------------------- */
-
-.service-sidebar-card--map .contact-map {
-    margin: 0 -24px;
-    border-radius: 0;
-}
-
-.service-sidebar-card--map .contact-map__iframe {
-    height: 220px;
-}
-
-@media (min-width: 400px) {
-    .service-sidebar-card--map .contact-map__iframe {
-        height: 260px;
-    }
-}
-
 /* =========================================================
    Service Pillar page (page-service-pillar.php)
    ========================================================= */
@@ -3982,39 +3960,4 @@ body.mobile-nav-open {
         grid-template-columns: 1fr;
     }
 
-}
-
-/* =========================================================
-   Service detail sidebar — Contact Us / Home nav cards
-   Reuses .pillar-sidebar__inner + .pillar-sidebar__title
-   (already defined above for the TMS pillar page) so the
-   Contact Us and Home cards on individual service pages get
-   the same light-blue card + big blue heading for free.
-   These two rules are the only genuinely new styling needed.
-   ========================================================= */
-
-/* "Home" nav card: no divider lines between items, current
-   page gets a white pill instead of a solid blue background */
-.service-nav-card .pillar-sidebar__list li {
-    border-top: none;
-}
-
-.service-nav-card .pillar-sidebar__list a.is-current {
-    background: #fff;
-    border-radius: 8px;
-    padding: 12px 12px;
-    color: var(--primary);
-    font-weight: 600;
-}
-
-/* Contact Us card: stack every field full-width — the sidebar
-   column is too narrow for the 2-up .contact-form__row layout
-   used on the main Contact page */
-.service-contact-card .contact-form__form {
-    gap: 20px;
-}
-
-.service-contact-card .contact-form__submit {
-    width: 100%;
-    justify-content: center;
 }
