@@ -66,6 +66,14 @@ wp_enqueue_style(
         '1.0',
         true
     );
+
+    wp_enqueue_script(
+        'pinnacle-faq-accordion',
+        get_template_directory_uri() . '/assets/js/faq-accordion.js',
+        [],
+        '1.0',
+        true
+    );
 }
 function pinnacle_theme_fonts() {
     wp_enqueue_style(
@@ -1540,6 +1548,91 @@ if (function_exists('acf_add_local_field_group')) {
                     'param' => 'page_template',
                     'operator' => '==',
                     'value' => 'page-service-detail.php',
+                ],
+            ],
+        ],
+    ]);
+
+    /**
+     * ---------------------------------------------------------------
+     * FAQ page (page-faq.php)
+     * ---------------------------------------------------------------
+     * Same banner/share/sidebar shell as the Service Detail template,
+     * with an accordion list of Q&A pairs (.pillar-faq, already in
+     * style.css) instead of the service content blocks.
+     */
+
+    acf_add_local_field_group([
+        'key' => 'group_faq_page',
+        'title' => 'FAQ Page',
+        'fields' => [
+            [
+                'key' => 'field_faq_banner_image',
+                'label' => 'Banner Image',
+                'name' => 'faq_banner_image',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+            ],
+            [
+                'key' => 'field_faq_heading',
+                'label' => 'Heading',
+                'name' => 'faq_heading',
+                'type' => 'text',
+                'default_value' => 'Frequently Asked Questions',
+            ],
+            [
+                'key' => 'field_faq_intro',
+                'label' => 'Intro Text',
+                'name' => 'faq_intro',
+                'type' => 'textarea',
+                'rows' => 3,
+            ],
+            [
+                'key' => 'field_faq_items',
+                'label' => 'Questions',
+                'name' => 'faq_items',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Question',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_faq_item_question',
+                        'label' => 'Question',
+                        'name' => 'question',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_faq_item_answer',
+                        'label' => 'Answer',
+                        'name' => 'answer',
+                        'type' => 'wysiwyg',
+                        'tabs' => 'visual',
+                        'media_upload' => 0,
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_faq_cta_text',
+                'label' => 'Sidebar Button Text',
+                'name' => 'faq_cta_text',
+                'type' => 'text',
+                'default_value' => 'Schedule Consultation',
+            ],
+            [
+                'key' => 'field_faq_cta_link',
+                'label' => 'Sidebar Button Link',
+                'name' => 'faq_cta_link',
+                'type' => 'text',
+                'instructions' => 'Defaults to the Contact page if left blank.',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-faq.php',
                 ],
             ],
         ],
