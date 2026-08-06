@@ -204,6 +204,117 @@ if (function_exists('acf_add_local_field_group')) {
 
     /**
      * ---------------------------------------------------------------
+     * Contact Section (Homepage Content options page)
+     * ---------------------------------------------------------------
+     * Single source of truth for the business address / phone / map,
+     * so it only needs setting once. page-service-detail.php already
+     * falls back to these same field names (contact_map_lat,
+     * contact_map_lng, contact_map_business_name, contact_map_address)
+     * when a page doesn't set its own override — this group is what
+     * actually registers them. page-contact.php uses them directly.
+     */
+    acf_add_local_field_group([
+        'key' => 'group_contact_section',
+        'title' => 'Contact Section',
+        'fields' => [
+            [
+                'key' => 'field_contact_map_business_name',
+                'label' => 'Business Name',
+                'name' => 'contact_map_business_name',
+                'type' => 'text',
+                'default_value' => 'Pinnacle Behavioral Healthcare',
+            ],
+            [
+                'key' => 'field_contact_map_lat',
+                'label' => 'Map Latitude',
+                'name' => 'contact_map_lat',
+                'type' => 'number',
+                'step' => '0.000001',
+                'default_value' => 44.9778,
+            ],
+            [
+                'key' => 'field_contact_map_lng',
+                'label' => 'Map Longitude',
+                'name' => 'contact_map_lng',
+                'type' => 'number',
+                'step' => '0.000001',
+                'default_value' => -93.265,
+            ],
+            [
+                'key' => 'field_contact_map_address',
+                'label' => 'Address (single line, for the map card)',
+                'name' => 'contact_map_address',
+                'type' => 'text',
+            ],
+            [
+                'key' => 'field_contact_address_lines',
+                'label' => 'Address (multi-line, for the Contact page sidebar)',
+                'name' => 'contact_address_lines',
+                'type' => 'repeater',
+                'layout' => 'table',
+                'button_label' => 'Add Line',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_contact_address_line',
+                        'label' => 'Line',
+                        'name' => 'line',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_contact_phone',
+                'label' => 'Phone Number (display)',
+                'name' => 'contact_phone',
+                'type' => 'text',
+                'default_value' => '(952) 303-6832',
+            ],
+            [
+                'key' => 'field_contact_phone_link',
+                'label' => 'Phone Number (tel: link, digits only)',
+                'name' => 'contact_phone_link',
+                'type' => 'text',
+                'default_value' => '9523036832',
+            ],
+            [
+                'key' => 'field_contact_map_directions_url',
+                'label' => 'Map "Get Directions" Link',
+                'name' => 'contact_map_directions_url',
+                'type' => 'url',
+                'instructions' => 'Google Maps share link.',
+            ],
+            [
+                'key' => 'field_contact_facebook_url',
+                'label' => 'Facebook URL',
+                'name' => 'contact_facebook_url',
+                'type' => 'url',
+            ],
+            [
+                'key' => 'field_contact_instagram_url',
+                'label' => 'Instagram URL',
+                'name' => 'contact_instagram_url',
+                'type' => 'url',
+            ],
+            [
+                'key' => 'field_contact_twitter_url',
+                'label' => 'Twitter / X URL',
+                'name' => 'contact_twitter_url',
+                'type' => 'url',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'homepage-content',
+                ],
+            ],
+        ],
+    ]);
+
+    /**
+     * ---------------------------------------------------------------
      * Service Pillar page (page-service-pillar.php)
      * ---------------------------------------------------------------
      * Newer long-form service landing page template: hero image,
@@ -1633,6 +1744,78 @@ if (function_exists('acf_add_local_field_group')) {
                     'param' => 'page_template',
                     'operator' => '==',
                     'value' => 'page-faq.php',
+                ],
+            ],
+        ],
+    ]);
+
+    /**
+     * ---------------------------------------------------------------
+     * Blog Archive page (page-blog.php)
+     * ---------------------------------------------------------------
+     * Only the banner image is a field here — everything else on that
+     * template comes from real Posts, not ACF content.
+     */
+
+    acf_add_local_field_group([
+        'key' => 'group_blog_page',
+        'title' => 'Blog Archive Page',
+        'fields' => [
+            [
+                'key' => 'field_blog_banner_image',
+                'label' => 'Banner Image',
+                'name' => 'blog_banner_image',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-blog.php',
+                ],
+            ],
+        ],
+    ]);
+
+    /**
+     * ---------------------------------------------------------------
+     * Contact page (page-contact.php)
+     * ---------------------------------------------------------------
+     * Heading/intro only — address, phone, map, and socials all come
+     * from the shared "Contact Section" options group above so they
+     * only need setting in one place. The service dropdown reuses the
+     * existing Services Page "services_list" option.
+     */
+
+    acf_add_local_field_group([
+        'key' => 'group_contact_page',
+        'title' => 'Contact Page',
+        'fields' => [
+            [
+                'key' => 'field_contact_heading',
+                'label' => 'Heading',
+                'name' => 'contact_heading',
+                'type' => 'text',
+                'default_value' => 'Schedule a Consultation',
+            ],
+            [
+                'key' => 'field_contact_intro',
+                'label' => 'Intro Text',
+                'name' => 'contact_intro',
+                'type' => 'textarea',
+                'rows' => 3,
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-contact.php',
                 ],
             ],
         ],
