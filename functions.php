@@ -74,11 +74,21 @@ wp_enqueue_style(
         '1.0',
         true
     );
+
+    if (is_page_template('page-existing-patients.php')) {
+        wp_enqueue_script(
+            'pinnacle-intake-selector',
+            get_template_directory_uri() . '/assets/js/intake-selector.js',
+            [],
+            '1.0',
+            true
+        );
+    }
 }
 function pinnacle_theme_fonts() {
     wp_enqueue_style(
         'pinnacle-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&display=swap',
         [],
         null
     );
@@ -1751,6 +1761,157 @@ if (function_exists('acf_add_local_field_group')) {
 
     /**
      * ---------------------------------------------------------------
+     * Existing Patients page (page-existing-patients.php)
+     * ---------------------------------------------------------------
+     * Intake page: a heading/subheading, a set of clickable "reason
+     * for contact" cards, a shared contact form (same field styling
+     * as the main Contact page), a requirements checklist (same
+     * pattern as the Service Detail page's "What You'll Need"), an
+     * FAQ accordion (same pattern/JS as the FAQ page), and a 3-step
+     * "what happens next" band.
+     */
+
+    acf_add_local_field_group([
+        'key' => 'group_existing_patients_page',
+        'title' => 'Existing Patients Page',
+        'fields' => [
+            [
+                'key' => 'field_intake_heading',
+                'label' => 'Heading',
+                'name' => 'intake_heading',
+                'type' => 'text',
+                'default_value' => 'Existing Patients',
+            ],
+            [
+                'key' => 'field_intake_subheading',
+                'label' => 'Subheading',
+                'name' => 'intake_subheading',
+                'type' => 'textarea',
+                'rows' => 3,
+                'default_value' => 'Already a Pinnacle patient? Let us know what you need and our team will follow up shortly.',
+            ],
+            [
+                'key' => 'field_intake_request_types',
+                'label' => 'Request Type Cards',
+                'name' => 'intake_request_types',
+                'type' => 'repeater',
+                'layout' => 'table',
+                'button_label' => 'Add Request Type',
+                'instructions' => 'Leave empty to use the 5 default options (Refill, Appointment, Question, Insurance, Records).',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_intake_type_icon',
+                        'label' => 'Icon',
+                        'name' => 'icon',
+                        'type' => 'select',
+                        'choices' => [
+                            'refill' => 'Prescription Refill',
+                            'calendar' => 'Calendar',
+                            'question' => 'Question Mark',
+                            'shield' => 'Insurance/Shield',
+                            'file' => 'Records/File',
+                        ],
+                        'default_value' => 'question',
+                    ],
+                    [
+                        'key' => 'field_intake_type_label',
+                        'label' => 'Label',
+                        'name' => 'label',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_intake_requirements_heading',
+                'label' => 'Checklist Heading',
+                'name' => 'intake_requirements_heading',
+                'type' => 'text',
+                'default_value' => "What You'll Need",
+            ],
+            [
+                'key' => 'field_intake_requirements',
+                'label' => 'Checklist Items',
+                'name' => 'intake_requirements',
+                'type' => 'repeater',
+                'layout' => 'table',
+                'button_label' => 'Add Item',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_intake_requirement_item',
+                        'label' => 'Item',
+                        'name' => 'item',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_intake_faq_heading',
+                'label' => 'FAQ Heading',
+                'name' => 'intake_faq_heading',
+                'type' => 'text',
+                'default_value' => 'Frequently Asked Questions',
+            ],
+            [
+                'key' => 'field_intake_faqs',
+                'label' => 'FAQs',
+                'name' => 'intake_faqs',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add FAQ',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_intake_faq_question',
+                        'label' => 'Question',
+                        'name' => 'question',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_intake_faq_answer',
+                        'label' => 'Answer',
+                        'name' => 'answer',
+                        'type' => 'wysiwyg',
+                        'tabs' => 'visual',
+                        'media_upload' => 0,
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_intake_next_steps',
+                'label' => 'What Happens Next (3 steps)',
+                'name' => 'intake_next_steps',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Step',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_intake_next_step_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_intake_next_step_description',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'textarea',
+                        'rows' => 2,
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-existing-patients.php',
+                ],
+            ],
+        ],
+    ]);
+
+    /**
+     * ---------------------------------------------------------------
      * Blog Archive page (page-blog.php)
      * ---------------------------------------------------------------
      * Only the banner image is a field here — everything else on that
@@ -1821,3 +1982,12 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 }
+
+/* =========================================================
+   Cart page - "Return to Shop" points to the real store
+   (Fullscript), not the unused local WooCommerce shop page
+   ========================================================= */
+
+add_filter('woocommerce_return_to_shop_redirect', function () {
+    return 'https://us.fullscript.com/s/pinnaclebhc/shop';
+});
