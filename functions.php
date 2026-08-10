@@ -84,6 +84,16 @@ wp_enqueue_style(
             true
         );
     }
+
+    if (is_page_template('page-new-patients.php')) {
+        wp_enqueue_script(
+            'pinnacle-new-patients-intake',
+            get_template_directory_uri() . '/assets/js/new-patients-intake.js',
+            [],
+            '1.0',
+            true
+        );
+    }
 }
 function pinnacle_theme_fonts() {
     wp_enqueue_style(
