@@ -8,13 +8,13 @@
  * $args['address_lines'] (array of ['line' => '']).
  */
 
-$latitude      = $args['latitude'] ?? 44.882053;
-$longitude     = $args['longitude'] ?? -93.329562;
+$latitude      = $args['latitude'] ?? 44.882068;
+$longitude     = $args['longitude'] ?? -93.329916;
 $business_name = $args['business_name'] ?? 'Pinnacle Behavioral Healthcare';
 $address_lines = $args['address_lines'] ?? [];
 
 $map_query        = urlencode($latitude . ',' . $longitude);
-$embed_src        = "https://www.google.com/maps?q={$map_query}&z=15&output=embed";
+$embed_src        = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2827.0343504523153!2d-93.3303132!3d44.8819499!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87f62404bb8525e5%3A0x63a55b283e08ad5e!2sPinnacle%20Behavioral%20Healthcare%20%7C%20Edina!5e0!3m2!1sen!2sng!4v1786718131153!5m2!1sen!2sng";
 $large_map_href    = "https://www.google.com/maps/search/?api=1&query={$map_query}";
 $directions_href  = "https://www.google.com/maps/dir/?api=1&destination={$map_query}";
 ?>
