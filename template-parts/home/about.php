@@ -20,7 +20,7 @@ $cta_text = get_field('about_cta_text', 'option')
     ?: 'Contact Us';
 
 $cta_link = get_field('about_cta_link', 'option')
-    ?: '#appointment';
+    ?: '/contact';
 
 $image = get_field('about_image', 'option');
 

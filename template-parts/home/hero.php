@@ -8,7 +8,7 @@
 $hero_headline = get_field('hero_headline', 'option') ?: 'Mental Healthcare, Personalized For You';
 $hero_subtitle = get_field('hero_subtitle', 'option') ?: 'Providing cutting-edge mental health treatment plans and psychiatric services for patients of every age.';
 $hero_image    = get_field('hero_image', 'option');
-$hero_image_url = $hero_image['url'] ?? get_template_directory_uri() . '/assets/images/hero-consultation.webp';
+$hero_image_url = $hero_image['url'] ?? get_template_directory_uri() . '/assets/images/Mask-group-8.webp';
 $hero_image_alt = $hero_image['alt'] ?? 'Therapist and patient in a calm consultation session';
 
 $appointment_title = get_field('appointment_form_title', 'option') ?: 'Book a Consultation';

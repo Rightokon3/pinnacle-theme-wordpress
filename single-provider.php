@@ -42,7 +42,7 @@ if ( have_posts() ) :
    );
 
    if ( ! $testimonials_heading ) {
-    $testimonials_heading = 'Testimonials';
+    $testimonials_heading = '';
    }
         $show_testimonials = get_field(
             'provider_show_testimonials'

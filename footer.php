@@ -7,7 +7,7 @@
         <div class="footer-brand">
             <div class="footer-brand__logo-card">
                 <img
-                    src="<?php echo esc_url(get_template_directory_uri() . '/assets/Pinnacle_Logo.webp'); ?>"
+                    src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>"
                     alt="Pinnacle"
                     class="footer-brand__logo"
                 >
@@ -68,12 +68,12 @@
                 Minneapolis, MN 55401
             </p>
             <p>
-                <a href="https://www.openstreetmap.org/directions?to=44.9778%2C-93.265" target="_blank" rel="noopener noreferrer">
+                <a href="https://maps.app.goo.gl/AB8tJ6yH2AfN6kqEA" target="_blank" rel="noopener noreferrer">
                     Get Directions
                 </a>
             </p>
             <p>
-                <a href="tel:+15551234567">(952) 295-9448</a>
+                <a href="tel:9522959448">(952) 295-9448</a>
             </p>
         </div>
 

@@ -25,7 +25,7 @@ if (empty($highlights)) {
                 'url' => get_template_directory_uri() . '/assets/images/Image_fx-4.png'
             ],
             'link'        => [
-                'url'   => home_url('/contact'),
+                'url'   => home_url('/telehealth-psychiatric-medication-management-in-minneapolis/'),
                 'title' => 'Learn More'
             ],
         ],
@@ -39,7 +39,7 @@ if (empty($highlights)) {
                 'url' => get_template_directory_uri() . '/assets/images/Image_fx-1.png'
             ],
             'link'        => [
-                'url'   => home_url('/contact'),
+                'url'   => home_url('/tms-treatments/'),
                 'title' => 'Learn More'
             ],
         ],
@@ -53,7 +53,7 @@ if (empty($highlights)) {
                 'url' => get_template_directory_uri() . '/assets/images/Image_fx-2.png'
             ],
             'link'        => [
-                'url'   => home_url('/contact'),
+                'url'   => home_url('/individual-psychotherapy/'),
                 'title' => 'Learn More'
             ],
         ],
@@ -67,7 +67,7 @@ if (empty($highlights)) {
                 'url' => get_template_directory_uri() . '/assets/images/Image_fx.png'
             ],
             'link'        => [
-                'url'   => home_url('/contact'),
+                'url'   => home_url('/spravato/'),
                 'title' => 'Learn More'
             ],
         ],
@@ -81,7 +81,7 @@ if (empty($highlights)) {
                 'url' => get_template_directory_uri() . '/assets/images/PinnacleBH2024_1_-00101_1_1-1.webp'
             ],
             'link'        => [
-                'url'   => home_url('/contact'),
+                'url'   => home_url('/adhd-testing/'),
                 'title' => 'Learn More'
             ],
         ],

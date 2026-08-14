@@ -21,6 +21,12 @@ html {
     scroll-behavior: smooth;
 }
 
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 body {
     margin: 0;
     color: var(--ink);
@@ -1592,64 +1598,297 @@ body.mobile-nav-open {
     }
 
 }
-
 /* =====================================================
-   Feature icons row
+   FEATURE ICONS ROW
    ===================================================== */
 
 .feature-icons {
+    width: 100%;
     max-width: 1280px;
+
     margin: 0 auto;
-    padding: 0 16px 56px;
+    padding: 0 0 80px;
+
+    background: #fff;
 }
+
+
+/* -----------------------------------------------------
+   THREE COLUMNS
+   ----------------------------------------------------- */
 
 .feature-icons__grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    width: 100%;
+
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
 }
+
+
+/* -----------------------------------------------------
+   CARD
+   ----------------------------------------------------- */
 
 .feature-icons__card {
+    position: relative;
+
+    min-height: 270px;
+
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-    border-radius: 1.25rem;
-    border: 1px solid #f3f4f6;
-    background: #fff;
-    padding: 24px;
-    box-shadow: var(--shadow-card);
-    transition: transform 0.2s ease;
-}
 
-.feature-icons__card:hover {
-    transform: translateY(-4px);
-}
-
-.feature-icons__icon {
-    display: flex;
     align-items: center;
     justify-content: center;
-    height: 56px;
-    width: 56px;
-    border-radius: 999px;
-    background: var(--surface-blue);
-    color: var(--primary);
+
+    text-align: center;
+
+    padding: 40px 30px;
+
+    box-sizing: border-box;
+
+    border-right: 1px solid #dddddd;
+
+    background: #fff;
+
+    border-radius: 0;
+    box-shadow: none;
+
+    transition:
+        background-color 0.25s ease,
+        transform 0.25s ease;
 }
+
+
+/* Remove last separator */
+
+.feature-icons__card:last-child {
+    border-right: 0;
+}
+
+
+/*
+ * The reference design has the middle feature
+ * sitting on a very light gray surface.
+ */
+
+.feature-icons__card:nth-child(2) {
+    background: #f4f4f4;
+}
+
+
+/* Don't use the old floating-card effect */
+
+.feature-icons__card:hover {
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* -----------------------------------------------------
+   ICON
+   ----------------------------------------------------- */
+
+.feature-icons__icon {
+    width: 82px;
+    height: 82px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 0 22px;
+
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+
+    color: #28a9e1;
+}
+
+
+/*
+ * THIS is the important part.
+ *
+ * Your PHP SVGs are currently 28px.
+ * Force the actual artwork to the size shown
+ * in your reference.
+ */
+
+.feature-icons__icon svg {
+    display: block;
+
+    width: 72px;
+    height: 72px;
+
+    max-width: none;
+
+    fill: currentColor;
+    stroke: currentColor;
+
+    overflow: visible;
+}
+
+
+/* Prevent theme styles from shrinking SVG elements */
+
+.feature-icons__icon svg path,
+.feature-icons__icon svg circle,
+.feature-icons__icon svg rect,
+.feature-icons__icon svg line,
+.feature-icons__icon svg polyline,
+.feature-icons__icon svg polygon {
+    vector-effect: non-scaling-stroke;
+}
+
+
+/* -----------------------------------------------------
+   TITLE
+   ----------------------------------------------------- */
 
 .feature-icons__title {
-    font-weight: 600;
-    color: var(--ink);
+    max-width: 320px;
+
     margin: 0;
+
+    color: #111111;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 22px;
+    font-weight: 400;
+
+    line-height: 1.55;
+
+    text-align: center;
 }
 
-@media (min-width: 640px) {
-    .feature-icons__grid {
-        grid-template-columns: repeat(3, 1fr);
+
+/* =====================================================
+   DESKTOP
+   ===================================================== */
+
+@media (min-width: 1024px) {
+
+    .feature-icons__card {
+        min-height: 272px;
+
+        padding: 40px 35px;
+    }
+
+    .feature-icons__icon {
+        width: 84px;
+        height: 84px;
+
+        margin-bottom: 20px;
+    }
+
+    .feature-icons__icon svg {
+        width: 76px;
+        height: 76px;
+    }
+
+    .feature-icons__title {
+        font-size: 22px;
     }
 }
 
+
+/* =====================================================
+   TABLET
+   ===================================================== */
+
+@media (max-width: 1023px) {
+
+    .feature-icons {
+        padding-bottom: 60px;
+    }
+
+    .feature-icons__card {
+        min-height: 230px;
+
+        padding: 30px 20px;
+    }
+
+    .feature-icons__icon {
+        width: 70px;
+        height: 70px;
+
+        margin-bottom: 16px;
+    }
+
+    .feature-icons__icon svg {
+        width: 62px;
+        height: 62px;
+    }
+
+    .feature-icons__title {
+        font-size: 18px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 639px) {
+
+    .feature-icons {
+        padding-bottom: 45px;
+    }
+
+    .feature-icons__grid {
+        grid-template-columns: 1fr;
+
+        border-top: 1px solid #dddddd;
+        border-bottom: 0;
+    }
+
+    .feature-icons__card {
+        min-height: 210px;
+
+        padding: 34px 20px;
+
+        border-right: 0;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .feature-icons__card:last-child {
+        border-bottom: 0;
+    }
+
+    .feature-icons__icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .feature-icons__icon svg {
+        width: 64px;
+        height: 64px;
+    }
+
+    .feature-icons__title {
+        font-size: 19px;
+    }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .feature-icons__card {
+        transition: none;
+    }
+}
 @media (min-width: 640px) {
 
     .why-choose__heading {
@@ -1678,6 +1917,7 @@ body.mobile-nav-open {
 /* =====================================================
    Services ("What We Offer")
    ===================================================== */
+
 /* =========================================================
    SERVICES — WHAT WE OFFER
    ========================================================= */
@@ -1778,9 +2018,17 @@ body.mobile-nav-open {
 
 /* =========================================================
    SERVICE ITEM
+   ICON LEFT / CONTENT RIGHT
    ========================================================= */
 
 .services__item {
+    display: grid;
+
+    grid-template-columns: 72px minmax(0, 1fr);
+
+    column-gap: 22px;
+
+    width: 100%;
     max-width: 620px;
 
     margin: 0;
@@ -1798,16 +2046,18 @@ body.mobile-nav-open {
    ========================================================= */
 
 .services__icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+
+    width: 72px;
+    height: 72px;
+
     display: flex;
 
-    align-items: center;
-
+    align-items: flex-start;
     justify-content: flex-start;
 
-    width: 64px;
-    height: 64px;
-
-    margin-bottom: 16px;
+    margin: 2px 0 0;
 
     color: #fff;
 }
@@ -1818,6 +2068,16 @@ body.mobile-nav-open {
 
     width: 64px;
     height: 64px;
+
+    max-width: none;
+    max-height: none;
+
+    color: #fff;
+
+    fill: none;
+    stroke: currentColor;
+
+    overflow: visible;
 }
 
 
@@ -1826,7 +2086,10 @@ body.mobile-nav-open {
    ========================================================= */
 
 .services__item-title {
-    margin: 0 0 12px;
+    grid-column: 2;
+    grid-row: 1;
+
+    margin: 0 0 10px;
 
     color: #fff;
 
@@ -1843,6 +2106,9 @@ body.mobile-nav-open {
    ========================================================= */
 
 .services__item-description {
+    grid-column: 2;
+    grid-row: 2;
+
     margin: 0;
 
     color: rgba(255, 255, 255, 0.95);
@@ -1893,10 +2159,6 @@ body.mobile-nav-open {
             minmax(0, 1fr)
             minmax(0, 1fr);
 
-        /*
-         * The section itself gets the pale-blue background
-         * seen around the blue content panel.
-         */
         align-items: stretch;
     }
 
@@ -1945,10 +2207,6 @@ body.mobile-nav-open {
 
         order: 1;
 
-        /*
-         * This creates the inset effect from the
-         * screenshot.
-         */
         padding-top: 38px;
 
         padding-left: 46px;
@@ -1987,11 +2245,17 @@ body.mobile-nav-open {
 
     .services__list {
 
-        gap: 54px;
+        gap: 42px;
     }
 
 
     .services__item {
+
+        grid-template-columns:
+            72px
+            minmax(0, 1fr);
+
+        column-gap: 22px;
 
         max-width: 610px;
     }
@@ -1999,7 +2263,19 @@ body.mobile-nav-open {
 
     .services__icon {
 
-        margin-bottom: 14px;
+        width: 72px;
+
+        height: 72px;
+
+        margin-top: 2px;
+    }
+
+
+    .services__icon svg {
+
+        width: 64px;
+
+        height: 64px;
     }
 
 
@@ -2007,7 +2283,9 @@ body.mobile-nav-open {
 
         font-size: 1.65rem;
 
-        margin-bottom: 12px;
+        line-height: 1.2;
+
+        margin-bottom: 10px;
     }
 
 
@@ -2051,13 +2329,27 @@ body.mobile-nav-open {
 
     .services__list {
 
-        gap: 58px;
+        gap: 42px;
+    }
+
+
+    .services__item {
+
+        grid-template-columns:
+            72px
+            minmax(0, 1fr);
+
+        column-gap: 22px;
+
+        max-width: 610px;
     }
 
 
     .services__item-title {
 
         font-size: 1.7rem;
+
+        line-height: 1.2;
     }
 
 }
@@ -2067,10 +2359,152 @@ body.mobile-nav-open {
    MOBILE
    ========================================================= */
 
-@media (max-width: 1023px) {
+@media (max-width: 639px) {
 
     .services__media {
         min-height: 0;
+    }
+
+
+    .services__content {
+        padding: 42px 22px 52px;
+    }
+
+
+    .services__heading {
+        font-size: 2rem;
+
+        margin-bottom: 42px;
+    }
+
+
+    .services__list {
+        gap: 38px;
+    }
+
+
+    /*
+     * Keep the icon on the LEFT on mobile.
+     */
+    .services__item {
+
+        display: grid;
+
+        grid-template-columns:
+            52px
+            minmax(0, 1fr);
+
+        column-gap: 14px;
+
+        width: 100%;
+
+        max-width: 100%;
+    }
+
+
+    .services__icon {
+
+        grid-column: 1;
+
+        grid-row: 1 / span 2;
+
+        width: 52px;
+
+        height: 52px;
+
+        margin-top: 2px;
+
+        justify-content: flex-start;
+    }
+
+
+    .services__icon svg {
+
+        width: 48px;
+
+        height: 48px;
+    }
+
+
+    .services__item-title {
+
+        grid-column: 2;
+
+        grid-row: 1;
+
+        margin: 0 0 8px;
+
+        font-size: 1.25rem;
+
+        line-height: 1.25;
+    }
+
+
+    .services__item-description {
+
+        grid-column: 2;
+
+        grid-row: 2;
+
+        margin: 0;
+
+        font-size: 0.95rem;
+
+        line-height: 1.75;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .services__content {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+
+    .services__item {
+
+        grid-template-columns:
+            46px
+            minmax(0, 1fr);
+
+        column-gap: 12px;
+    }
+
+
+    .services__icon {
+
+        width: 46px;
+
+        height: 46px;
+    }
+
+
+    .services__icon svg {
+
+        width: 43px;
+
+        height: 43px;
+    }
+
+
+    .services__item-title {
+
+        font-size: 1.15rem;
+    }
+
+
+    .services__item-description {
+
+        font-size: 0.92rem;
+
+        line-height: 1.7;
     }
 
 }
@@ -2087,137 +2521,594 @@ body.mobile-nav-open {
     }
 
 }
+}
 /* =====================================================
    Testimonials carousel
    ===================================================== */
 
+/* =====================================================
+   TESTIMONIALS
+   ===================================================== */
+
 .testimonials {
+    width: 100%;
     max-width: 1280px;
+
     margin: 0 auto;
-    padding: 56px 16px;
+
+    padding: 54px 16px 60px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    overflow: hidden;
 }
+
+
+/* =====================================================
+   HEADING
+   ===================================================== */
 
 .testimonials__heading {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--primary-dark);
+    margin: 0 0 52px;
+
+    color: #2ca9df;
+
+    font-size: 38px;
+    line-height: 1.2;
+
+    font-weight: 700;
+
     text-align: center;
-    margin: 0 0 40px;
 }
 
+
+/* =====================================================
+   CAROUSEL
+   ===================================================== */
+
 .testimonials__carousel {
-    padding-bottom: 48px;
+    position: relative;
+
+    width: 100%;
+
+    padding: 0 0 46px;
+
+    box-sizing: border-box;
 }
+
+
+/* =====================================================
+   TRACK
+   ===================================================== */
 
 .testimonials__track {
     display: flex;
-    gap: 24px;
+
+    gap: 30px;
+
+    width: 100%;
+
     overflow-x: auto;
+    overflow-y: hidden;
+
     scroll-snap-type: x mandatory;
+
     scrollbar-width: none;
     -ms-overflow-style: none;
+
+    scroll-behavior: smooth;
 }
 
 .testimonials__track::-webkit-scrollbar {
     display: none;
 }
 
+
+/* =====================================================
+   SLIDE
+   ===================================================== */
+
 .testimonials__slide {
     flex: 0 0 100%;
+
+    min-width: 0;
+
     scroll-snap-align: start;
+
+    box-sizing: border-box;
 }
+
+
+/* =====================================================
+   CARD
+   ===================================================== */
 
 .testimonials__card {
-    height: 100%;
+    min-height: 326px;
+
+    width: 100%;
+
     box-sizing: border-box;
+
+    padding: 40px;
+
+    background: #ffffff;
+
+    border: 0;
+    border-radius: 0;
+
+    box-shadow:
+        0 7px 16px rgba(0, 0, 0, 0.10);
+
     display: flex;
+
     flex-direction: column;
-    gap: 16px;
-    border-radius: 1.25rem;
-    border: 1px solid #f3f4f6;
-    background: #fff;
-    padding: 28px;
-    box-shadow: var(--shadow-card);
+
+    justify-content: flex-start;
 }
+
+
+/* =====================================================
+   CARD HEADER
+   ===================================================== */
+
+.testimonials__header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   INITIAL CIRCLE
+   ===================================================== */
 
 .testimonials__avatar {
+    flex: 0 0 70px;
+
+    width: 70px;
+    height: 70px;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
-    height: 44px;
-    width: 44px;
-    border-radius: 999px;
-    background: var(--surface-blue);
-    color: var(--primary);
+
+    border-radius: 50%;
+
+    background: #2ca9df;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 27px;
+
+    font-weight: 400;
+
+    line-height: 1;
 }
 
-.testimonials__quote {
-    color: var(--ink-soft);
-    line-height: 1.7;
-    margin: 0;
-}
+
+/* =====================================================
+   NAME
+   ===================================================== */
 
 .testimonials__name {
-    font-weight: 600;
-    color: var(--ink);
-    margin: auto 0 0;
+    margin: 0;
+
+    color: #000000;
+
+    font-size: 27px;
+
+    font-weight: 500;
+
+    line-height: 1.2;
 }
+
+
+/* =====================================================
+   QUOTE
+   ===================================================== */
+
+.testimonials__quote {
+    margin: 0;
+
+    max-width: 100%;
+
+    color: #202020;
+
+    font-size: 17px;
+
+    font-weight: 400;
+
+    line-height: 1.9;
+}
+
+
+/* =====================================================
+   ARROWS
+   ===================================================== */
+
+.testimonials__arrow {
+    position: absolute;
+
+    top: 50%;
+
+    z-index: 5;
+
+    width: 48px;
+    height: 48px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 3px;
+
+    background: #ffffff;
+
+    color: #333333;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 38px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.12);
+
+    transform: translateY(-50%);
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.testimonials__arrow:hover {
+    background: #2ca9df;
+
+    color: #ffffff;
+}
+
+.testimonials__arrow--prev {
+    left: -10px;
+}
+
+.testimonials__arrow--next {
+    right: -10px;
+}
+
+
+/* =====================================================
+   DOTS
+   ===================================================== */
 
 .testimonials__dots {
     display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 24px;
-}
 
-.testimonials__dot {
-    height: 8px;
-    width: 8px;
-    border-radius: 999px;
-    border: none;
-    background: #d1d5db;
-    padding: 0;
-    cursor: pointer;
-    transition: background 0.2s ease, width 0.2s ease;
-}
-
-.testimonials__dot.is-active {
-    background: var(--primary);
-    width: 20px;
-}
-
-.testimonials__cta-wrap {
-    text-align: center;
-}
-
-.testimonials__cta {
-    display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 999px;
-    background: var(--primary);
-    color: #fff;
-    padding: 12px 24px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background 0.2s ease;
+
+    gap: 10px;
+
+    margin-top: 36px;
 }
+
+
+.testimonials__dot {
+    width: 10px;
+    height: 10px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #c8c8c8;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.testimonials__dot:hover {
+    transform: scale(1.15);
+}
+
+
+.testimonials__dot.is-active {
+    background: #2ca9df;
+
+    transform: scale(1.1);
+}
+
+
+/* =====================================================
+   CTA
+   ===================================================== */
+
+.testimonials__cta-wrap {
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 4px;
+}
+
+
+.testimonials__cta {
+    min-height: 48px;
+
+    padding: 0 24px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    border-radius: 999px;
+
+    background: #2ca9df;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
 
 .testimonials__cta:hover {
-    background: var(--primary-dark);
+    background: #1583c7;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
 }
 
+
+/* =====================================================
+   TABLET / DESKTOP — TWO CARDS
+   ===================================================== */
+
 @media (min-width: 768px) {
+
     .testimonials__slide {
-        flex: 0 0 calc(50% - 12px);
+        flex: 0 0 calc(50% - 15px);
+    }
+
+    .testimonials__track {
+        gap: 30px;
+    }
+
+    .testimonials__card {
+        min-height: 326px;
+
+        padding: 40px;
     }
 
     .testimonials__heading {
-        font-size: 1.875rem;
+        font-size: 38px;
     }
+
 }
 
+
+/* =====================================================
+   LARGE DESKTOP
+   ===================================================== */
+
+@media (min-width: 1100px) {
+
+    .testimonials {
+        max-width: 1280px;
+
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .testimonials__heading {
+        margin-bottom: 52px;
+
+        font-size: 38px;
+    }
+
+    .testimonials__card {
+        min-height: 326px;
+
+        padding: 40px;
+    }
+
+    .testimonials__arrow--prev {
+        left: -18px;
+    }
+
+    .testimonials__arrow--next {
+        right: -18px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 767px) {
+
+    .testimonials {
+        padding: 45px 15px 50px;
+    }
+
+    .testimonials__heading {
+        margin-bottom: 34px;
+
+        font-size: 30px;
+    }
+
+    .testimonials__carousel {
+        padding-bottom: 35px;
+    }
+
+    .testimonials__track {
+        gap: 15px;
+
+        touch-action: pan-x;
+    }
+
+    .testimonials__slide {
+        flex: 0 0 100%;
+    }
+
+    .testimonials__card {
+        min-height: 0;
+
+        padding: 28px 24px 32px;
+    }
+
+    .testimonials__header {
+        gap: 14px;
+
+        margin-bottom: 20px;
+    }
+
+    .testimonials__avatar {
+        flex-basis: 60px;
+
+        width: 60px;
+        height: 60px;
+
+        font-size: 23px;
+    }
+
+    .testimonials__name {
+        font-size: 23px;
+    }
+
+    .testimonials__quote {
+        font-size: 16px;
+
+        line-height: 1.75;
+    }
+
+    /*
+     * On phones the dots are the main navigation.
+     */
+    .testimonials__arrow {
+        display: none;
+    }
+
+    .testimonials__dots {
+        margin-top: 25px;
+    }
+
+    .testimonials__cta-wrap {
+        margin-top: 4px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL PHONES
+   ===================================================== */
+
+@media (max-width: 480px) {
+
+    .testimonials {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .testimonials__heading {
+        font-size: 28px;
+    }
+
+    .testimonials__card {
+        padding: 25px 20px 28px;
+    }
+
+    .testimonials__avatar {
+        width: 56px;
+        height: 56px;
+
+        flex-basis: 56px;
+
+        font-size: 21px;
+    }
+
+    .testimonials__name {
+        font-size: 21px;
+    }
+
+    .testimonials__quote {
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+}
+
+
+/* =====================================================
+   ACCESSIBILITY
+   ===================================================== */
+
+.testimonials__arrow:focus-visible,
+.testimonials__dot:focus-visible,
+.testimonials__cta:focus-visible {
+    outline: 3px solid #2ca9df;
+
+    outline-offset: 3px;
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .testimonials__track {
+        scroll-behavior: auto;
+    }
+
+    .testimonials__arrow,
+    .testimonials__dot,
+    .testimonials__cta {
+        transition: none;
+    }
+
+}
 /* =====================================================
    CTA banner
    ===================================================== */
@@ -4560,8 +5451,6 @@ body.mobile-nav-open {
     max-width: 220px;
     padding: 16px 20px;
     margin-bottom: 20px;
-    background: #fff;
-    border-radius: 12px;
 }
 
 .footer-brand__logo {
@@ -4580,10 +5469,17 @@ body.mobile-nav-open {
 }
 
 .footer-brand__partner-logo {
-    height: 32px;
-    width: auto;
-    max-width: 140px;
+    width: 190px;
+    height: 72px;
+
+    object-fit: contain;
+    object-position: left center;
+
+    max-width: none;
     flex-shrink: 0;
+
+    display: block;
+
     filter: brightness(0) invert(1);
 }
 
@@ -4591,8 +5487,7 @@ body.mobile-nav-open {
     max-width: 280px;
     margin: 0;
     padding: 12px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 8px;
+    border: 1px solid #fffdfd;
     font-size: 14px;
     font-style: italic;
     line-height: 1.4;
@@ -12036,6 +12931,1227 @@ body.mobile-nav-open {
         padding-right: 16px;
 
         font-size: 12px;
+    }
+
+}
+
+/* =========================================================
+   PINNACLE TESTIMONIALS PAGE
+   ========================================================= */
+
+.pinnacle-testimonials-page {
+    width: 100%;
+    background: #fff;
+}
+
+.pinnacle-testimonials-container {
+    width: min(1210px, calc(100% - 80px));
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.pinnacle-testimonials-banner {
+    position: relative;
+
+    width: 100%;
+    height: 300px;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.pinnacle-testimonials-banner__overlay {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.98) 0%,
+            rgba(255,255,255,.88) 30%,
+            rgba(255,255,255,.35) 60%,
+            rgba(255,255,255,0) 100%
+        );
+}
+
+.pinnacle-testimonials-banner__title {
+    margin: 0;
+
+    color: #000;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: clamp(42px, 5vw, 62px);
+
+    line-height: 1.05;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   BREADCRUMB
+   ========================================================= */
+
+.pinnacle-testimonials-breadcrumb {
+    padding: 18px 0 0;
+}
+
+.pinnacle-testimonials-breadcrumb p {
+    margin: 0;
+
+    color: #555;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+}
+
+.pinnacle-testimonials-breadcrumb a {
+    color: #2276e8;
+    text-decoration: none;
+}
+
+.pinnacle-testimonials-breadcrumb span {
+    margin-left: 7px;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.pinnacle-testimonials-content {
+    padding: 42px 0 80px;
+}
+
+
+/* =========================================================
+   MAIN PAGE SHARE
+   ========================================================= */
+
+.pinnacle-testimonials-share {
+    margin-bottom: 65px;
+}
+
+.pinnacle-testimonials-share h2 {
+    margin: 0 0 12px;
+
+    color: #000;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 32px;
+
+    line-height: 1.15;
+
+    font-weight: 600;
+}
+
+.pinnacle-testimonials-share__buttons,
+.pinnacle-testimonial-card__share {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+.pinnacle-share-count {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 38px;
+
+    color: #858585;
+}
+
+.pinnacle-share-count span {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.pinnacle-share-count small {
+    font-size: 9px;
+    line-height: 1.2;
+}
+
+
+/* SHARE BUTTONS */
+
+.share-facebook,
+.share-pinterest,
+.share-pdf,
+.share-copy,
+.share-more {
+    width: 36px;
+    height: 36px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 50%;
+
+    color: #fff !important;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 18px;
+
+    text-decoration: none !important;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+}
+
+.share-facebook {
+    background: #1877f2;
+    font-weight: 700;
+}
+
+.share-pinterest {
+    background: #e60023;
+    font-weight: 700;
+}
+
+.share-pdf {
+    background: #e21d2d;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.share-copy {
+    background: #333;
+    font-size: 16px;
+}
+
+.share-more {
+    background: #ff6b00;
+    font-size: 23px;
+}
+
+
+/* =========================================================
+   TESTIMONIAL CARD
+   ========================================================= */
+
+.pinnacle-testimonials-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 38px;
+}
+
+.pinnacle-testimonial-card {
+    position: relative;
+
+    width: 100%;
+
+    padding: 72px 30px 38px;
+
+    border: 1px solid #d5d5d5;
+
+    background: #fff;
+
+    box-sizing: border-box;
+
+    animation: testimonialFadeIn .35s ease both;
+}
+
+@keyframes testimonialFadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* BIG BLUE QUOTE */
+
+.pinnacle-testimonial-card__quote {
+    position: absolute;
+
+    top: -25px;
+    left: 28px;
+
+    color: #28a9df;
+
+    font-family: Georgia, serif;
+
+    font-size: 105px;
+
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+
+/* CARD HEADING */
+
+.pinnacle-testimonial-card__heading {
+    margin: 0 0 12px;
+
+    color: #000;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 31px;
+
+    line-height: 1.15;
+
+    font-weight: 600;
+}
+
+
+/* CARD SHARE */
+
+.pinnacle-testimonial-card__share {
+    margin-bottom: 25px;
+}
+
+
+/* REVIEW TEXT */
+
+.pinnacle-testimonial-card__text {
+    color: #151515;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+}
+
+.pinnacle-testimonial-card__text p {
+    margin: 0;
+}
+
+.pinnacle-testimonial-card__text p + p {
+    margin-top: 15px;
+}
+
+
+/* FOOTER */
+
+.pinnacle-testimonial-card__footer {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 18px;
+}
+
+.pinnacle-testimonial-card__footer strong {
+    color: #005ea8;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 21px;
+
+    font-weight: 500;
+}
+
+.pinnacle-testimonial-card__source {
+    color: #4285f4;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 31px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   LOAD MORE
+   ========================================================= */
+
+.is-hidden-testimonial {
+    display: none;
+}
+
+.pinnacle-testimonials-load-more-wrap {
+    display: flex;
+
+    justify-content: center;
+
+    padding-top: 55px;
+}
+
+.pinnacle-testimonials-load-more {
+    min-width: 180px;
+
+    padding: 15px 28px;
+
+    border: 0;
+    border-radius: 999px;
+
+    background: #29a9df;
+
+    color: #fff;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.pinnacle-testimonials-load-more:hover {
+    background: #188fc5;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.pinnacle-testimonials-empty {
+    padding: 60px 0;
+
+    text-align: center;
+}
+
+.pinnacle-testimonials-empty h2 {
+    color: #29a9df;
+}
+
+
+/* =========================================================
+   CONSULTATION
+   ========================================================= */
+
+.pinnacle-testimonials-consultation {
+    width: 100%;
+
+    padding: 48px 0;
+
+    background: #dff3fb;
+}
+
+.pinnacle-testimonials-consultation__inner {
+    width: min(1280px, calc(100% - 80px));
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.pinnacle-testimonials-consultation h2 {
+    margin: 0;
+
+    color: #29a9df;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: clamp(36px, 4vw, 50px);
+
+    line-height: 1.1;
+
+    font-weight: 700;
+}
+
+.pinnacle-testimonials-consultation__button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    padding: 14px 25px;
+
+    border-radius: 999px;
+
+    background: #29a9df;
+
+    color: #fff !important;
+
+    text-transform: uppercase;
+
+    text-decoration: none !important;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.pinnacle-testimonials-consultation__button:hover {
+    background: #188fc5;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .pinnacle-testimonials-container {
+        width: calc(100% - 48px);
+    }
+
+    .pinnacle-testimonials-banner {
+        height: 250px;
+    }
+
+    .pinnacle-testimonials-consultation__inner {
+        width: calc(100% - 48px);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .pinnacle-testimonials-container {
+        width: calc(100% - 32px);
+    }
+
+
+    .pinnacle-testimonials-banner {
+        height: 205px;
+    }
+
+    .pinnacle-testimonials-banner__title {
+        font-size: 39px;
+    }
+
+
+    .pinnacle-testimonials-content {
+        padding: 32px 0 55px;
+    }
+
+    .pinnacle-testimonials-share {
+        margin-bottom: 50px;
+    }
+
+    .pinnacle-testimonials-share h2 {
+        font-size: 29px;
+    }
+
+
+    .pinnacle-testimonials-list {
+        gap: 30px;
+    }
+
+
+    .pinnacle-testimonial-card {
+        padding: 68px 24px 30px;
+    }
+
+
+    .pinnacle-testimonial-card__quote {
+        left: 20px;
+
+        font-size: 82px;
+    }
+
+
+    .pinnacle-testimonial-card__heading {
+        font-size: 27px;
+    }
+
+
+    .pinnacle-testimonial-card__text {
+        font-size: 15px;
+
+        line-height: 1.85;
+    }
+
+
+    .pinnacle-testimonial-card__footer {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+
+    .pinnacle-testimonial-card__source {
+        font-size: 27px;
+    }
+
+
+    .pinnacle-testimonials-consultation {
+        padding: 40px 0;
+    }
+
+
+    .pinnacle-testimonials-consultation__inner {
+        width: calc(100% - 32px);
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+
+    .pinnacle-testimonials-consultation h2 {
+        font-size: 34px;
+    }
+
+
+    .pinnacle-testimonials-consultation__button {
+        width: 100%;
+        max-width: 340px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .pinnacle-testimonials-container {
+        width: calc(100% - 24px);
+    }
+
+    .pinnacle-testimonial-card {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .pinnacle-testimonial-card__text {
+        font-size: 14px;
+    }
+
+}
+
+/* =========================================================
+   BRAIN HEALTH SERIES
+   ========================================================= */
+
+.brain-health-page {
+    background: #fff;
+    color: #111;
+}
+
+.brain-health-container {
+    width: min(1210px, calc(100% - 80px));
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.brain-health-hero {
+    position: relative;
+    height: 300px;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.brain-health-hero__overlay {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.98) 0%,
+            rgba(255,255,255,.88) 32%,
+            rgba(255,255,255,.38) 62%,
+            rgba(255,255,255,0) 100%
+        );
+}
+
+.brain-health-hero__title {
+    margin: 0;
+
+    font-family: "Poppins", sans-serif;
+
+    color: #000;
+
+    font-size: clamp(42px, 5vw, 62px);
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+
+/* =========================================================
+   SHARE
+   ========================================================= */
+
+.brain-health-share {
+    padding: 38px 0 15px;
+}
+
+.brain-health-share h2 {
+    margin: 0 0 12px;
+
+    color: #000;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.brain-health-share__buttons {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.brain-health-share__count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 38px;
+
+    color: #888;
+}
+
+.brain-health-share__count span {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.brain-health-share__count small {
+    font-size: 9px;
+    line-height: 1.2;
+}
+
+.brain-share {
+    width: 36px;
+    height: 36px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 50%;
+
+    color: #fff !important;
+
+    text-decoration: none !important;
+
+    font-family: Arial, sans-serif;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+}
+
+.brain-share--facebook {
+    background: #1877f2;
+    font-weight: 700;
+}
+
+.brain-share--pinterest {
+    background: #e60023;
+    font-weight: 700;
+}
+
+.brain-share--pdf {
+    background: #e31d2f;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.brain-share--link {
+    background: #333;
+}
+
+.brain-share--more {
+    background: #ff6b00;
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   RESOURCE SECTION
+   ========================================================= */
+
+.brain-health-resources {
+    padding: 45px 0 80px;
+}
+
+.brain-health-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px 48px;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.brain-health-card {
+    position: relative;
+
+    min-height: 300px;
+
+    display: flex;
+    align-items: stretch;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #fbfdfe 100%
+        );
+
+    border: 1px solid #edf1f4;
+
+    box-shadow:
+        0 8px 25px rgba(32, 79, 104, .05);
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+}
+
+.brain-health-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 16px 38px rgba(32, 79, 104, .11);
+
+    border-color: #cfeaf5;
+}
+
+.brain-health-card__inner {
+    width: 100%;
+
+    padding: 42px 42px 38px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.brain-health-card__title {
+    margin: 0 0 10px;
+
+    color: #28a9df;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.18;
+}
+
+.brain-health-card__subtitle {
+    margin: 0 0 14px;
+
+    color: #111;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.brain-health-card__description {
+    max-width: 560px;
+
+    margin: 0 auto 25px;
+
+    color: #222;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+
+.brain-health-card__button {
+    margin-top: auto;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 13px 24px;
+
+    border-radius: 999px;
+
+    background: #29a9df;
+
+    color: #fff !important;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+    text-decoration: none !important;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.brain-health-card__button:hover {
+    background: #168fc4;
+    color: #fff !important;
+
+    transform: translateY(-2px);
+}
+
+.brain-health-card__button span {
+    font-size: 20px;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   BRAIN HEALTH PLAN
+   ========================================================= */
+
+.brain-health-plan {
+    margin-top: 70px;
+
+    padding: 75px 30px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5fbfe 0%,
+            #e8f7fc 100%
+        );
+
+    border-top: 1px solid #d8eef7;
+    border-bottom: 1px solid #d8eef7;
+}
+
+.brain-health-plan__content {
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.brain-health-plan__eyebrow {
+    display: inline-block;
+
+    margin-bottom: 12px;
+
+    color: #29a9df;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: .15em;
+}
+
+.brain-health-plan h2 {
+    margin: 0 0 10px;
+
+    color: #29a9df;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: clamp(34px, 4vw, 48px);
+
+    line-height: 1.15;
+}
+
+.brain-health-plan h3 {
+    margin: 0 0 20px;
+
+    color: #111;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.brain-health-plan p {
+    margin: 0 auto 28px;
+
+    max-width: 690px;
+
+    color: #222;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CONSULTATION
+   ========================================================= */
+
+.brain-health-consultation {
+    padding: 48px 0;
+
+    background: #dff3fb;
+}
+
+.brain-health-consultation__inner {
+    width: min(1280px, calc(100% - 80px));
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.brain-health-consultation h2 {
+    margin: 0;
+
+    color: #29a9df;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: clamp(36px, 4vw, 50px);
+
+    line-height: 1.1;
+}
+
+.brain-health-consultation__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    padding: 14px 25px;
+
+    border-radius: 999px;
+
+    background: #29a9df;
+
+    color: #fff !important;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    text-decoration: none !important;
+
+    white-space: nowrap;
+}
+
+.brain-health-consultation__button:hover {
+    background: #168fc4;
+    color: #fff !important;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .brain-health-container {
+        width: calc(100% - 48px);
+    }
+
+    .brain-health-grid {
+        gap: 20px;
+    }
+
+    .brain-health-card__inner {
+        padding: 35px 28px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .brain-health-container {
+        width: calc(100% - 32px);
+    }
+
+    .brain-health-hero {
+        height: 210px;
+    }
+
+    .brain-health-hero__title {
+        font-size: 40px;
+    }
+
+    .brain-health-share {
+        padding-top: 30px;
+    }
+
+    .brain-health-share h2 {
+        font-size: 29px;
+    }
+
+    .brain-health-resources {
+        padding-top: 25px;
+    }
+
+    .brain-health-grid {
+        grid-template-columns: 1fr;
+
+        gap: 22px;
+    }
+
+    .brain-health-card {
+        min-height: 0;
+    }
+
+    .brain-health-card__inner {
+        padding: 34px 22px;
+    }
+
+    .brain-health-card__title {
+        font-size: 28px;
+    }
+
+    .brain-health-card__subtitle {
+        font-size: 17px;
+    }
+
+    .brain-health-card__description {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .brain-health-card__button {
+        width: auto;
+        max-width: 100%;
+    }
+
+    .brain-health-plan {
+        margin-top: 45px;
+        padding: 52px 20px;
+    }
+
+    .brain-health-plan p {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .brain-health-consultation {
+        padding: 40px 0;
+    }
+
+    .brain-health-consultation__inner {
+        width: calc(100% - 32px);
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+    .brain-health-consultation__button {
+        width: 100%;
+        max-width: 340px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .brain-health-container {
+        width: calc(100% - 24px);
+    }
+
+    .brain-health-card__inner {
+        padding: 30px 18px;
+    }
+
+    .brain-health-card__title {
+        font-size: 25px;
+    }
+
+    .brain-health-card__description {
+        font-size: 14px;
     }
 
 }

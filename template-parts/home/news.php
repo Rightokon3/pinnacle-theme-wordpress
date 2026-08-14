@@ -207,9 +207,7 @@ $news_fallback_image_url = get_template_directory_uri() . '/assets/images/Health
     <!-- View all -->
     <div class="news__view-all-wrap">
         <a
-            href="<?php echo esc_url(
-                get_permalink(get_option('page_for_posts'))
-            ); ?>"
+            href="<?php echo esc_url(home_url('/blog/')); ?>"
             class="news__view-all"
         >
             <span>VIEW ALL</span>

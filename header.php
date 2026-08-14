@@ -101,7 +101,7 @@ $header_phone_tel    = preg_replace('/\D+/', '', $header_phone_number);
                 <span class="icon-btn__badge" id="mini-cart-count"><?php echo (int) $cart_count; ?></span>
             </a>
 
-            <a href="tel:+1<?php echo esc_attr($header_phone_tel); ?>" class="header-phone">
+            <a href="tel:<?php echo esc_attr($header_phone_tel); ?>" class="header-phone">
                 <span class="icon-phone-animate" aria-hidden="true">
     <span class="icon-phone-animate__phone">
         <svg

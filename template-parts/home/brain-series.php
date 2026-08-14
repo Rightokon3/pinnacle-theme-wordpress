@@ -88,7 +88,7 @@
 
         <div class="brain-series__footer">
 
-            <a href="https://pinnaclebhc.com/brain-health-series/" class="brain-series__see-all">
+            <a href="/brain-health-series/" class="brain-series__see-all">
                 See All
                 <span>→</span>
             </a>

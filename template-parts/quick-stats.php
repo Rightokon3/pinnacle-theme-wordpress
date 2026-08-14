@@ -27,7 +27,7 @@ if (empty($facts)) {
         [
             'title'       => '10% Off Your First Supplement Order',
             'description' => "We only carry supplements from reputable, quality-tested brands, so you can trust what you're adding to your care plan. Offer code: WELCOME10",
-            'link'        => ['title' => 'Shop Now', 'url' => home_url('/dispensary'), 'target' => ''],
+            'link'        => ['title' => 'Shop Now', 'url' => 'https://us.fullscript.com/s/pinnaclebhc/shop', 'target' => ''],
         ],
     ];
 }

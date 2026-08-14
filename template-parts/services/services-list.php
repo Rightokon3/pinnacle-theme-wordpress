@@ -14,7 +14,7 @@
 
 $services = get_field('services_list', 'option');
 
-$placeholder_image = get_template_directory_uri() . '/assets/images/image_fx-4.png';
+$placeholder_image = get_template_directory_uri() . '/assets/images/Image_fx-4.png';
 $placeholder_image1 = get_template_directory_uri() . '/assets/images/Cara_Reclined-1.png';
 $placeholder_image2 = get_template_directory_uri() . '/assets/images/Mask-group-8-1.webp';
 $placeholder_image3 = get_template_directory_uri() . '/assets/images/spravato-treatment-near-me-san-diego-ca-2.jpeg';
@@ -25,27 +25,27 @@ if (empty($services)) {
         [
             'image' => ['url' => $placeholder_image, 'alt' => 'Service image placeholder'],
             'title' => 'Medication Management',
-            'link'  => ['url' => '#', 'title' => 'Learn More'],
+            'link'  => ['url' => '/telehealth-psychiatric-medication-management-in-minneapolis/', 'title' => 'Learn More'],
         ],
         [
             'image' => ['url' => $placeholder_image1, 'alt' => 'Service image placeholder'],
             'title' => 'TMS Treatments',
-            'link'  => ['url' => '#', 'title' => 'Learn More'],
+            'link'  => ['url' => '/tms-treatments/', 'title' => 'Learn More'],
         ],
         [
             'image' => ['url' => $placeholder_image2, 'alt' => 'Service image placeholder'],
             'title' => 'Individual Psychotherapy',
-            'link'  => ['url' => '#', 'title' => 'Learn More'],
+            'link'  => ['url' => '/individual-psychotherapy/', 'title' => 'Learn More'],
         ],
         [
             'image' => ['url' => $placeholder_image3, 'alt' => 'Service image placeholder'],
             'title' => 'Spravato',
-            'link'  => ['url' => '#', 'title' => 'Learn More'],
+            'link'  => ['url' => 'spravato/', 'title' => 'Learn More'],
         ],
         [
             'image' => ['url' => $placeholder_image4, 'alt' => 'Service image placeholder'],
             'title' => 'ADHD Testing',
-            'link'  => ['url' => '#', 'title' => 'Learn More'],
+            'link'  => ['url' => '/adhd-testing/', 'title' => 'Learn More'],
         ],
     ];
 }

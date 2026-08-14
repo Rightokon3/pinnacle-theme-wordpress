@@ -2043,6 +2043,227 @@ function pinnacle_register_provider_cpt() {
 }
 add_action('init', 'pinnacle_register_provider_cpt');
 
+
+/* =========================================================
+ * TESTIMONIALS CUSTOM POST TYPE
+ * ========================================================= */
+
+function pinnacle_register_testimonial_cpt() {
+
+    $labels = array(
+        'name'                  => 'Testimonials',
+        'singular_name'         => 'Testimonial',
+        'menu_name'             => 'Testimonials',
+        'add_new'               => 'Add Testimonial',
+        'add_new_item'          => 'Add New Testimonial',
+        'edit_item'             => 'Edit Testimonial',
+        'new_item'              => 'New Testimonial',
+        'view_item'             => 'View Testimonial',
+        'search_items'          => 'Search Testimonials',
+        'not_found'             => 'No testimonials found',
+        'not_found_in_trash'    => 'No testimonials found in trash',
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'menu_icon'          => 'dashicons-format-quote',
+        'supports'           => array('title', 'editor'),
+        'show_in_rest'       => true,
+    );
+
+    register_post_type(
+        'testimonial',
+        $args
+    );
+}
+
+add_action(
+    'init',
+    'pinnacle_register_testimonial_cpt'
+);
+
+
+/* =========================================================
+ * TESTIMONIAL META BOX
+ * ========================================================= */
+
+function pinnacle_add_testimonial_meta_box() {
+
+    add_meta_box(
+        'pinnacle_testimonial_information',
+        'Testimonial Information',
+        'pinnacle_render_testimonial_meta_box',
+        'testimonial',
+        'normal',
+        'high'
+    );
+}
+
+add_action(
+    'add_meta_boxes',
+    'pinnacle_add_testimonial_meta_box'
+);
+
+
+function pinnacle_render_testimonial_meta_box( $post ) {
+
+    wp_nonce_field(
+        'pinnacle_save_testimonial',
+        'pinnacle_testimonial_nonce'
+    );
+
+    $reviewer_name = get_post_meta(
+        $post->ID,
+        '_testimonial_reviewer_name',
+        true
+    );
+
+    $source = get_post_meta(
+        $post->ID,
+        '_testimonial_source',
+        true
+    );
+
+    ?>
+
+    <p>
+        <label
+            for="pinnacle_testimonial_reviewer_name"
+            style="display:block;font-weight:600;margin-bottom:6px;"
+        >
+            Reviewer Name
+        </label>
+
+        <input
+            type="text"
+            id="pinnacle_testimonial_reviewer_name"
+            name="pinnacle_testimonial_reviewer_name"
+            value="<?php echo esc_attr( $reviewer_name ); ?>"
+            placeholder="Ikram Osman"
+            style="width:100%;max-width:600px;"
+        >
+    </p>
+
+
+    <p>
+        <label
+            for="pinnacle_testimonial_source"
+            style="display:block;font-weight:600;margin-bottom:6px;"
+        >
+            Source
+        </label>
+
+        <input
+            type="text"
+            id="pinnacle_testimonial_source"
+            name="pinnacle_testimonial_source"
+            value="<?php echo esc_attr( $source ); ?>"
+            placeholder="Google"
+            style="width:100%;max-width:600px;"
+        >
+    </p>
+
+    <p style="color:#646970;">
+        Enter the testimonial itself in the normal WordPress editor above/below.
+    </p>
+
+    <?php
+}
+
+
+function pinnacle_save_testimonial(
+    $post_id
+) {
+
+    if (
+        ! isset(
+            $_POST['pinnacle_testimonial_nonce']
+        )
+    ) {
+        return;
+    }
+
+    if (
+        ! wp_verify_nonce(
+            $_POST['pinnacle_testimonial_nonce'],
+            'pinnacle_save_testimonial'
+        )
+    ) {
+        return;
+    }
+
+    if (
+        defined( 'DOING_AUTOSAVE' )
+        && DOING_AUTOSAVE
+    ) {
+        return;
+    }
+
+    if (
+        wp_is_post_revision( $post_id )
+    ) {
+        return;
+    }
+
+    if (
+        ! current_user_can(
+            'edit_post',
+            $post_id
+        )
+    ) {
+        return;
+    }
+
+    if (
+        get_post_type( $post_id ) !== 'testimonial'
+    ) {
+        return;
+    }
+
+
+    if (
+        isset(
+            $_POST['pinnacle_testimonial_reviewer_name']
+        )
+    ) {
+
+        update_post_meta(
+            $post_id,
+            '_testimonial_reviewer_name',
+            sanitize_text_field(
+                $_POST['pinnacle_testimonial_reviewer_name']
+            )
+        );
+
+    }
+
+
+    if (
+        isset(
+            $_POST['pinnacle_testimonial_source']
+        )
+    ) {
+
+        update_post_meta(
+            $post_id,
+            '_testimonial_source',
+            sanitize_text_field(
+                $_POST['pinnacle_testimonial_source']
+            )
+        );
+
+    }
+
+}
+
+add_action(
+    'save_post_testimonial',
+    'pinnacle_save_testimonial'
+);
+
 /**
  * Medical Professional ACF Fields
  */

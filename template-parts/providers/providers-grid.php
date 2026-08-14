@@ -24,7 +24,7 @@ if (empty($providers)) {
     $providers = [
         [
             'photo' => ['url' => $placeholder1_photo, 'alt' => 'Olukayode'],
-            'name'  => 'Olukayode Awosika, MD',
+            'name'  => 'Olukayode Awosika, MD, DAFAPA',
             'title' => 'Psychiatrist',
             'link'  => ['url' => home_url('/provider/olukayode-awosika-md-dfapa/'), 'title' => 'Read More'],
         ],
@@ -32,7 +32,7 @@ if (empty($providers)) {
             'photo' => ['url' => $placeholder2_photo, 'alt' => 'Dara'],
             'name'  => 'Tami Kittleson, APRN, CNP, PMHNP-BC​',
             'title' => 'Psychiatric Mental Health Nurse Practitioner',
-            'link'  => ['url' => home_url('provider/tami-kittleso/'), 'title' => 'Read More'],
+            'link'  => ['url' => home_url('/provider/tami-kittleso/'), 'title' => 'Read More'],
         ],
         [
             'photo' => ['url' => $placeholder3_photo, 'alt' => 'Derek'],

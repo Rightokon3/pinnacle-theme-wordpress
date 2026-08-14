@@ -9,17 +9,17 @@ $banner_cta_text = get_field('contact_banner_cta_text', 'option') ?: 'Schedule C
 $banner_cta_link = get_field('contact_banner_cta_link', 'option') ?: '#appointment';
 
 $heading = get_field('contact_heading', 'option') ?: 'Contact Us';
-$body    = get_field('contact_body', 'option') ?: "Ready to take the first step towards your mental health and wellness goals? Schedule a consultation with our team — we're here to help you find a plan that fits.";
 
-$map_lat = get_field('contact_map_lat', 'option') ?: 44.9778;
-$map_lng = get_field('contact_map_lng', 'option') ?: -93.265;
-$map_business_name = get_field('contact_map_business_name', 'option') ?: 'Pinnacle Behavioral Healthcare';
+
+$map_lat = get_field('contact_map_lat', 'option') ?: 44.882113;
+$map_lng = get_field('contact_map_lng', 'option') ?: -93.329680;
+$map_business_name = get_field('contact_map_business_name', 'option') ?: 'Pinnacle Behavioral Healthcare | Edina';
 
 $map_address_lines = get_field('contact_map_address_lines', 'option');
 if (empty($map_address_lines)) {
     $map_address_lines = [
-        ['line' => '500 Wellness Blvd, Suite 200'],
-        ['line' => 'Minneapolis, MN 55401'],
+        ['line' => '6600 France Ave S Ste.'],
+        ['line' => ' 415, Edina, MN 55435, USA'],
     ];
 }
 ?>
@@ -43,7 +43,6 @@ if (empty($map_address_lines)) {
     <div class="contact__grid">
         <div class="contact__form-col">
             <h2 class="contact__heading"><?php echo esc_html($heading); ?></h2>
-            <p class="contact__body"><?php echo esc_html($body); ?></p>
 
             <?php get_template_part('template-parts/contact/contact-form'); ?>
         </div>
