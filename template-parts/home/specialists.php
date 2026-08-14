@@ -15,20 +15,20 @@ if (empty($specialists)) {
             'name' => 'Tami Kittlesonrn',
             'title' => 'APRN, CNP, PMHNP-BC',
             'photo' => ['url' => get_template_directory_uri() . '/assets/images/Dara-Awosika-1-2-1024x328.webp'],
-            'link' => ['url' => home_url('/contact'), 'title' => 'View Profile'],
+            'link' => ['url'   => home_url('/provider/tami-kittleso/'),'title' => 'View Profile',],
         ],
         [
             'name' => 'Olukayode Awosika',
             'title' => 'MD, FAPA',
             'photo' => ['url' => get_template_directory_uri() . '/assets/images/Headshot-Olukayode-Awosika-B.webp'],
-            'link' => ['url' => home_url('/contact'), 'title' => 'View Profile'],
+            'link' => ['url' => home_url('/provider/olukayode-awosika-md-dfapa/'), 'title' => 'View Profile'],
             'featured' => true,
         ],
         [
             'name' => 'Fatuma Guhadrn',
             'title' => 'APRN, CNP, PMHNP-BCrn',
             'photo' => ['url' => get_template_directory_uri() . '/assets/images/Mask-group-5.webp'],
-            'link' => ['url' => home_url('/contact'), 'title' => 'View Profile'],
+            'link' => ['url' => home_url('/provider/fatuma-guhad-aprn-cnp-pmhnp-bc/'), 'title' => 'View Profile'],
         ],
     ];
 }

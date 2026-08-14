@@ -8,53 +8,63 @@ document.addEventListener("DOMContentLoaded", function () {
     var tabs = Array.prototype.slice.call(
       tabsWrap.querySelectorAll("[data-service-highlights-tab]")
     );
+
     var panels = Array.prototype.slice.call(
       panelsWrap.querySelectorAll("[data-service-highlights-panel]")
     );
 
     if (tabs.length === 0 || panels.length === 0) return;
 
-    var autoplayDelay = parseInt(carousel.getAttribute("data-autoplay-delay"), 10) || 4500;
-    var timer = null;
-    var activeIndex = 0;
-    var isPaused = false;
-
     function setActive(index) {
-      activeIndex = (index + tabs.length) % tabs.length;
+      index = Math.max(0, Math.min(index, tabs.length - 1));
 
       tabs.forEach(function (tab, i) {
-        var isActive = i === activeIndex;
+        var isActive = i === index;
+
         tab.classList.toggle("is-active", isActive);
         tab.setAttribute("aria-selected", isActive ? "true" : "false");
       });
 
       panels.forEach(function (panel, i) {
-        panel.classList.toggle("is-active", i === activeIndex);
+        panel.classList.toggle("is-active", i === index);
       });
     }
 
-    function startAutoplay() {
-      stopAutoplay();
-      timer = window.setInterval(function () {
-        if (!isPaused) setActive(activeIndex + 1);
-      }, autoplayDelay);
-    }
-
-    function stopAutoplay() {
-      if (timer) {
-        window.clearInterval(timer);
-        timer = null;
-      }
-    }
-
+    /*
+     * DESKTOP:
+     * Change the image/content when the user hovers
+     * over a service item.
+     */
     tabs.forEach(function (tab, i) {
+
+      tab.addEventListener("mouseenter", function () {
+        setActive(i);
+      });
+
+      /*
+       * Keyboard accessibility.
+       * When the user tabs onto a service, activate it.
+       */
+      tab.addEventListener("focus", function () {
+        setActive(i);
+      });
+
+      /*
+       * Keep click functionality too.
+       * Useful for touch devices and accessibility.
+       */
       tab.addEventListener("click", function () {
-        isPaused = true;
         setActive(i);
       });
     });
 
+    /*
+     * Start with the first service active.
+     *
+     * IMPORTANT:
+     * There is NO autoplay timer here.
+     * Nothing moves by itself.
+     */
     setActive(0);
-    startAutoplay();
   });
 });

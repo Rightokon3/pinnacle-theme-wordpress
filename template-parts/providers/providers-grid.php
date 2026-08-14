@@ -26,53 +26,53 @@ if (empty($providers)) {
             'photo' => ['url' => $placeholder1_photo, 'alt' => 'Olukayode'],
             'name'  => 'Olukayode Awosika, MD',
             'title' => 'Psychiatrist',
-            'link'  => ['url' => '#', 'title' => 'Read More'],
+            'link'  => ['url' => home_url('/provider/olukayode-awosika-md-dfapa/'), 'title' => 'Read More'],
         ],
         [
             'photo' => ['url' => $placeholder2_photo, 'alt' => 'Dara'],
             'name'  => 'Tami Kittleson, APRN, CNP, PMHNP-BC​',
             'title' => 'Psychiatric Mental Health Nurse Practitioner',
-            'link'  => ['url' => '#', 'title' => 'Read More'],
+            'link'  => ['url' => home_url('provider/tami-kittleso/'), 'title' => 'Read More'],
         ],
         [
             'photo' => ['url' => $placeholder3_photo, 'alt' => 'Derek'],
             'name'  => 'Derek Davis, PMHNP-BC',
             'title' => 'Psychiatric Mental Health Nurse Practitioner',
-            'link'  => ['url' => '#', 'title' => 'Read More'],
+            'link'  => ['url' => home_url('/provider/derek-davis-pmhnp-bc/'), 'title' => 'Read More'],
         ],
              
         [
             'photo' => ['url' => $placeholder4_photo, 'alt' => 'Funsho'],
             'name'  => 'Funsho King, APRN, CNP, PMHNP-BC',
             'title' => 'Psychiatric Mental Health Nurse Practitioner',
-            'link'  => ['url' => '#', 'title' => 'Read More'],
+            'link'  => ['url' => home_url('/provider/funsho-king/'), 'title' => 'Read More'],
         ],
                      
         [
             'photo' => ['url' => $placeholder5_photo, 'alt' => 'Fatuma'],
             'name'  => 'Fatuma Guhad, APRN, CNP, PMHNP-BC',
             'title' => 'Psychiatric Mental Health Nurse Practitioner',
-            'link'  => ['url' => '#', 'title' => 'Read More'],
+            'link'  => ['url' => home_url('/provider/fatuma-guhad-aprn-cnp-pmhnp-bc/'), 'title' => 'Read More'],
         ],
              
         [
             'photo' => ['url' => $placeholder6_photo, 'alt' => 'Mary'],
             'name'  => 'Mary Guest, MSW, LICSW',
             'title' => 'Psychotherapist',
-            'link'  => ['url' => '#', 'title' => 'Read More'],
+            'link'  => ['url' => home_url('/provider/mary-guest/'), 'title' => 'Read More'],
         ],
               
         [
             'photo' => ['url' => $placeholder7_photo, 'alt' => 'John'],
             'name'  => 'Ebi Awosika, M.D., MPH, FACOEM',
             'title' => 'Clinic Director/Physician',
-            'link'  => ['url' => '#', 'title' => 'Read More'],
+            'link'  => ['url' => home_url('/provider/ebi-awosika/'), 'title' => 'Read More'],
         ],
         [
             'photo' => ['url' => $placeholder8_photo, 'alt' => 'Dara'],
             'name'  => 'Dara Awosika',
             'title' => 'Psychologist',
-            'link'  => ['url' => '#', 'title' => 'Read More'],
+            'link'  => ['url' => home_url('/provider/dara-awosika/'), 'title' => 'Read More'],
         ],
     ];
 }

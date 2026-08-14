@@ -82,11 +82,7 @@
     <!-- disclaimer — placeholder; replace with your own reviewed clinical/legal copy -->
     <div class="site-footer__disclaimer">
         <p>
-            Placeholder disclaimer text: this section is reserved for treatment
-            indications, safety information, and any other regulatory or legal copy
-            your organization is required to display. It should be reviewed and
-            supplied by your clinical and legal teams before this site goes live —
-            do not publish with this placeholder in place.
+           Adolescent Indication Statement: Adult Indications for Use The NeuroStar Advanced Therapy System is indicated for the treatment of depressive episodes and for decreasing anxiety symptoms for those who may exhibit comorbid anxiety symptoms in adult patients suffering from Major Depressive Disorder (MDD) and who failed to achieve satisfactory improvement from previous antidepressant medication treatment in the current episode. The NeuroStar Advanced Therapy System is intended to be used as an adjunct for the treatment of adult patients suffering from Obsessive-Compulsive Disorder (OCD). Adolescent Indications for Use NeuroStar Advanced Therapy is indicated as an adjunct for the treatment of Major Depressive Disorder (MDD) in adolescent patients (15-21). NeuroStar Advanced Therapy is only available by prescription. A doctor can help decide if NeuroStar Advanced Therapy is right for you. Patients’ results may vary. Important Safety Information The most common side effect is pain or discomfort at or near the treatment site. These events are transient; they occur during the TMS treatment course and do not occur for most patients after the first week of treatment. There is a rare risk of seizure associated with the use of TMS therapy < 0.1% per patient. NeuroStar Advanced Therapy should not be used with patients who have non-removable conductive metal in or near the head. NeuroStar Advanced Therapy has not been studied in patients who have not received prior antidepressant treatment.
         </p>
     </div>
 

@@ -9,6 +9,8 @@ get_header();
 <?php get_template_part('template-parts/home/feature-icons'); ?>
 <?php get_template_part('template-parts/home/services'); ?>
 <?php get_template_part('template-parts/home/testimonials'); ?>
+<?php get_template_part('template-parts/home/neurostar-feature'); ?>
+<?php get_template_part('template-parts/home/brain-series'); ?>
 <?php get_template_part('template-parts/home/cta'); ?>
 <?php get_template_part('template-parts/home/about'); ?>
 <?php get_template_part('template-parts/home/service-highlights-carousel'); ?>

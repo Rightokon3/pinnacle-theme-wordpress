@@ -12,8 +12,12 @@ $staff_photo = get_field('staff_photo', 'option');
 $staff_photo_url = $staff_photo['url'] ?? get_template_directory_uri() . '/assets/images/staff-amara-bello.png';
 $staff_photo_alt = $staff_photo['alt'] ?? ('Portrait of ' . $staff_name);
 ?>
-
+ <a
+        href="<?php echo esc_url(home_url('providers/dara-awosika/')); ?>"
+        class="staff-announcement__link" style="text-decoration: none; color: inherit;"
+    >
 <section class="staff-announcement">
+   
     <div class="staff-announcement__inner">
         <div class="staff-announcement__card">
             <p class="staff-announcement__eyebrow"><?php echo esc_html($eyebrow); ?></p>
@@ -28,4 +32,5 @@ $staff_photo_alt = $staff_photo['alt'] ?? ('Portrait of ' . $staff_name);
             loading="lazy"
         >
     </div>
+    </a>
 </section>

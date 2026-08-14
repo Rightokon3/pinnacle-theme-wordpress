@@ -1991,8 +1991,816 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
 }
 
+function pinnacle_enqueue_homepage_scripts() {
+    if (is_front_page()) {
+        wp_enqueue_script(
+            'pinnacle-homepage',
+            get_template_directory_uri() . '/assets/js/homepage.js',
+            array(),
+            filemtime(get_template_directory() . '/assets/js/homepage.js'),
+            true
+        );
+    }
+}
+/**
+ * Medical Professionals Custom Post Type
+ */
+function pinnacle_register_provider_cpt() {
+
+    $labels = array(
+        'name'               => 'Medical Professionals',
+        'singular_name'      => 'Medical Professional',
+        'menu_name'          => 'Medical Professionals',
+        'add_new'            => 'Add Professional',
+        'add_new_item'       => 'Add New Medical Professional',
+        'edit_item'          => 'Edit Medical Professional',
+        'new_item'           => 'New Medical Professional',
+        'view_item'          => 'View Medical Professional',
+        'search_items'       => 'Search Medical Professionals',
+        'not_found'          => 'No medical professionals found',
+        'not_found_in_trash' => 'No medical professionals found in trash',
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'menu_icon'          => 'dashicons-businessperson',
+        'supports'           => array('title', 'thumbnail'),
+        'has_archive'        => false,
+        'rewrite'            => array(
+            'slug'       => 'provider',
+            'with_front' => false,
+        ),
+        'show_in_rest'       => true,
+    );
+
+    register_post_type('provider', $args);
+}
+add_action('init', 'pinnacle_register_provider_cpt');
+
+/**
+ * Medical Professional ACF Fields
+ */
+function pinnacle_register_provider_fields() {
+
+    if ( ! function_exists('acf_add_local_field_group') ) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_provider_information',
+        'title' => 'Medical Professional Information',
+        'fields' => array(
+
+            array(
+                'key' => 'field_provider_photo',
+                'label' => 'Professional Photo',
+                'name' => 'provider_photo',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'library' => 'all',
+            ),
+
+            array(
+                'key' => 'field_provider_credentials',
+                'label' => 'Name & Credentials',
+                'name' => 'provider_credentials',
+                'type' => 'text',
+                'placeholder' => 'Dara Awosika BSW, MSW, LICSW',
+            ),
+
+            array(
+                'key' => 'field_provider_title',
+                'label' => 'Professional Title',
+                'name' => 'provider_title',
+                'type' => 'text',
+                'placeholder' => 'Psychotherapist',
+            ),
+
+            array(
+                'key' => 'field_provider_bio',
+                'label' => 'Biography',
+                'name' => 'provider_bio',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'full',
+                'media_upload' => false,
+            ),
+
+            array(
+                'key' => 'field_provider_education',
+                'label' => 'Education',
+                'name' => 'provider_education',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'basic',
+                'media_upload' => false,
+            ),
+
+            array(
+                'key' => 'field_provider_philosophy',
+                'label' => 'Treatment Philosophy',
+                'name' => 'provider_treatment_philosophy',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'basic',
+                'media_upload' => false,
+            ),
+
+            array(
+                'key' => 'field_provider_modalities',
+                'label' => 'Therapy Modalities',
+                'name' => 'provider_therapy_modalities',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'basic',
+                'media_upload' => false,
+            ),
+
+            array(
+                'key' => 'field_provider_focus',
+                'label' => 'Areas of Focus',
+                'name' => 'provider_areas_of_focus',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'basic',
+                'media_upload' => false,
+            ),
+
+            array(
+                'key' => 'field_provider_experience',
+                'label' => 'Professional Experience',
+                'name' => 'provider_professional_experience',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'basic',
+                'media_upload' => false,
+            ),
+
+            array(
+                'key' => 'field_provider_community',
+                'label' => 'Community Involvement',
+                'name' => 'provider_community_involvement',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'basic',
+                'media_upload' => false,
+            ),
+
+            array(
+                'key' => 'field_provider_consultation',
+                'label' => 'Consultation Link',
+                'name' => 'provider_consultation_link',
+                'type' => 'url',
+                'placeholder' => 'https://...',
+            ),
+            /* =========================================================
+ * OPTIONAL PROVIDER SECTIONS
+ * ========================================================= */
+
+/*
+ * Psychology Today
+ */
+array(
+    'key' => 'field_provider_psychology_today',
+    'label' => 'Psychology Today Profile',
+    'name' => 'provider_psychology_today_url',
+    'type' => 'url',
+    'instructions' => 'Optional. Add the provider\'s Psychology Today profile URL.',
+    'placeholder' => 'https://www.psychologytoday.com/...',
+),
+
+/*
+ * Show Testimonials
+ */
+array(
+    'key' => 'field_provider_show_testimonials',
+    'label' => 'Show Testimonials',
+    'name' => 'provider_show_testimonials',
+    'type' => 'true_false',
+    'instructions' => 'Turn this on to display the Testimonials section on this provider page.',
+    'default_value' => 0,
+    'ui' => 1,
+    'ui_on_text' => 'Yes',
+    'ui_off_text' => 'No',
+),
+
+
+
+        ),
+
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'provider',
+                ),
+            ),
+        ),
+
+        'position' => 'normal',
+        'style' => 'default',
+        'active' => true,
+    ));
+}
+
+add_action('acf/init', 'pinnacle_register_provider_fields');
+
+/* =========================================================
+ * NATIVE PROVIDER TESTIMONIALS
+ * Does not require ACF Pro.
+ * ========================================================= */
+
+
+/**
+ * Add the Testimonials metabox.
+ */
+function pinnacle_add_provider_testimonials_metabox() {
+
+    add_meta_box(
+        'pinnacle_provider_testimonials',
+        'Provider Testimonials',
+        'pinnacle_render_provider_testimonials_metabox',
+        'provider',
+        'normal',
+        'default'
+    );
+}
+
+add_action(
+    'add_meta_boxes',
+    'pinnacle_add_provider_testimonials_metabox'
+);
+
+
+/**
+ * Render the Testimonials editor.
+ */
+function pinnacle_render_provider_testimonials_metabox( $post ) {
+
+    wp_nonce_field(
+        'pinnacle_save_provider_testimonials',
+        'pinnacle_provider_testimonials_nonce'
+    );
+
+    $testimonials = get_post_meta(
+        $post->ID,
+        '_pinnacle_provider_testimonials',
+        true
+    );
+
+    if ( ! is_array( $testimonials ) ) {
+        $testimonials = array();
+    }
+
+    ?>
+
+    <div
+        id="pinnacle-testimonials-editor"
+        class="pinnacle-testimonials-editor"
+    >
+
+        <p>
+            Add the testimonials you have permission to publish for this
+            medical professional.
+        </p>
+
+
+        <div
+            id="pinnacle-testimonial-items"
+        >
+
+            <?php
+
+            if ( ! empty( $testimonials ) ) :
+
+                foreach (
+                    $testimonials as $index => $testimonial
+                ) :
+
+                    pinnacle_render_provider_testimonial_row(
+                        $index,
+                        $testimonial
+                    );
+
+                endforeach;
+
+            else :
+
+                pinnacle_render_provider_testimonial_row(
+                    0,
+                    array()
+                );
+
+            endif;
+
+            ?>
+
+        </div>
+
+
+        <p>
+
+            <button
+                type="button"
+                class="button button-primary"
+                id="pinnacle-add-testimonial"
+            >
+                + Add Testimonial
+            </button>
+
+        </p>
+
+    </div>
+
+
+    <script type="text/html" id="pinnacle-testimonial-template">
+
+        <?php
+        pinnacle_render_provider_testimonial_row(
+            '__INDEX__',
+            array()
+        );
+        ?>
+
+    </script>
+
+
+    <style>
+
+        .pinnacle-testimonials-editor {
+            max-width: 100%;
+        }
+
+        .pinnacle-testimonial-row {
+            margin-bottom: 20px;
+            padding: 20px;
+
+            border: 1px solid #dcdcde;
+            background: #fff;
+            box-sizing: border-box;
+        }
+
+        .pinnacle-testimonial-row__grid {
+            display: grid;
+            grid-template-columns:
+                100px
+                1fr
+                180px;
+
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .pinnacle-testimonial-field label {
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-weight: 600;
+        }
+
+        .pinnacle-testimonial-field input,
+        .pinnacle-testimonial-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .pinnacle-testimonial-field--full {
+            margin-bottom: 15px;
+        }
+
+        .pinnacle-testimonial-field--initial input {
+            max-width: 80px;
+        }
+
+        .pinnacle-remove-testimonial {
+            color: #b32d2e !important;
+        }
+
+        @media (max-width: 782px) {
+
+            .pinnacle-testimonial-row__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pinnacle-testimonial-field--initial input {
+                max-width: none;
+            }
+
+        }
+
+    </style>
+
+
+    <script>
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+
+            const container =
+                document.getElementById(
+                    'pinnacle-testimonial-items'
+                );
+
+            const addButton =
+                document.getElementById(
+                    'pinnacle-add-testimonial'
+                );
+
+            const template =
+                document.getElementById(
+                    'pinnacle-testimonial-template'
+                );
+
+
+            if (
+                !container ||
+                !addButton ||
+                !template
+            ) {
+                return;
+            }
+
+
+            let index =
+                container.querySelectorAll(
+                    '.pinnacle-testimonial-row'
+                ).length;
+
+
+            addButton.addEventListener(
+                'click',
+                function () {
+
+                    const html =
+                        template.innerHTML.replace(
+                            /__INDEX__/g,
+                            index
+                        );
+
+                    container.insertAdjacentHTML(
+                        'beforeend',
+                        html
+                    );
+
+                    index++;
+
+                }
+            );
+
+
+            container.addEventListener(
+                'click',
+                function (event) {
+
+                    const removeButton =
+                        event.target.closest(
+                            '.pinnacle-remove-testimonial'
+                        );
+
+                    if ( ! removeButton ) {
+                        return;
+                    }
+
+
+                    const row =
+                        removeButton.closest(
+                            '.pinnacle-testimonial-row'
+                        );
+
+                    if ( row ) {
+                        row.remove();
+                    }
+
+                }
+            );
+
+        }
+    );
+
+    </script>
+
+    <?php
+}
+
+
+/**
+ * Output one testimonial row.
+ */
+function pinnacle_render_provider_testimonial_row(
+    $index,
+    $testimonial
+) {
+
+    $initial =
+        isset( $testimonial['initial'] )
+            ? $testimonial['initial']
+            : '';
+
+    $name =
+        isset( $testimonial['name'] )
+            ? $testimonial['name']
+            : '';
+
+    $role =
+        isset( $testimonial['role'] )
+            ? $testimonial['role']
+            : '';
+
+    $text =
+        isset( $testimonial['text'] )
+            ? $testimonial['text']
+            : '';
+
+    ?>
+
+    <div
+        class="pinnacle-testimonial-row"
+        data-index="<?php echo esc_attr( $index ); ?>"
+    >
+
+        <div
+            class="pinnacle-testimonial-row__grid"
+        >
+
+
+            <!-- Initial -->
+
+            <div
+                class="pinnacle-testimonial-field pinnacle-testimonial-field--initial"
+            >
+
+                <label>
+                    Initial
+                </label>
+
+                <input
+                    type="text"
+                    name="pinnacle_testimonials[<?php echo esc_attr( $index ); ?>][initial]"
+                    value="<?php echo esc_attr( $initial ); ?>"
+                    maxlength="1"
+                    placeholder="J"
+                >
+
+            </div>
+
+
+            <!-- Name -->
+
+            <div
+                class="pinnacle-testimonial-field"
+            >
+
+                <label>
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    name="pinnacle_testimonials[<?php echo esc_attr( $index ); ?>][name]"
+                    value="<?php echo esc_attr( $name ); ?>"
+                    placeholder="J.R. or Anonymous"
+                >
+
+            </div>
+
+
+            <!-- Role -->
+
+            <div
+                class="pinnacle-testimonial-field"
+            >
+
+                <label>
+                    Role
+                </label>
+
+                <input
+                    type="text"
+                    name="pinnacle_testimonials[<?php echo esc_attr( $index ); ?>][role]"
+                    value="<?php echo esc_attr( $role ); ?>"
+                    placeholder="Client"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- Testimonial -->
+
+        <div
+            class="pinnacle-testimonial-field pinnacle-testimonial-field--full"
+        >
+
+            <label>
+                Testimonial
+            </label>
+
+            <textarea
+                name="pinnacle_testimonials[<?php echo esc_attr( $index ); ?>][text]"
+                rows="5"
+                placeholder="Enter the testimonial..."
+            ><?php echo esc_textarea( $text ); ?></textarea>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="button pinnacle-remove-testimonial"
+        >
+            Remove Testimonial
+        </button>
+
+    </div>
+
+    <?php
+}
+
+
+/**
+ * Save the testimonials.
+ */
+function pinnacle_save_provider_testimonials(
+    $post_id
+) {
+
+    /*
+     * Nonce check.
+     */
+    if (
+        ! isset(
+            $_POST['pinnacle_provider_testimonials_nonce']
+        )
+    ) {
+        return;
+    }
+
+
+    if (
+        ! wp_verify_nonce(
+            $_POST['pinnacle_provider_testimonials_nonce'],
+            'pinnacle_save_provider_testimonials'
+        )
+    ) {
+        return;
+    }
+
+
+    /*
+     * Autosave check.
+     */
+    if (
+        defined( 'DOING_AUTOSAVE' )
+        && DOING_AUTOSAVE
+    ) {
+        return;
+    }
+
+
+    /*
+     * Revision check.
+     */
+    if (
+        wp_is_post_revision( $post_id )
+    ) {
+        return;
+    }
+
+
+    /*
+     * Permission check.
+     */
+    if (
+        ! current_user_can(
+            'edit_post',
+            $post_id
+        )
+    ) {
+        return;
+    }
+
+
+    /*
+     * Only providers.
+     */
+    if (
+        get_post_type( $post_id ) !== 'provider'
+    ) {
+        return;
+    }
+
+
+    $submitted =
+        isset(
+            $_POST['pinnacle_testimonials']
+        )
+            ? $_POST['pinnacle_testimonials']
+            : array();
+
+
+    $clean = array();
+
+
+    if ( is_array( $submitted ) ) {
+
+        foreach (
+            $submitted as $testimonial
+        ) {
+
+            $initial =
+                isset( $testimonial['initial'] )
+                    ? sanitize_text_field(
+                        $testimonial['initial']
+                    )
+                    : '';
+
+            $name =
+                isset( $testimonial['name'] )
+                    ? sanitize_text_field(
+                        $testimonial['name']
+                    )
+                    : '';
+
+            $role =
+                isset( $testimonial['role'] )
+                    ? sanitize_text_field(
+                        $testimonial['role']
+                    )
+                    : '';
+
+            $text =
+                isset( $testimonial['text'] )
+                    ? sanitize_textarea_field(
+                        $testimonial['text']
+                    )
+                    : '';
+
+
+            /*
+             * Don't save completely empty rows.
+             */
+            if (
+                $initial === ''
+                && $name === ''
+                && $role === ''
+                && $text === ''
+            ) {
+                continue;
+            }
+
+
+            $clean[] = array(
+                'initial' => mb_substr(
+                    $initial,
+                    0,
+                    1
+                ),
+                'name'    => $name,
+                'role'    => $role,
+                'text'    => $text,
+            );
+
+        }
+
+    }
+
+
+    if ( ! empty( $clean ) ) {
+
+        update_post_meta(
+            $post_id,
+            '_pinnacle_provider_testimonials',
+            $clean
+        );
+
+    } else {
+
+        delete_post_meta(
+            $post_id,
+            '_pinnacle_provider_testimonials'
+        );
+
+    }
+
+}
+
+add_action(
+    'save_post_provider',
+    'pinnacle_save_provider_testimonials'
+);
+
+add_action('wp_enqueue_scripts', 'pinnacle_enqueue_homepage_scripts');
 /* =========================================================
    Cart page - "Return to Shop" points to the real store
    (Fullscript), not the unused local WooCommerce shop page
