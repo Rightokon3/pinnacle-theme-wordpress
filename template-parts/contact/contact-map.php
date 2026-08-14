@@ -8,8 +8,8 @@
  * $args['address_lines'] (array of ['line' => '']).
  */
 
-$latitude      = $args['latitude'] ?? 44.9778;
-$longitude     = $args['longitude'] ?? -93.265;
+$latitude      = $args['latitude'] ?? 44.882053;
+$longitude     = $args['longitude'] ?? -93.329562;
 $business_name = $args['business_name'] ?? 'Pinnacle Behavioral Healthcare';
 $address_lines = $args['address_lines'] ?? [];
 
