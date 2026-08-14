@@ -36,6 +36,14 @@ if ( have_posts() ) :
         /*
          * Optional testimonials.
          */
+
+  $testimonials_heading = get_field(
+    'provider_testimonials_heading'
+   );
+
+   if ( ! $testimonials_heading ) {
+    $testimonials_heading = 'Testimonials';
+   }
         $show_testimonials = get_field(
             'provider_show_testimonials'
         );
@@ -600,11 +608,9 @@ if ( ! is_array( $testimonials ) ) {
                         class="provider-testimonials__container"
                     >
 
-                        <h2
-                            class="provider-testimonials__title"
-                        >
-                            Testimonials
-                        </h2>
+         <h2 class="provider-testimonials__title">
+             <?php echo esc_html( $testimonials_heading ); ?>
+            </h2>
 
 
                         <div

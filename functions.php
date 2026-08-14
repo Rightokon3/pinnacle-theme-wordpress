@@ -2191,6 +2191,15 @@ array(
     'ui_off_text' => 'No',
 ),
 
+array(
+    'key' => 'field_provider_testimonials_heading',
+    'label' => 'Testimonials Section Heading',
+    'name' => 'provider_testimonials_heading',
+    'type' => 'text',
+    'instructions' => 'Optional. Enter the heading to display above this provider\'s testimonials.',
+    'default_value' => 'Testimonials',
+    'placeholder' => 'Testimonials',
+),
 
 
         ),
