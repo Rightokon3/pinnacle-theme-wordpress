@@ -132,11 +132,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
 
-                targetSlide.scrollIntoView({
-                    behavior: "smooth",
-                    inline: "start",
-                    block: "nearest"
-                });
+               var targetLeft = targetSlide.offsetLeft;
+
+         track.scrollTo({
+             left: targetLeft,
+               behavior: "smooth"
+             });
 
 
                 setActiveDot(
