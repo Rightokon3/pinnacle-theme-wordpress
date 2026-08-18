@@ -3039,3 +3039,78 @@ add_action('wp_enqueue_scripts', 'pinnacle_enqueue_homepage_scripts');
 add_filter('woocommerce_return_to_shop_redirect', function () {
     return 'https://us.fullscript.com/s/pinnaclebhc/shop';
 });
+?>
+
+<?php
+/**
+ * Enqueue assets for the Edina Location page template.
+ */
+function pinnacle_enqueue_edina_location_assets() {
+    if ( is_page_template('page-edina.php') ) {
+        $css_file = get_template_directory() . '/style.css';
+        $js_file  = get_template_directory() . '/assets/js/edina.js';
+
+        wp_enqueue_style(
+            'pinnacle-edina-location',
+            get_template_directory_uri() . '/style.css',
+            array(),
+            file_exists($css_file) ? filemtime($css_file) : '1.0.0'
+        );
+
+        wp_enqueue_script(
+            'pinnacle-edina-location',
+            get_template_directory_uri() . '/assets/js/edina.js',
+            array(),
+            file_exists($js_file) ? filemtime($js_file) : '1.0.0',
+            true
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'pinnacle_enqueue_edina_location_assets');
+
+/**
+ * Optional SEO title for the Edina location page.
+ */
+function pinnacle_edina_location_document_title($title) {
+    if ( is_page_template('page-edina.php') ) {
+        return 'Psychiatric & Behavioral Health Care in Edina, MN | Pinnacle Behavioral Healthcare';
+    }
+    return $title;
+}
+add_filter('pre_get_document_title', 'pinnacle_edina_location_document_title');
+
+/**
+ * LocalBusiness/MedicalClinic JSON-LD for the Edina location page.
+ */
+function pinnacle_edina_location_schema() {
+    if ( ! is_page_template('page-edina.php') ) {
+        return;
+    }
+
+    $schema = array(
+        '@context' => 'https://schema.org',
+        '@type' => 'MedicalClinic',
+        'name' => 'Pinnacle Behavioral Healthcare | Edina',
+        'image' => 'https://pinnaclebhc.com/wp-content/uploads/2024/05/Pinnacle_Logo_final_L.webp',
+        'address' => array(
+            '@type' => 'PostalAddress',
+            'streetAddress' => '6600 France Ave S, Suite 415',
+            'addressLocality' => 'Edina',
+            'addressRegion' => 'MN',
+            'postalCode' => '55435',
+            'addressCountry' => 'US',
+        ),
+        'url' => home_url('/locations/edina/'),
+        'aggregateRating' => array(
+            '@type' => 'AggregateRating',
+            'ratingValue' => '4.6',
+            'reviewCount' => '274',
+        ),
+        'medicalSpecialty' => 'Psychiatric',
+    );
+
+    echo '<script type="application/ld+json">' .
+        wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) .
+        '</script>';
+}
+add_action('wp_head', 'pinnacle_edina_location_schema', 20);
