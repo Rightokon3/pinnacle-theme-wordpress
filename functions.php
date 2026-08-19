@@ -3114,3 +3114,113 @@ function pinnacle_edina_location_schema() {
         '</script>';
 }
 add_action('wp_head', 'pinnacle_edina_location_schema', 20);
+
+/* =========================================================
+ * BLOG POSTS CUSTOM POST TYPE
+ * ========================================================= */
+
+function pinnacle_register_blog_post_cpt() {
+
+    $labels = array(
+        'name'                  => 'Blog Posts',
+        'singular_name'         => 'Blog Post',
+        'menu_name'             => 'Blog Posts',
+        'add_new'               => 'Add Blog Post',
+        'add_new_item'          => 'Add New Blog Post',
+        'edit_item'             => 'Edit Blog Post',
+        'new_item'              => 'New Blog Post',
+        'view_item'             => 'View Blog Post',
+        'search_items'          => 'Search Blog Posts',
+        'not_found'             => 'No blog posts found',
+        'not_found_in_trash'    => 'No blog posts found in trash',
+        'all_items'             => 'All Blog Posts',
+    );
+
+    $args = array(
+        'labels'             => $labels,
+
+        'public'             => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'menu_icon'          => 'dashicons-edit-page',
+
+        'supports'           => array(
+            'title',
+            'editor',
+            'thumbnail',
+            'excerpt',
+            'author',
+        ),
+
+        'show_in_rest'       => true,
+
+        /*
+         * Do not create a separate archive page.
+         * Your existing /blog/ page will display the posts.
+         */
+        'has_archive'        => false,
+
+        'rewrite'            => array(
+            'slug'       => 'blog',
+            'with_front' => false,
+        ),
+
+        'publicly_queryable' => true,
+    );
+
+    register_post_type(
+        'blog_post',
+        $args
+    );
+}
+
+add_action(
+    'init',
+    'pinnacle_register_blog_post_cpt'
+);
+
+
+/* =========================================================
+ * BLOG CATEGORY TAXONOMY
+ * ========================================================= */
+
+function pinnacle_register_blog_category_taxonomy() {
+
+    $labels = array(
+        'name'              => 'Blog Categories',
+        'singular_name'     => 'Blog Category',
+        'search_items'      => 'Search Blog Categories',
+        'all_items'         => 'All Blog Categories',
+        'parent_item'       => 'Parent Blog Category',
+        'parent_item_colon' => 'Parent Blog Category:',
+        'edit_item'         => 'Edit Blog Category',
+        'update_item'       => 'Update Blog Category',
+        'add_new_item'      => 'Add New Blog Category',
+        'new_item_name'     => 'New Blog Category Name',
+        'menu_name'         => 'Categories',
+    );
+
+    register_taxonomy(
+        'blog_category',
+        array('blog_post'),
+        array(
+            'labels'            => $labels,
+            'public'            => true,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'show_in_rest'      => true,
+            'hierarchical'      => true,
+
+        'rewrite' => array(
+          'slug'       => 'blog',
+           'with_front' => false,
+           'has_archive' => false,
+           ),
+        )
+    );
+}
+
+add_action(
+    'init',
+    'pinnacle_register_blog_category_taxonomy'
+);

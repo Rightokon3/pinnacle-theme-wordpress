@@ -846,6 +846,23 @@ body.mobile-nav-open {
     max-width: 32rem;
 }
 
+
+.site-header__inner,
+.hero__content-wrap {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.site-header__inner {
+    padding: 12px 16px;
+}
+
+.hero__content-wrap {
+    padding: 0 16px;
+}
+
 .hero__title {
     font-size: 1.875rem;
     font-weight: 700;
@@ -866,6 +883,142 @@ body.mobile-nav-open {
     padding: 0 16px;
 }
 
+/* =====================================================
+   HERO BUTTONS
+   ===================================================== */
+
+.hero__buttons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 28px;
+}
+
+
+.hero__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 155px;
+    min-height: 48px;
+
+    padding: 0 28px;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    line-height: 1;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* New Patients */
+
+.hero__button--primary {
+    background: #2ca9df;
+    color: #ffffff;
+    border: 2px solid #2ca9df;
+}
+
+.hero__button--primary:hover {
+    background: #1583c7;
+    color: #ffffff;
+    border-color: #1583c7;
+    transform: translateY(-2px);
+}
+
+
+/* Existing Patients */
+
+.hero__button--secondary {
+    background: #ffffff;
+    color: #2ca9df;
+    border: 2px solid #2ca9df;
+}
+
+.hero__button--secondary:hover {
+    background: #2ca9df;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   MOVE APPOINTMENT FORM LOWER
+   ===================================================== */
+
+
+
+
+.hero__form-wrap {
+    position: relative;
+    z-index: 10;
+
+    margin-top: -55px;
+}
+
+
+/* =====================================================
+   DESKTOP HERO BUTTON POSITION
+   ===================================================== */
+
+@media (min-width: 768px) {
+
+    .hero__content {
+        max-width: 520px;
+    }
+
+    .hero__buttons {
+        margin-top: 30px;
+    }
+
+    .hero__form-wrap {
+        margin-top: -55px;
+    }
+
+}
+
+@media (min-width: 1024px) {
+    .hero__content-wrap {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 767px) {
+
+    .hero__buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+
+        margin-top: 24px;
+    }
+
+    .hero__button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .hero__form-wrap {
+        margin-top: -25px;
+    }
+
+}
 .appointment-form {
     position: relative;
     z-index: 20;
@@ -1227,134 +1380,32 @@ body.mobile-nav-open {
    FEATURE / PROMO BANNER
    ========================================================= */
 
+/* =====================================================
+   FEATURE BANNER
+   ===================================================== */
+
 .feature-banner {
     width: 100%;
-    max-width: 100%;
-
     margin: 0;
     padding: 0;
-
     overflow: hidden;
-
-    position: relative;
-
-    background: #fff;
-}
-
-
-/* Clickable wrapper */
-
-.feature-banner__link {
-    display: block;
-
-    width: 100%;
-
-    text-decoration: none;
-
     line-height: 0;
 }
 
-
-/* Image */
+.feature-banner__link {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 .feature-banner__image {
     display: block;
-
     width: 100%;
-    height: 360px;
-
+    height: auto;
     max-width: 100%;
-
-    object-fit: cover;
-    object-position: center center;
-
-    margin: 0;
-
-    transition:
-        transform .35s ease,
-        filter .35s ease;
-}
-
-
-/* Subtle hover */
-
-.feature-banner__link:hover .feature-banner__image {
-    transform: scale(1.015);
-}
-
-
-/* =========================================================
-   DESKTOP
-   ========================================================= */
-
-@media (min-width: 1200px) {
-
-    .feature-banner__image {
-        height: 390px;
-    }
-
-}
-
-
-/* =========================================================
-   LARGE TABLET
-   ========================================================= */
-
-@media (max-width: 1199px) {
-
-    .feature-banner__image {
-        height: 340px;
-    }
-
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    .feature-banner__image {
-        height: 300px;
-
-        object-position: center center;
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 767px) {
-
-    .feature-banner {
-        margin: 0;
-    }
-
-    .feature-banner__image {
-        width: 100%;
-        height: 220px;
-
-        object-fit: cover;
-        object-position: center center;
-    }
-
-}
-
-
-/* =========================================================
-   SMALL PHONES
-   ========================================================= */
-
-@media (max-width: 480px) {
-
-    .feature-banner__image {
-        height: 190px;
-    }
-
+    object-fit: contain;
+    object-position: center;
 }
 
 /* =====================================================
@@ -15294,4 +15345,657 @@ body.mobile-nav-open {
         transform: none;
     }
 
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    background: #fff;
+    border-bottom: 3px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.site-header__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 12px 16px;
+}
+
+.site-logo {
+    flex-shrink: 0;
+    color: var(--primary);
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   HERO
+   ===================================================== */
+
+.hero {
+    position: relative;
+    padding-bottom: 96px;
+}
+
+
+/* Hero content uses the same 16px left padding as header */
+
+.hero__content-wrap {
+    position: relative;
+    z-index: 10;
+
+    height: 100%;
+    max-width: 1280px;
+
+    margin: 0 auto;
+
+    padding-left: 16px;
+    padding-right: 16px;
+
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+
+    .hero__content {
+        max-width: 520px;
+    }
+
+    .hero__buttons {
+        margin-top: 30px;
+    }
+
+    .hero__form-wrap {
+        margin-top: -55px;
+    }
+
+}
+
+/* =========================================================
+   SINGLE BLOG ARTICLE
+   ========================================================= */
+
+.single-blog {
+    width: 100%;
+    background: #ffffff;
+    padding: 88px 32px 90px;
+    box-sizing: border-box;
+}
+
+.single-blog__grid {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 392px;
+    gap: 58px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   ARTICLE
+   ========================================================= */
+
+.single-blog__main {
+    min-width: 0;
+}
+
+.single-blog__title {
+    margin: 0 0 24px;
+
+    color: #07162e;
+
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 34px;
+    line-height: 1.28;
+
+    font-weight: 500;
+
+    letter-spacing: 0;
+}
+
+
+/* =========================================================
+   SHARE SECTION
+   ========================================================= */
+
+.single-blog .share-section {
+    margin: 0 0 46px;
+    padding: 0;
+}
+
+.single-blog .share-section__title {
+    margin: 0 0 12px;
+
+    color: #111111;
+
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 29px;
+    line-height: 1.25;
+
+    font-weight: 500;
+}
+
+.single-blog .share-section__buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.single-blog .share-section__label {
+    margin-right: 2px;
+
+    color: #999999;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 9px;
+    line-height: 1;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   ARTICLE BODY
+   ========================================================= */
+
+.single-blog__content {
+    color: #132038;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+    line-height: 2;
+}
+
+.single-blog__content p {
+    margin: 0 0 24px;
+}
+
+.single-blog__content h2 {
+    margin: 38px 0 14px;
+
+    color: #07162e;
+
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 34px;
+    line-height: 1.3;
+
+    font-weight: 500;
+}
+
+.single-blog__content h3 {
+    margin: 32px 0 12px;
+
+    color: #07162e;
+
+    font-family: "Fraunces", Georgia, serif;
+
+    font-size: 27px;
+    line-height: 1.35;
+
+    font-weight: 500;
+}
+
+.single-blog__content h2 a,
+.single-blog__content h3 a,
+.single-blog__content a {
+    color: #2ca9df;
+}
+
+.single-blog__content img {
+    display: block;
+
+    max-width: 100%;
+    height: auto;
+
+    margin: 28px auto;
+}
+
+.single-blog__content ul,
+.single-blog__content ol {
+    margin: 0 0 25px;
+    padding-left: 25px;
+}
+
+.single-blog__content li {
+    margin-bottom: 8px;
+}
+
+.single-blog__content blockquote {
+    margin: 35px 0;
+    padding: 22px 25px;
+
+    border-left: 4px solid #2ca9df;
+
+    background: #eef9fd;
+
+    color: #132038;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.single-blog__sidebar {
+    min-width: 0;
+}
+
+.single-blog__sidebar .blog-sidebar-card {
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.single-blog .blog-search-card {
+    padding: 0;
+
+    background: transparent;
+}
+
+.single-blog .blog-search {
+    display: flex;
+
+    width: 100%;
+    height: 64px;
+
+    overflow: hidden;
+
+    border: 1px solid #d8dde3;
+    border-radius: 34px;
+
+    background: #ffffff;
+}
+
+.single-blog .blog-search__input {
+    flex: 1;
+
+    min-width: 0;
+
+    border: 0;
+    outline: 0;
+
+    padding: 0 20px;
+
+    background: #ffffff;
+
+    color: #333333;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+}
+
+.single-blog .blog-search__input::placeholder {
+    color: #a4a4a4;
+}
+
+.single-blog .blog-search__button {
+    flex: 0 0 120px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    border: 0;
+
+    background: #2ca9df;
+
+    color: #ffffff;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.single-blog .blog-contact-card {
+    padding: 35px 30px 38px;
+
+    background: #dff4fc;
+}
+
+.single-blog .blog-sidebar-card__title {
+    margin: 0 0 34px;
+
+    color: #2ca9df;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 38px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+.single-blog .blog-contact-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0;
+}
+
+.single-blog .blog-contact-form label {
+    display: block;
+}
+
+.single-blog .blog-contact-form input,
+.single-blog .blog-contact-form textarea {
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 17px 0;
+
+    border: 0;
+    border-bottom: 1px solid #bdcbd2;
+
+    border-radius: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    color: #1d2634;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+}
+
+.single-blog .blog-contact-form input::placeholder,
+.single-blog .blog-contact-form textarea::placeholder {
+    color: #99a5ad;
+}
+
+.single-blog .blog-contact-form textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.single-blog .blog-contact-form__submit {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 18px;
+
+    align-self: flex-end;
+
+    min-height: 51px;
+
+    margin-top: 30px;
+
+    padding: 0 30px;
+
+    border: 0;
+    border-radius: 999px;
+
+    background: #2ca9df;
+
+    color: #ffffff;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   CATEGORIES
+   ========================================================= */
+
+.single-blog .blog-categories-card {
+    padding: 36px 30px;
+
+    background: #dff4fc;
+}
+
+.single-blog .blog-categories {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.single-blog .blog-categories li {
+    border-bottom: 1px solid rgba(52, 95, 115, 0.12);
+}
+
+.single-blog .blog-categories li:last-child {
+    border-bottom: 0;
+}
+
+.single-blog .blog-categories a {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px 0;
+
+    color: #111111;
+
+    text-decoration: none;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.4;
+}
+
+.single-blog .blog-categories a:hover {
+    color: #2ca9df;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+    .single-blog {
+        padding: 65px 24px 75px;
+    }
+
+    .single-blog__grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .single-blog__sidebar {
+        position: static;
+    }
+
+    .single-blog__title {
+        font-size: 38px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .single-blog {
+        padding: 45px 16px 60px;
+    }
+
+    .single-blog__grid {
+        gap: 35px;
+    }
+
+    .single-blog__title {
+        font-size: 29px;
+        line-height: 1.3;
+    }
+
+    .single-blog .share-section__title {
+        font-size: 26px;
+    }
+
+    .single-blog__content {
+        font-size: 15px;
+        line-height: 1.85;
+    }
+
+    .single-blog__content h2 {
+        font-size: 29px;
+    }
+
+    .single-blog .blog-contact-card,
+    .single-blog .blog-categories-card {
+        padding: 30px 20px;
+    }
+
+    .single-blog .blog-sidebar-card__title {
+        font-size: 32px;
+    }
+
+    .single-blog .blog-search {
+        height: 58px;
+    }
+
+    .single-blog .blog-search__button {
+        flex-basis: 105px;
+    }
+
+}
+/* =====================================================
+   NEWS CARD — MAKE LINKS CLICKABLE
+   ===================================================== */
+
+.news__card {
+    position: relative;
+}
+
+.news__body {
+    position: relative;
+    z-index: 5;
+}
+
+.news__read-more,
+.news__read-more:visited {
+    position: relative;
+    z-index: 20;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    cursor: pointer;
+    pointer-events: auto;
+
+    color: #2ca9df;
+    text-decoration: none;
+}
+
+.news__read-more:hover {
+    color: #1583c7;
+}
+
+.news__image-link {
+    position: relative;
+    z-index: 2;
+    display: block;
+}
+
+.news__card,
+.news__body,
+.news__title,
+.news__excerpt,
+.news__read-more {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+
+.news__title,
+.news__excerpt,
+.news__read-more {
+    cursor: text;
+}
+
+.news__read-more {
+    cursor: pointer;
+}
+.news__title,
+.news__excerpt,
+.news__body {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+.news__read-more,
+.news__read-more:visited {
+    position: relative;
+    z-index: 20;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    cursor: pointer;
+    pointer-events: auto;
+
+    text-decoration: none;
+}
+
+.news__read-more:hover {
+    cursor: pointer;
+}
+
+.news__image-link {
+    position: relative;
+    z-index: 10;
+    display: block;
 }

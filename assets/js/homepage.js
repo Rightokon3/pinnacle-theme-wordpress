@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ".news__arrow--next"
     );
 
-
     if (!viewport || !track || cards.length === 0) {
         return;
     }
@@ -35,40 +34,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var mobileBreakpoint = 1023;
 
-    /*
-     * Change this number if you want the carousel
-     * faster or slower.
-     *
-     * 5000 = 5 seconds
-     */
     var autoplayDelay = 5000;
 
 
-    /*
-     * Desktop shows 2 cards.
-     * Mobile shows 1 card.
-     */
     function getCardsPerView() {
-
         return window.innerWidth <= mobileBreakpoint
             ? 1
             : 2;
     }
 
 
-    /*
-     * Number of actual slides/pages.
-     *
-     * Example:
-     *
-     * 6 articles
-     *
-     * Desktop:
-     * 2 + 2 + 2 = 3 pages
-     *
-     * Mobile:
-     * 1 + 1 + 1 + 1 + 1 + 1 = 6 pages
-     */
     function getSlideCount() {
 
         var perView = getCardsPerView();
@@ -92,9 +67,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var dragStartTranslate = 0;
 
+    /*
+     * Important:
+     * We don't start dragging immediately on pointerdown.
+     * This allows normal clicks and text selection.
+     */
+    var dragIntent = false;
+
+    var dragThreshold = 8;
+
 
     /* =====================================================
-       CALCULATE SLIDE WIDTH
+       SLIDE WIDTH
        ===================================================== */
 
     function getSlideWidth() {
@@ -108,12 +92,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       GET TRANSLATE POSITION
+       TRANSLATE
        ===================================================== */
 
     function getTranslateForIndex(index) {
-
-        var perView = getCardsPerView();
 
         var slideWidth = getSlideWidth();
 
@@ -133,9 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        /*
-         * Infinite wrap.
-         */
+
         if (index < 0) {
             index = slideCount - 1;
         }
@@ -143,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (index >= slideCount) {
             index = 0;
         }
+
 
         currentIndex = index;
 
@@ -184,7 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         dotsWrap.innerHTML = "";
 
-
         var slideCount = getSlideCount();
 
 
@@ -197,24 +177,16 @@ document.addEventListener("DOMContentLoaded", function () {
             var dot =
                 document.createElement("button");
 
-
             dot.type = "button";
 
             dot.className = "news__dot";
 
-
             dot.setAttribute(
                 "aria-label",
-                "Show news slide " +
-                (index + 1)
+                "Show news slide " + (index + 1)
             );
 
 
-            /*
-             * Important:
-             * use let-like closure by creating
-             * a separate function scope.
-             */
             (function (slideIndex) {
 
                 dot.addEventListener(
@@ -288,17 +260,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /*
-         * IMPORTANT:
-         *
-         * There is NO mobile check here.
-         *
-         * Therefore autoplay works on:
-         *
-         * Desktop
-         * Tablet
-         * Mobile
-         */
         autoplayTimer =
             window.setInterval(
                 function () {
@@ -350,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       PREVIOUS BUTTON
+       PREVIOUS
        ===================================================== */
 
     if (prevButton) {
@@ -373,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       NEXT BUTTON
+       NEXT
        ===================================================== */
 
     if (nextButton) {
@@ -396,94 +357,103 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       POINTER DRAG
-       =====================================================
-       
-       Works with:
-       
-       - Finger
-       - Mouse
-       - Trackpad
-       
-       So the user can physically drag the
-       carousel instead of only clicking dots.
-    */
+       POINTER DOWN
+       ===================================================== */
 
     viewport.addEventListener(
         "pointerdown",
         function (event) {
 
-            if (event.pointerType === "mouse") {
+            /*
+             * VERY IMPORTANT:
+             *
+             * Do not start carousel dragging when the user
+             * interacts with a link, button, form element,
+             * or text-selection target.
+             */
 
-                /*
-                 * Allow mouse dragging on desktop.
-                 */
+            var interactiveElement =
+                event.target.closest(
+                    "a, button, input, textarea, select, option, label"
+                );
+
+
+            if (interactiveElement) {
+                return;
             }
 
 
-            stopAutoplay();
-
-
-            isDragging = true;
-
-
-            dragStartX =
-                event.clientX;
-
-            dragCurrentX =
-                event.clientX;
-
-
             /*
-             * Get current transform position.
+             * Only mouse / touch / pen dragging should be
+             * handled by the carousel.
              */
+
+            if (
+                event.pointerType !== "mouse" &&
+                event.pointerType !== "touch" &&
+                event.pointerType !== "pen"
+            ) {
+                return;
+            }
+
+
+            dragIntent = true;
+
+            isDragging = false;
+
+            dragStartX = event.clientX;
+
+            dragCurrentX = event.clientX;
+
+
             var computedStyle =
                 window.getComputedStyle(
                     track
                 );
 
 
-            var matrix =
-                new DOMMatrixReadOnly(
-                    computedStyle.transform
-                );
+            var matrix;
+
+            try {
+
+                matrix =
+                    new DOMMatrixReadOnly(
+                        computedStyle.transform
+                    );
+
+            } catch (error) {
+
+                matrix = {
+                    m41: 0
+                };
+            }
 
 
             dragStartTranslate =
                 matrix.m41;
 
 
-            track.classList.add(
-                "is-dragging"
-            );
+            stopAutoplay();
 
 
             /*
-             * Keep receiving pointer movement.
+             * Do NOT call setPointerCapture yet.
+             *
+             * We wait until the pointer has actually moved.
              */
-            if (
-                viewport.setPointerCapture
-            ) {
-
-                try {
-
-                    viewport.setPointerCapture(
-                        event.pointerId
-                    );
-
-                } catch (error) {
-                    // Ignore unsupported browsers.
-                }
-            }
         }
     );
 
+
+    /* =====================================================
+       POINTER MOVE
+       ===================================================== */
 
     viewport.addEventListener(
         "pointermove",
         function (event) {
 
-            if (!isDragging) {
+            if (!dragIntent) {
                 return;
             }
 
@@ -498,8 +468,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             /*
-             * Move the track with the finger/mouse.
+             * Don't treat tiny pointer movement as dragging.
+             *
+             * This is what allows normal text selection/clicking.
              */
+
+            if (!isDragging) {
+
+                if (
+                    Math.abs(difference) <
+                    dragThreshold
+                ) {
+                    return;
+                }
+
+
+                isDragging = true;
+
+
+                track.classList.add(
+                    "is-dragging"
+                );
+
+
+                if (
+                    viewport.setPointerCapture
+                ) {
+
+                    try {
+
+                        viewport.setPointerCapture(
+                            event.pointerId
+                        );
+
+                    } catch (error) {
+                        // Ignore unsupported browsers.
+                    }
+                }
+            }
+
+
+            /*
+             * Once movement is large enough,
+             * actually move the carousel.
+             */
+
             track.style.transition =
                 "none";
 
@@ -515,9 +528,31 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    function finishDrag() {
+    /* =====================================================
+       FINISH DRAG
+       ===================================================== */
+
+    function finishDrag(event) {
+
+        if (!dragIntent) {
+            return;
+        }
+
+
+        dragIntent = false;
+
+
+        /*
+         * If the user didn't actually drag,
+         * this was simply a click/text-selection action.
+         */
 
         if (!isDragging) {
+
+            isDragging = false;
+
+            startAutoplay();
+
             return;
         }
 
@@ -541,6 +576,7 @@ document.addEventListener("DOMContentLoaded", function () {
         /*
          * Swipe left
          */
+
         if (
             difference <
             -swipeThreshold
@@ -553,9 +589,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+
         /*
          * Swipe right
          */
+
         else if (
             difference >
             swipeThreshold
@@ -568,10 +606,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+
         /*
          * Not enough movement:
-         * snap back.
+         * return to current slide.
          */
+
         else {
 
             goToSlide(
@@ -599,15 +639,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     viewport.addEventListener(
         "pointerleave",
-        function () {
+        function (event) {
 
             /*
-             * Only finish if the pointer is
-             * actually being dragged.
+             * Only finish a real drag.
              */
+
             if (isDragging) {
-                finishDrag();
+                finishDrag(event);
             }
+
         }
     );
 
@@ -632,20 +673,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.setTimeout(
                     function () {
 
-                        /*
-                         * Recreate dots because the
-                         * number of pages changes:
-                         *
-                         * Desktop = 3 pages for 6 cards
-                         * Mobile  = 6 pages for 6 cards
-                         */
                         createDots();
 
 
-                        /*
-                         * Make sure current index
-                         * still exists.
-                         */
                         var slideCount =
                             getSlideCount();
 
@@ -666,9 +696,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         );
 
 
-                        /*
-                         * Restart autoplay.
-                         */
                         startAutoplay();
 
                     },
@@ -691,10 +718,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /*
-     * Autoplay starts on BOTH
-     * desktop and mobile.
-     */
     startAutoplay();
 
 });

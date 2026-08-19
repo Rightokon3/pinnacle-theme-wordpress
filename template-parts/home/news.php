@@ -2,217 +2,303 @@
 /**
  * Homepage — News Articles carousel
  *
+ * Uses the Blog Posts custom post type.
+ *
  * Desktop:
  * - 2 articles visible
- * - Automatic carousel
  *
  * Tablet/Mobile:
  * - 1 article visible
- * - Swipe/drag
- * - Dot navigation
- * - Automatic carousel
+ *
+ * Content source:
+ * - WP Admin → Blog Posts
  */
 
-$news = get_field('news_list', 'option');
+$news_query = new WP_Query(
+    array(
+        'post_type'      => 'blog_post',
+        'post_status'    => 'publish',
+        'posts_per_page' => 6,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    )
+);
 
-if (empty($news)) {
-    $news = [
-        [
-            'title' => 'Veteran Mental Health Support in Edina, MN: Recognizing the Signs and Finding the Right Care',
-            'excerpt' => 'Military service demands courage, discipline, and sacrifice. However, while many veterans transition successfully to civilian life, others continue to face mental health challenges long after their service ends.',
-            'date' => 'July 2026',
-            'image' => null,
-            'link' => null,
-        ],
-        [
-            'title' => 'Does Insurance Cover TMS Therapy? What Patients in Minnesota Should Know',
-            'excerpt' => 'Transcranial Magnetic Stimulation (TMS) may be covered by many insurance plans for eligible patients with depression. Learn what insurers typically require and how the approval process works.',
-            'date' => 'July 2026',
-            'image' => null,
-            'link' => null,
-        ],
-        [
-            'title' => 'Spravato vs. IV Ketamine: Understanding the Differences for Depression Treatment',
-            'excerpt' => 'Explore the key differences between Spravato and IV Ketamine, including FDA approval, administration, eligibility, and how to determine which treatment may be appropriate for you.',
-            'date' => 'June 2026',
-            'image' => null,
-            'link' => null,
-        ],
-        [
-            'title' => 'NeuroStar TMS for Depression: How It Works and What to Expect',
-            'excerpt' => 'Learn how TMS therapy works, who may benefit from treatment, and what patients can expect throughout the treatment process.',
-            'date' => 'June 2026',
-            'image' => null,
-            'link' => null,
-        ],
-        [
-            'title' => 'Advanced Treatment Options for Depression',
-            'excerpt' => 'Living with depression can be challenging, especially when symptoms continue despite trying standard treatment approaches.',
-            'date' => 'May 2026',
-            'image' => null,
-            'link' => null,
-        ],
-        [
-            'title' => 'Mental Health Treatment and Personalized Care in Minnesota',
-            'excerpt' => 'Discover personalized behavioral healthcare options designed to support your mental health journey and help you move toward renewed hope.',
-            'date' => 'May 2026',
-            'image' => null,
-            'link' => null,
-        ],
-    ];
-}
-
-$news_fallback_image_url = get_template_directory_uri() . '/assets/images/Health.jpeg';
+$news_fallback_image_url =
+    get_template_directory_uri() . '/assets/images/Health.jpeg';
 ?>
 
 <section id="news" class="news">
 
-    <div class="news__carousel">
+    <?php if ($news_query->have_posts()) : ?>
 
-        <!-- Previous arrow -->
-        <button
-            type="button"
-            class="news__arrow news__arrow--prev"
-            aria-label="Previous news article"
-        >
-            &#10094;
-        </button>
+        <div class="news__carousel">
 
-        <!-- Carousel viewport -->
-        <div class="news__viewport">
+            <!-- Previous arrow -->
+            <button
+                type="button"
+                class="news__arrow news__arrow--prev"
+                aria-label="Previous news article"
+            >
+                &#10094;
+            </button>
 
-            <!-- Moving track -->
-            <div class="news__track">
 
-                <?php foreach ($news as $article) :
+            <!-- Carousel viewport -->
+            <div class="news__viewport">
 
-                    $image = $article['image'] ?? null;
+                <!-- Moving track -->
+                <div class="news__track">
 
-                    /*
-                     * ACF image can sometimes be returned as:
-                     * - Array
-                     * - ID
-                     * - URL
-                     */
-                    if (is_array($image)) {
-                        $image_url = $image['url'] ?? $news_fallback_image_url;
-                        $image_alt = $image['alt'] ?? $article['title'];
-                    } elseif (is_numeric($image)) {
-                        $image_url = wp_get_attachment_image_url(
-                            (int) $image,
-                            'large'
-                        );
+                    <?php while ($news_query->have_posts()) : ?>
 
-                        $image_alt = get_post_meta(
-                            (int) $image,
-                            '_wp_attachment_image_alt',
-                            true
-                        );
+                        <?php
+                        $news_query->the_post();
 
-                        if (!$image_url) {
+                        /*
+                         * Featured image
+                         */
+                        if (has_post_thumbnail()) {
+
+                            $image_url = get_the_post_thumbnail_url(
+                                get_the_ID(),
+                                'large'
+                            );
+
+                            $image_alt = get_the_title();
+
+                        } else {
+
                             $image_url = $news_fallback_image_url;
+                            $image_alt = get_the_title();
+
                         }
 
-                        if (!$image_alt) {
-                            $image_alt = $article['title'];
+
+                        /*
+                         * Excerpt
+                         *
+                         * Uses the WordPress excerpt first.
+                         * If no excerpt exists, automatically creates
+                         * one from the article content.
+                         */
+                        $excerpt = get_the_excerpt();
+
+                        if (empty($excerpt)) {
+
+                            $excerpt = wp_trim_words(
+                                wp_strip_all_tags(
+                                    get_the_content()
+                                ),
+                                28
+                            );
+
                         }
-                    } elseif (is_string($image) && !empty($image)) {
-                        $image_url = $image;
-                        $image_alt = $article['title'];
-                    } else {
-                        $image_url = $news_fallback_image_url;
-                        $image_alt = $article['title'];
-                    }
 
-                    $link = $article['link'] ?? null;
 
-                    if (is_array($link)) {
-                        $link_url = $link['url'] ?? '#';
-                        $link_target = $link['target'] ?? '_self';
-                    } elseif (is_string($link) && !empty($link)) {
-                        $link_url = $link;
-                        $link_target = '_self';
-                    } else {
-                        $link_url = '#';
-                        $link_target = '_self';
-                    }
+                        /*
+                         * Blog category
+                         */
+                        $categories = get_the_terms(
+                            get_the_ID(),
+                            'blog_category'
+                        );
 
-                ?>
+                        $primary_category = (
+                            !empty($categories) &&
+                            !is_wp_error($categories)
+                        )
+                            ? $categories[0]
+                            : null;
 
-                    <article class="news__card">
+                        ?>
 
-                        <img
-                            src="<?php echo esc_url($image_url); ?>"
-                            alt="<?php echo esc_attr($image_alt); ?>"
-                            class="news__image"
-                            loading="lazy"
-                        >
-
-                        <div class="news__body">
-
-                            <!-- Kept for accessibility/content, hidden visually -->
-                            <?php if (!empty($article['date'])) : ?>
-                                <p class="news__date">
-                                    <?php echo esc_html($article['date']); ?>
-                                </p>
-                            <?php endif; ?>
-
-                            <h3 class="news__title">
-                                <?php echo esc_html($article['title']); ?>
-                            </h3>
-
-                            <p class="news__excerpt">
-                                <?php echo esc_html($article['excerpt']); ?>
-                            </p>
+                        <article class="news__card">
 
                             <a
-                                href="<?php echo esc_url($link_url); ?>"
-                                class="news__read-more"
-                                <?php
-                                echo $link_target === '_blank'
-                                    ? 'target="_blank" rel="noopener"'
-                                    : '';
-                                ?>
+                                href="<?php the_permalink(); ?>"
+                                class="news__image-link"
                             >
-                                Read More
+
+                                <img
+                                    src="<?php echo esc_url($image_url); ?>"
+                                    alt="<?php echo esc_attr($image_alt); ?>"
+                                    class="news__image"
+                                    loading="lazy"
+                                >
+
                             </a>
 
-                        </div>
 
-                    </article>
+                            <div class="news__body">
 
-                <?php endforeach; ?>
+
+                                <!-- Date -->
+
+                                <p class="news__date">
+
+                                    <?php
+                                    echo esc_html(
+                                        get_the_date('F Y')
+                                    );
+                                    ?>
+
+                                </p>
+
+
+                                <!-- Category -->
+
+                                <?php if ($primary_category) : ?>
+
+                                    <a
+                                        href="<?php echo esc_url(
+                                            get_term_link(
+                                                $primary_category,
+                                                'blog_category'
+                                            )
+                                        ); ?>"
+                                        class="news__category"
+                                    >
+
+                                        <?php
+                                        echo esc_html(
+                                            $primary_category->name
+                                        );
+                                        ?>
+
+                                    </a>
+
+                                <?php endif; ?>
+
+
+                                <!-- Title -->
+
+                                <h3 class="news__title">
+
+                                    <a
+                                        href="<?php the_permalink(); ?>"
+                                    >
+                                        <?php the_title(); ?>
+                                    </a>
+
+                                </h3>
+
+
+                                <!-- Excerpt -->
+
+                                <?php if (!empty($excerpt)) : ?>
+
+                                    <p class="news__excerpt">
+
+                                        <?php
+                                        echo esc_html(
+                                            wp_trim_words(
+                                                $excerpt,
+                                                28
+                                            )
+                                        );
+                                        ?>
+
+                                    </p>
+
+                                <?php endif; ?>
+
+
+                                <!-- Read More -->
+
+                                <a
+                                    href="<?php the_permalink(); ?>"
+                                    class="news__read-more"
+                                >
+
+                                    Read More
+
+                                    <span
+                                        aria-hidden="true"
+                                    >
+                                        →
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    <?php endwhile; ?>
+
+                </div>
 
             </div>
 
+
+            <!-- Next arrow -->
+
+            <button
+                type="button"
+                class="news__arrow news__arrow--next"
+                aria-label="Next news article"
+            >
+                &#10095;
+            </button>
+
         </div>
 
-        <!-- Next arrow -->
-        <button
-            type="button"
-            class="news__arrow news__arrow--next"
-            aria-label="Next news article"
-        >
-            &#10095;
-        </button>
 
-    </div>
+        <!-- Dots -->
 
-    <!-- Dots -->
-    <div
-        class="news__dots"
-        aria-label="News article navigation"
-    ></div>
+        <div
+            class="news__dots"
+            aria-label="News article navigation"
+        ></div>
 
-    <!-- View all -->
-    <div class="news__view-all-wrap">
-        <a
-            href="<?php echo esc_url(home_url('/blog/')); ?>"
-            class="news__view-all"
-        >
-            <span>VIEW ALL</span>
-            <span class="news__view-all-arrow">&#8594;</span>
-        </a>
-    </div>
+
+        <!-- View all -->
+
+        <div class="news__view-all-wrap">
+
+            <a
+                href="<?php echo esc_url(
+                    home_url('/blog/')
+                ); ?>"
+                class="news__view-all"
+            >
+
+                <span>
+                    VIEW ALL
+                </span>
+
+                <span
+                    class="news__view-all-arrow"
+                    aria-hidden="true"
+                >
+                    &#8594;
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <?php wp_reset_postdata(); ?>
+
+
+    <?php else : ?>
+
+        <!-- No Blog Posts yet -->
+
+        <div class="news__empty">
+
+            <h3>
+                Latest News
+            </h3>
+
+            <p>
+                New blog articles will appear here when they are published.
+            </p>
+
+        </div>
+
+    <?php endif; ?>
 
 </section>

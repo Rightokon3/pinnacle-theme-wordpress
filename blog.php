@@ -42,7 +42,7 @@ $paged = get_query_var('paged')
 
 $blog_query = new WP_Query(
     array(
-        'post_type'      => 'post',
+        'post_type' => 'blog_post',
         'post_status'    => 'publish',
         'posts_per_page' => 8,
         'paged'          => $paged,
@@ -127,11 +127,17 @@ $blog_query = new WP_Query(
                         <?php
                         $blog_query->the_post();
 
-                        $categories = get_the_category();
+             $categories = get_the_terms(
+                        get_the_ID(),
+                   'blog_category'
+               );
 
-                        $primary_category = !empty($categories)
-                            ? $categories[0]
-                            : null;
+         $primary_category = (
+                !empty($categories) &&
+             !is_wp_error($categories)
+        )
+    ? $categories[0]
+    : null;
                         ?>
 
 
@@ -174,9 +180,10 @@ $blog_query = new WP_Query(
                                         <a
                                             class="blog-post-card__category"
                                             href="<?php echo esc_url(
-                                                get_category_link(
-                                                    $primary_category->term_id
-                                                )
+                                               get_term_link(
+                                                   $primary_category,
+                                             'blog_category'
+                                            )
                                             ); ?>"
                                         >
 
@@ -595,15 +602,79 @@ $blog_query = new WP_Query(
                      CATEGORIES
                 ============================================== -->
 
-                <?php
+<?php
 
-                $blog_categories = get_categories(
-                    array(
-                        'hide_empty' => true,
-                    )
-                );
+$blog_categories = get_terms(
+    array(
+        'taxonomy'   => 'blog_category',
+        'hide_empty' => true,
+    )
+);
 
-                ?>
+?>
+
+<?php if (!empty($blog_categories) && !is_wp_error($blog_categories)) : ?>
+
+    <div class="blog-sidebar-card blog-categories-card">
+
+        <h2 class="blog-sidebar-card__title">
+            Categories
+        </h2>
+
+        <ul class="blog-categories">
+
+            <?php foreach ($blog_categories as $category) : ?>
+
+                <li>
+
+                    <a
+                        href="<?php echo esc_url(
+                            get_term_link(
+                                $category,
+                                'blog_category'
+                            )
+                        ); ?>"
+                    >
+
+                        <span>
+                            <?php echo esc_html($category->name); ?>
+                        </span>
+
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <line
+                                x1="5"
+                                y1="12"
+                                x2="19"
+                                y2="12"
+                            />
+
+                            <polyline
+                                points="12 5 19 12 12 19"
+                            />
+
+                        </svg>
+
+                    </a>
+
+                </li>
+
+            <?php endforeach; ?>
+
+        </ul>
+
+    </div>
+
+<?php endif; ?>
 
 
                 <?php if (!empty($blog_categories)) : ?>

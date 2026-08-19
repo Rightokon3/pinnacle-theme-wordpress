@@ -7,7 +7,7 @@
 $heading = get_field('supplement_banner_heading', 'option') ?: 'The Best Quality Supplement Brands Available';
 $body    = get_field('supplement_banner_body', 'option') ?: "We only carry supplements from reputable, quality-tested brands. Every product is chosen to support real results, so you can trust what you're adding to your care plan.";
 $cta_text = get_field('supplement_banner_cta_text', 'option') ?: 'Shop Now';
-$cta_link = get_field('supplement_banner_cta_link', 'option') ?: '#products';
+$cta_link = get_field('supplement_banner_cta_link', 'option') ?: 'https://pinnaclebhc.com/?page_id=346';
 
 $image = get_field('supplement_banner_image', 'option');
 $image_url = $image['url'] ?? get_template_directory_uri() . '/assets/images/Mask-group-2-1.webp';

@@ -64,7 +64,7 @@
 
             <a
                 class="neurostar-feature__link"
-                href="#"
+                href="/tms-treatments/"
             >
 
                 <span class="neurostar-feature__link-text">
