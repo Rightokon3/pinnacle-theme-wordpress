@@ -3184,6 +3184,10 @@ add_action(
  * BLOG CATEGORY TAXONOMY
  * ========================================================= */
 
+/* =========================================================
+ * BLOG CATEGORY TAXONOMY
+ * ========================================================= */
+
 function pinnacle_register_blog_category_taxonomy() {
 
     $labels = array(
@@ -3211,11 +3215,10 @@ function pinnacle_register_blog_category_taxonomy() {
             'show_in_rest'      => true,
             'hierarchical'      => true,
 
-        'rewrite' => array(
-          'slug'       => 'blog',
-           'with_front' => false,
-           'has_archive' => false,
-           ),
+            'rewrite' => array(
+                'slug'       => 'blog-category',
+                'with_front' => false,
+            ),
         )
     );
 }
@@ -3224,3 +3227,188 @@ add_action(
     'init',
     'pinnacle_register_blog_category_taxonomy'
 );
+?>
+
+<?php
+/**
+ * Pinnacle Behavioral Healthcare theme functions.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+/**
+ * Theme setup.
+ */
+function pinnacle_setup() {
+	add_theme_support( 'title-tag' );
+	add_theme_support( 'post-thumbnails' );
+	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
+	add_theme_support( 'custom-logo' );
+
+	register_nav_menus(
+		array(
+			'primary' => __( 'Primary Menu', 'pinnacle-behavioral' ),
+		)
+	);
+}
+add_action( 'after_setup_theme', 'pinnacle_setup' );
+
+/**
+ * Enqueue styles and scripts.
+ */
+function pinnacle_assets() {
+	// Google Fonts used by the design.
+	wp_enqueue_style(
+		'pinnacle-google-fonts',
+		'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap',
+		array(),
+		null
+	);
+
+	// Main theme stylesheet.
+	wp_enqueue_style(
+		'pinnacle-style',
+		get_stylesheet_uri(),
+		array( 'pinnacle-google-fonts' ),
+		wp_get_theme()->get( 'Version' )
+	);
+
+	// Main theme script (waveform, FAQ accordion, scroll reveal).
+	wp_enqueue_script(
+		'pinnacle-main',
+		get_template_directory_uri() . '/assets/js/main.js',
+		array(),
+		wp_get_theme()->get( 'Version' ),
+		true
+	);
+
+	// Existing-patients intake page script (request-type selector, form submit).
+	if ( is_page_template( 'page-existing-patients.php' ) ) {
+		wp_enqueue_script(
+			'pinnacle-intake',
+			get_template_directory_uri() . '/assets/js/intake.js',
+			array(),
+			wp_get_theme()->get( 'Version' ),
+			true
+		);
+	}
+}
+add_action( 'wp_enqueue_scripts', 'pinnacle_assets' );
+
+/**
+ * Preconnect to Google Fonts origins, matching the original markup.
+ */
+function pinnacle_resource_hints( $urls, $relation_type ) {
+	if ( 'preconnect' === $relation_type ) {
+		$urls[] = array(
+			'href' => 'https://fonts.googleapis.com',
+		);
+		$urls[] = array(
+			'href' => 'https://fonts.gstatic.com',
+			'crossorigin',
+		);
+	}
+	return $urls;
+}
+add_filter( 'wp_resource_hints', 'pinnacle_resource_hints', 10, 2 );
+?>
+<?php
+/* ============================================================
+   Fixed: the file is actually named page-service-detail.php,
+   so that's what is_page_template() must check against.
+   ============================================================ */
+
+add_action('wp_enqueue_scripts', function () {
+    if (is_page_template('telehealth-psychiatric-medication-management-in-minneapolis.php')) {
+
+        wp_enqueue_style(
+            'pinnacle-telehealth',
+            get_stylesheet_directory_uri() . '/style.css',
+            ['pinnacle-theme'],
+            '1.0.0'
+        );
+
+        wp_enqueue_style(
+            'pinnacle-telehealth-consult-modal',
+            get_stylesheet_directory_uri() . '/style.css',
+            ['pinnacle-telehealth'],
+            '1.0.0'
+        );
+
+        wp_enqueue_script(
+            'pinnacle-telehealth-consult-modal',
+            get_stylesheet_directory_uri() . '/assets/js/telehealth-consult-modal.js',
+            [],
+            '1.0.0',
+            true
+        );
+    }
+});
+
+/* ------------------------------------------------------------
+   MORE ROBUST ALTERNATIVE — matches by the file's actual path
+   no matter what it's renamed to later, using WP's own record
+   of which template a page is assigned:
+   ------------------------------------------------------------ */
+
+add_action('wp_enqueue_scripts', function () {
+    $template_slugs = [
+        'page-service-detail.php', // current filename
+        // add more filenames here if you rename it again later,
+        // or ever reuse this same layout for another file
+    ];
+
+    if (is_page_template($template_slugs)) {
+        // ...same wp_enqueue_style / wp_enqueue_script calls
+    }
+});
+
+/* ------------------------------------------------------------
+   OR simplest of all if this is a single, specific page —
+   skip the template check entirely and target the page by
+   slug or ID instead (works even if the template file gets
+   renamed again in the future):
+   ------------------------------------------------------------ */
+
+add_action('wp_enqueue_scripts', function () {
+    if (is_page('telehealth')) { // matches /telehealth/ by slug
+        // ...same wp_enqueue_style / wp_enqueue_script calls
+    }
+});
+?>
+
+<?php
+/**
+ * Add this to your existing functions.php.
+ * Do NOT add a second copy of these functions if they already exist.
+ */
+
+function pinnacle_new_patients_assets() {
+    if (is_page_template('page-new-patients.php')) {
+        wp_enqueue_style(
+            'pnp-google-fonts',
+            'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap',
+            array(),
+            null
+        );
+
+        wp_enqueue_style(
+            'pnp-new-patients',
+            get_template_directory_uri() . '/assets/css/new-patients.css',
+            array(),
+            '1.0.0'
+        );
+
+        wp_enqueue_script(
+            'pnp-new-patients',
+            get_template_directory_uri() . '/assets/js/new-patients.js',
+            array(),
+            '1.0.0',
+            true
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'pinnacle_new_patients_assets');
+
