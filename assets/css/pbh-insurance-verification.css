@@ -1,0 +1,187 @@
+/*
+ * PBH Insurance Verification — isolated CSS.
+ * Every selector is scoped to .pbh-insurance-page / pbh-insurance-*.
+ */
+
+.pbh-insurance-page {
+  --pbh-ins-bg:#F4F6F8;
+  --pbh-ins-paper:#FFFFFF;
+  --pbh-ins-ink:#16233B;
+  --pbh-ins-soft:#57647A;
+  --pbh-ins-primary:#123A66;
+  --pbh-ins-primary-light:#1D5490;
+  --pbh-ins-accent:#2E8B74;
+  --pbh-ins-accent-dark:#216B59;
+  --pbh-ins-line:#DCE2E8;
+  --pbh-ins-error:#B3261E;
+  --pbh-ins-serif:"Fraunces",Georgia,serif;
+  --pbh-ins-sans:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --pbh-ins-mono:"IBM Plex Mono","SFMono-Regular",Menlo,monospace;
+  background:var(--pbh-ins-bg);
+  color:var(--pbh-ins-ink);
+  font-family:var(--pbh-ins-sans);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.pbh-insurance-page *, .pbh-insurance-page *::before, .pbh-insurance-page *::after { box-sizing:border-box; }
+.pbh-insurance-page a { color:inherit; }
+.pbh-insurance-wrap { width:min(1120px,calc(100% - 56px)); margin:0 auto; }
+
+.pbh-insurance-alert {
+  width:min(1120px,calc(100% - 56px)); margin:20px auto 0; padding:12px 16px;
+  border:1px solid var(--pbh-ins-line); border-radius:4px; font-size:13px;
+}
+.pbh-insurance-alert--success { background:#E5F3EE; color:#1E6B54; }
+.pbh-insurance-alert--error { background:#fff1f0; color:var(--pbh-ins-error); }
+
+/* Hero */
+.pbh-insurance-hero { background:var(--pbh-ins-primary); color:#EEF2F5; overflow:hidden; }
+.pbh-insurance-hero .pbh-insurance-wrap { padding-top:64px; padding-bottom:56px; }
+.pbh-insurance-hero h1 {
+  font-family:var(--pbh-ins-serif); font-weight:500; font-size:clamp(30px,4.4vw,46px);
+  line-height:1.12; margin:0 0 20px; max-width:16ch; color:#FAFBFC;
+}
+.pbh-insurance-hero-sub { font-size:17px; color:#C4D0DA; max-width:52ch; margin:0; }
+.pbh-insurance-hero-note {
+  margin-top:28px; display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--pbh-ins-mono); font-size:12px; color:#E4E9ED;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.18);
+  padding:9px 14px; border-radius:999px;
+}
+.pbh-insurance-dot {
+  width:7px; height:7px; border-radius:50%; background:#4FBF9B;
+  box-shadow:0 0 0 3px rgba(79,191,155,.25); flex-shrink:0;
+}
+
+/* Main layout */
+.pbh-insurance-main { padding:56px 0 88px; }
+.pbh-insurance-layout {
+  display:grid; grid-template-columns:1fr 420px; gap:56px; align-items:start;
+}
+
+/* Tabs */
+.pbh-insurance-tabs { margin:0 0 48px; }
+.pbh-insurance-tab-list {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--pbh-ins-line); border-bottom:1px solid var(--pbh-ins-line);
+}
+.pbh-insurance-tab {
+  appearance:none; -webkit-appearance:none; border:0; border-bottom:3px solid transparent;
+  background:transparent; color:var(--pbh-ins-soft); min-height:82px; padding:14px;
+  text-align:left; cursor:pointer; display:flex; flex-direction:column; justify-content:center;
+  gap:6px; font-family:var(--pbh-ins-sans);
+  transition:background .15s ease,border-color .15s ease,color .15s ease;
+}
+.pbh-insurance-tab + .pbh-insurance-tab { border-left:1px solid var(--pbh-ins-line); }
+.pbh-insurance-tab:hover { background:rgba(255,255,255,.55); color:var(--pbh-ins-primary); }
+.pbh-insurance-tab:focus-visible { outline:2px solid var(--pbh-ins-primary-light); outline-offset:-2px; }
+.pbh-insurance-tab--active {
+  color:var(--pbh-ins-primary); border-bottom-color:var(--pbh-ins-accent);
+  background:var(--pbh-ins-paper);
+}
+.pbh-insurance-tab-number {
+  font-family:var(--pbh-ins-mono); font-size:11px; letter-spacing:.04em; color:var(--pbh-ins-accent-dark);
+}
+.pbh-insurance-tab-label { font-size:14px; font-weight:700; line-height:1.25; }
+.pbh-insurance-tab-panels {
+  min-height:142px; background:var(--pbh-ins-paper); border:1px solid var(--pbh-ins-line);
+  border-top:0; padding:28px 24px;
+}
+.pbh-insurance-tab-panel { animation:pbhInsuranceTabIn .18s ease; }
+.pbh-insurance-tab-panel[hidden] { display:none; }
+.pbh-insurance-tab-panel h3 {
+  font-family:var(--pbh-ins-sans); font-weight:700; font-size:16px; margin:0 0 8px; color:var(--pbh-ins-ink);
+}
+.pbh-insurance-tab-panel p { margin:0; font-size:14px; line-height:1.65; color:var(--pbh-ins-soft); max-width:50ch; }
+@keyframes pbhInsuranceTabIn { from {opacity:0;transform:translateY(4px)} to {opacity:1;transform:translateY(0)} }
+
+/* Why */
+.pbh-insurance-why {
+  background:var(--pbh-ins-paper); border:1px solid var(--pbh-ins-line);
+  border-left:3px solid var(--pbh-ins-accent); border-radius:4px;
+  padding:22px 24px; margin-bottom:40px;
+}
+.pbh-insurance-why h3 {
+  font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:.03em;
+  margin:0 0 8px; color:var(--pbh-ins-primary);
+}
+.pbh-insurance-why p { margin:0; font-size:14.5px; color:var(--pbh-ins-soft); max-width:56ch; }
+
+/* Carriers */
+.pbh-insurance-carriers h3 {
+  font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:.03em;
+  color:var(--pbh-ins-primary); margin:0 0 14px;
+}
+.pbh-insurance-chip-row { display:flex; flex-wrap:wrap; gap:8px; }
+.pbh-insurance-chip {
+  font-family:var(--pbh-ins-mono); font-size:12px; color:var(--pbh-ins-ink);
+  background:var(--pbh-ins-paper); border:1px solid var(--pbh-ins-line);
+  padding:7px 12px; border-radius:999px; white-space:nowrap;
+}
+.pbh-insurance-carriers-note { font-size:13px; color:var(--pbh-ins-soft); margin:16px 0 0; }
+.pbh-insurance-carriers-note a { color:var(--pbh-ins-accent-dark); text-decoration:underline; text-underline-offset:2px; }
+
+/* Form */
+.pbh-insurance-form-card {
+  background:var(--pbh-ins-paper); border:1px solid var(--pbh-ins-line); border-radius:6px;
+  padding:30px 28px 28px; position:sticky; top:24px; box-shadow:0 1px 2px rgba(22,35,59,.06);
+}
+.pbh-insurance-form-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:6px; }
+.pbh-insurance-form-card-head h2 { font-family:var(--pbh-ins-serif); font-weight:600; font-size:21px; margin:0; color:var(--pbh-ins-primary); }
+.pbh-insurance-lock { flex-shrink:0; color:var(--pbh-ins-accent-dark); }
+.pbh-insurance-form-sub { font-size:13.5px; color:var(--pbh-ins-soft); margin:2px 0 24px; }
+.pbh-insurance-field { margin-bottom:18px; }
+.pbh-insurance-field label { display:block; font-family:var(--pbh-ins-mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--pbh-ins-soft); margin-bottom:7px; }
+.pbh-insurance-field label span, .pbh-insurance-consent label span { color:var(--pbh-ins-accent-dark); }
+.pbh-insurance-field input, .pbh-insurance-field select, .pbh-insurance-field textarea {
+  width:100%; font-family:var(--pbh-ins-sans); font-size:15px; color:var(--pbh-ins-ink);
+  background:#fff; border:1px solid var(--pbh-ins-line); border-radius:4px; padding:11px 12px;
+}
+.pbh-insurance-field select {
+  appearance:none; -webkit-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2357647A' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat:no-repeat; background-position:right 12px center; padding-right:34px;
+}
+.pbh-insurance-field textarea { resize:vertical; min-height:78px; }
+.pbh-insurance-field input:focus, .pbh-insurance-field select:focus, .pbh-insurance-field textarea:focus {
+  border-color:var(--pbh-ins-primary-light); outline:2px solid rgba(29,84,144,.08); outline-offset:1px;
+}
+.pbh-insurance-field-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.pbh-insurance-hint { font-size:12px; color:var(--pbh-ins-soft); margin:6px 0 0; }
+.pbh-insurance-error { font-size:12.5px; color:var(--pbh-ins-error); margin:6px 0 0; display:none; }
+.pbh-insurance-field.pbh-insurance-invalid input, .pbh-insurance-field.pbh-insurance-invalid select { border-color:var(--pbh-ins-error); }
+.pbh-insurance-field.pbh-insurance-invalid .pbh-insurance-error, .pbh-insurance-consent.pbh-insurance-invalid .pbh-insurance-error { display:block; }
+.pbh-insurance-consent {
+  display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:start; margin:22px 0 20px;
+}
+.pbh-insurance-consent input { margin-top:3px; }
+.pbh-insurance-consent label { font-size:12.5px; color:var(--pbh-ins-soft); line-height:1.5; }
+.pbh-insurance-submit {
+  width:100%; background:var(--pbh-ins-accent); color:#fff; font-weight:700; font-size:15px;
+  border:none; border-radius:4px; padding:14px 18px; cursor:pointer;
+  transition:background .15s ease,opacity .15s ease;
+}
+.pbh-insurance-submit:hover { background:var(--pbh-ins-accent-dark); }
+.pbh-insurance-submit:disabled { opacity:.6; cursor:not-allowed; }
+.pbh-insurance-form-foot { margin:16px 0 0; font-size:12.5px; color:var(--pbh-ins-soft); text-align:center; }
+.pbh-insurance-form-foot a { color:var(--pbh-ins-primary-light); text-decoration:underline; text-underline-offset:2px; }
+
+@media (max-width:880px) {
+  .pbh-insurance-layout { grid-template-columns:1fr; gap:40px; }
+  .pbh-insurance-form-card { position:relative; top:auto; }
+}
+@media (max-width:620px) {
+  .pbh-insurance-wrap, .pbh-insurance-alert { width:min(100% - 40px,1120px); }
+  .pbh-insurance-hero .pbh-insurance-wrap { padding-top:48px; padding-bottom:44px; }
+  .pbh-insurance-main { padding:42px 0 60px; }
+  .pbh-insurance-tab-list { grid-template-columns:1fr; }
+  .pbh-insurance-tab {
+    min-height:64px; flex-direction:row; align-items:center; justify-content:flex-start;
+    gap:12px; padding:12px 14px;
+  }
+  .pbh-insurance-tab + .pbh-insurance-tab { border-left:0; border-top:1px solid var(--pbh-ins-line); }
+  .pbh-insurance-tab--active { border-bottom-color:transparent; border-left:3px solid var(--pbh-ins-accent); padding-left:11px; }
+  .pbh-insurance-tab-panels { padding:24px 20px; }
+  .pbh-insurance-field-row { grid-template-columns:1fr; gap:0; }
+  .pbh-insurance-form-card { padding:25px 20px 22px; }
+}

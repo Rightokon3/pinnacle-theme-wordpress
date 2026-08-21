@@ -1,11 +1,28 @@
 <?php
+/**
+ * Pinnacle Behavioral Healthcare — consolidated theme functions.
+ * Single functions.php containing the site's theme, ACF, CPT, assets,
+ * location SEO/schema, WooCommerce, and form-routing functionality.
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 function pinnacle_theme_setup() {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
+    add_theme_support('custom-logo');
+    add_theme_support('html5', [
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+    ]);
 
     register_nav_menus([
-        'primary' => 'Primary Menu',
+        'primary' => __('Primary Menu', 'pinnacle-behavioral'),
     ]);
 }
 add_action('after_setup_theme', 'pinnacle_theme_setup');
@@ -94,6 +111,31 @@ wp_enqueue_style(
             true
         );
     }
+
+    // Newer theme-wide interactions. Load only when the files exist.
+    $main_js = get_template_directory() . '/assets/js/main.js';
+    if (file_exists($main_js)) {
+        wp_enqueue_script(
+            'pinnacle-main',
+            get_template_directory_uri() . '/assets/js/main.js',
+            [],
+            filemtime($main_js),
+            true
+        );
+    }
+
+    if (is_page_template('page-existing-patients.php')) {
+        $intake_js = get_template_directory() . '/assets/js/intake.js';
+        if (file_exists($intake_js)) {
+            wp_enqueue_script(
+                'pinnacle-intake',
+                get_template_directory_uri() . '/assets/js/intake.js',
+                [],
+                filemtime($intake_js),
+                true
+            );
+        }
+    }
 }
 function pinnacle_theme_fonts() {
     wp_enqueue_style(
@@ -121,7 +163,14 @@ add_action('wp_enqueue_scripts', 'pinnacle_theme_assets');
  * installed — templates fall back to the original hardcoded copy.
  */
 
-if (function_exists('acf_add_options_page')) {
+add_action('acf/init', 'pinnacle_register_option_pages');
+
+function pinnacle_register_option_pages() {
+
+    if ( ! function_exists('acf_add_options_page') ) {
+        return;
+    }
+
     acf_add_options_page([
         'page_title' => 'Homepage Content',
         'menu_title' => 'Homepage Content',
@@ -148,6 +197,8 @@ if (function_exists('acf_add_options_page')) {
         'icon_url'   => 'dashicons-heart',
         'redirect'   => false,
     ]);
+
+
 }
 
 if (function_exists('acf_add_local_field_group')) {
@@ -1992,6 +2043,152 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
+
+acf_add_local_field_group([
+    'key' => 'group_insurance_page',
+    'title' => 'Insurance Page',
+    'fields' => [
+
+        [
+            'key' => 'field_insurance_hero_image',
+            'label' => 'Hero Image',
+            'name' => 'insurance_hero_image',
+            'type' => 'image',
+            'return_format' => 'array',
+            'preview_size' => 'medium',
+        ],
+
+        [
+            'key' => 'field_insurance_page_title',
+            'label' => 'Page Title',
+            'name' => 'insurance_page_title',
+            'type' => 'text',
+            'default_value' => 'Mental Health & Psychiatry Insurance Accepted | Edina, MN',
+        ],
+
+        [
+            'key' => 'field_insurance_intro_heading',
+            'label' => 'Intro Heading',
+            'name' => 'insurance_intro_heading',
+            'type' => 'text',
+            'default_value' => 'We eliminate the guesswork from insurance verification so you can focus purely on recovery.',
+        ],
+
+        [
+            'key' => 'field_insurance_intro_body',
+            'label' => 'Intro Body',
+            'name' => 'insurance_intro_body',
+            'type' => 'textarea',
+            'rows' => 5,
+        ],
+
+        [
+            'key' => 'field_insurance_providers_heading',
+            'label' => 'Insurance Providers Heading',
+            'name' => 'insurance_providers_heading',
+            'type' => 'text',
+            'default_value' => 'In-Network Insurance Providers',
+        ],
+
+        [
+            'key' => 'field_insurance_providers_intro',
+            'label' => 'Insurance Providers Intro',
+            'name' => 'insurance_providers_intro',
+            'type' => 'textarea',
+            'rows' => 3,
+            'default_value' => 'Below is the structured list of insurance carriers currently accepted at our Edina clinic.',
+        ],
+
+        [
+            'key' => 'field_insurance_providers',
+            'label' => 'Insurance Carriers',
+            'name' => 'insurance_providers',
+            'type' => 'repeater',
+            'layout' => 'block',
+            'button_label' => 'Add Insurance Carrier',
+
+            'sub_fields' => [
+
+                [
+                    'key' => 'field_insurance_provider_logo',
+                    'label' => 'Insurance Logo',
+                    'name' => 'logo',
+                    'type' => 'image',
+                    'return_format' => 'array',
+                    'preview_size' => 'medium',
+                ],
+
+                [
+                    'key' => 'field_insurance_provider_name',
+                    'label' => 'Insurance Carrier Name',
+                    'name' => 'name',
+                    'type' => 'text',
+                ],
+
+                [
+                    'key' => 'field_insurance_provider_medication',
+                    'label' => 'Medication Management',
+                    'name' => 'medication_management',
+                    'type' => 'text',
+                    'default_value' => 'In-Network',
+                ],
+
+                [
+                    'key' => 'field_insurance_provider_tms',
+                    'label' => 'NeuroStar TMS Therapy',
+                    'name' => 'tms',
+                    'type' => 'text',
+                    'default_value' => 'Covered — Prior Authorization Required',
+                ],
+
+                [
+                    'key' => 'field_insurance_provider_spravato',
+                    'label' => 'Spravato (Esketamine)',
+                    'name' => 'spravato',
+                    'type' => 'text',
+                    'default_value' => 'Covered — Prior Authorization Required',
+                ],
+
+            ],
+        ],
+
+        [
+            'key' => 'field_insurance_cta_heading',
+            'label' => 'CTA Heading',
+            'name' => 'insurance_cta_heading',
+            'type' => 'text',
+            'default_value' => 'Book a Consultation',
+        ],
+
+        [
+            'key' => 'field_insurance_cta_text',
+            'label' => 'CTA Button Text',
+            'name' => 'insurance_cta_text',
+            'type' => 'text',
+            'default_value' => 'Schedule Consultation',
+        ],
+
+        [
+            'key' => 'field_insurance_cta_link',
+            'label' => 'CTA Button Link',
+            'name' => 'insurance_cta_link',
+            'type' => 'url',
+        ],
+
+    ],
+
+    'location' => [
+        [
+            [
+                'param' => 'options_page',
+                'operator' => '==',
+                'value' => 'insurance-page',
+            ],
+        ],
+    ],
+]);
+
+
 }
 
 function pinnacle_enqueue_homepage_scripts() {
@@ -2343,6 +2540,14 @@ function pinnacle_register_provider_fields() {
                 'toolbar' => 'basic',
                 'media_upload' => false,
             ),
+  array(
+      'key' => 'field_provider_email',
+      'label' => 'Provider Email',
+     'name' => 'provider_email',
+    'type' => 'email',
+    'instructions' => 'Email address that should receive booking requests for this provider.',
+    'placeholder' => 'provider@example.com',
+    ),
 
             array(
                 'key' => 'field_provider_focus',
@@ -3039,376 +3244,536 @@ add_action('wp_enqueue_scripts', 'pinnacle_enqueue_homepage_scripts');
 add_filter('woocommerce_return_to_shop_redirect', function () {
     return 'https://us.fullscript.com/s/pinnaclebhc/shop';
 });
-?>
 
-<?php
-/**
- * Enqueue assets for the Edina Location page template.
- */
+
+/* =========================================================
+ * GOOGLE FONT RESOURCE HINTS
+ * ========================================================= */
+function pinnacle_resource_hints($urls, $relation_type) {
+    if ('preconnect' !== $relation_type) {
+        return $urls;
+    }
+
+    $urls[] = [
+        'href' => 'https://fonts.googleapis.com',
+    ];
+
+    $urls[] = [
+        'href' => 'https://fonts.gstatic.com',
+        'crossorigin',
+    ];
+
+    return $urls;
+}
+add_filter('wp_resource_hints', 'pinnacle_resource_hints', 10, 2);
+
+
+/* =========================================================
+ * EDINA LOCATION PAGE
+ * ========================================================= */
 function pinnacle_enqueue_edina_location_assets() {
-    if ( is_page_template('page-edina.php') ) {
-        $css_file = get_template_directory() . '/style.css';
-        $js_file  = get_template_directory() . '/assets/js/edina.js';
+    if (!is_page_template('page-edina.php')) {
+        return;
+    }
 
-        wp_enqueue_style(
-            'pinnacle-edina-location',
-            get_template_directory_uri() . '/style.css',
-            array(),
-            file_exists($css_file) ? filemtime($css_file) : '1.0.0'
-        );
+    $js_file = get_template_directory() . '/assets/js/edina.js';
 
+    if (file_exists($js_file)) {
         wp_enqueue_script(
             'pinnacle-edina-location',
             get_template_directory_uri() . '/assets/js/edina.js',
-            array(),
-            file_exists($js_file) ? filemtime($js_file) : '1.0.0',
+            [],
+            filemtime($js_file),
             true
         );
     }
 }
 add_action('wp_enqueue_scripts', 'pinnacle_enqueue_edina_location_assets');
 
-/**
- * Optional SEO title for the Edina location page.
- */
 function pinnacle_edina_location_document_title($title) {
-    if ( is_page_template('page-edina.php') ) {
+    if (is_page_template('page-edina.php')) {
         return 'Psychiatric & Behavioral Health Care in Edina, MN | Pinnacle Behavioral Healthcare';
     }
+
     return $title;
 }
 add_filter('pre_get_document_title', 'pinnacle_edina_location_document_title');
 
-/**
- * LocalBusiness/MedicalClinic JSON-LD for the Edina location page.
- */
 function pinnacle_edina_location_schema() {
-    if ( ! is_page_template('page-edina.php') ) {
+    if (!is_page_template('page-edina.php')) {
         return;
     }
 
-    $schema = array(
+    $schema = [
         '@context' => 'https://schema.org',
         '@type' => 'MedicalClinic',
         'name' => 'Pinnacle Behavioral Healthcare | Edina',
         'image' => 'https://pinnaclebhc.com/wp-content/uploads/2024/05/Pinnacle_Logo_final_L.webp',
-        'address' => array(
+        'address' => [
             '@type' => 'PostalAddress',
             'streetAddress' => '6600 France Ave S, Suite 415',
             'addressLocality' => 'Edina',
             'addressRegion' => 'MN',
             'postalCode' => '55435',
             'addressCountry' => 'US',
-        ),
+        ],
         'url' => home_url('/locations/edina/'),
-        'aggregateRating' => array(
+        'aggregateRating' => [
             '@type' => 'AggregateRating',
             'ratingValue' => '4.6',
             'reviewCount' => '274',
-        ),
+        ],
         'medicalSpecialty' => 'Psychiatric',
-    );
+    ];
 
-    echo '<script type="application/ld+json">' .
-        wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) .
-        '</script>';
+    echo '<script type="application/ld+json">'
+        . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+        . '</script>';
 }
 add_action('wp_head', 'pinnacle_edina_location_schema', 20);
 
+
 /* =========================================================
- * BLOG POSTS CUSTOM POST TYPE
+ * TELEHEALTH PAGE
+ * ========================================================= */
+function pinnacle_telehealth_assets() {
+    $is_telehealth = is_page('telehealth')
+        || is_page_template('telehealth-psychiatric-medication-management-in-minneapolis.php')
+        || is_page_template('page-service-detail.php');
+
+    if (!$is_telehealth) {
+        return;
+    }
+
+    $js_file = get_template_directory() . '/assets/js/telehealth-consult-modal.js';
+
+    if (file_exists($js_file)) {
+        wp_enqueue_script(
+            'pinnacle-telehealth-consult-modal',
+            get_template_directory_uri() . '/assets/js/telehealth-consult-modal.js',
+            [],
+            filemtime($js_file),
+            true
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'pinnacle_telehealth_assets', 20);
+
+
+/* =========================================================
+ * NEW PATIENTS PAGE
+ * ========================================================= */
+function pinnacle_new_patients_assets() {
+    if (!is_page_template('page-new-patients.php')) {
+        return;
+    }
+
+    $css_file = get_template_directory() . '/assets/css/new-patients.css';
+    $js_file  = get_template_directory() . '/assets/js/new-patients.js';
+
+    if (file_exists($css_file)) {
+        wp_enqueue_style(
+            'pinnacle-new-patients',
+            get_template_directory_uri() . '/assets/css/new-patients.css',
+            [],
+            filemtime($css_file)
+        );
+    }
+
+    if (file_exists($js_file)) {
+        wp_enqueue_script(
+            'pinnacle-new-patients',
+            get_template_directory_uri() . '/assets/js/new-patients.js',
+            [],
+            filemtime($js_file),
+            true
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'pinnacle_new_patients_assets', 20);
+
+
+/* =========================================================
+ * WOOCOMMERCE / FULLSCRIPT
+ * ========================================================= */
+add_filter('woocommerce_return_to_shop_redirect', function () {
+    return 'https://us.fullscript.com/s/pinnaclebhc/shop';
+});
+
+
+/* =========================================================
+ * CONTACT FORM 7 — ROUTE PROVIDER BOOKING EMAIL
+ * ========================================================= */
+/* =========================================================
+ * PROVIDER BOOKING EMAIL ROUTING
+ * =========================================================
+ *
+ * Contact Form 7 form ID: f756eed
+ *
+ * The booking form submits provider_id.
+ * We use that ID to find the provider's ACF
+ * provider_email field and send the form to that
+ * provider.
  * ========================================================= */
 
-function pinnacle_register_blog_post_cpt() {
+add_filter(
+    'wpcf7_mail_components',
+    'pinnacle_route_provider_booking_email',
+    10,
+    3
+);
+
+function pinnacle_route_provider_booking_email(
+    $components,
+    $contact_form,
+    $mail
+) {
+
+    /*
+     * Only run for the Provider Booking Form.
+     */
+    if (
+        ! $contact_form ||
+        (string) $contact_form->id() !== 'f756eed'
+    ) {
+        return $components;
+    }
+
+
+    /*
+     * Get the current Contact Form 7 submission.
+     */
+    $submission = WPCF7_Submission::get_instance();
+
+    if ( ! $submission ) {
+        return $components;
+    }
+
+
+    /*
+     * Get the provider ID from the hidden form field.
+     */
+    $provider_id = $submission->get_posted_data(
+        'provider_id'
+    );
+
+    $provider_id = absint( $provider_id );
+
+
+    /*
+     * If no provider ID was submitted,
+     * keep the normal Contact Form 7 recipient.
+     */
+    if ( ! $provider_id ) {
+        return $components;
+    }
+
+
+    /*
+     * Make sure this is actually a provider post.
+     */
+    if (
+        get_post_type( $provider_id ) !== 'provider'
+    ) {
+        return $components;
+    }
+
+
+    /*
+     * Get the provider email from ACF.
+     */
+    $provider_email = get_field(
+        'provider_email',
+        $provider_id
+    );
+    
+    error_log(
+    'PROVIDER BOOKING ROUTING: provider_id=' .
+    $provider_id .
+    ' email=' .
+    $provider_email
+);
+
+
+    /*
+     * Make sure the email is valid.
+     */
+    if (
+        ! $provider_email ||
+        ! is_email( $provider_email )
+    ) {
+        return $components;
+    }
+
+
+    /*
+     * Replace Contact Form 7's recipient.
+     */
+    $components['recipient'] = sanitize_email(
+        $provider_email
+    );
+
+
+    return $components;
+}
+
+function pinnacle_enqueue_insurance_accepted_assets() {
+    if ( ! is_page_template( 'page-insurance-accepted.php' ) ) {
+        return;
+    }
+
+    $css_file = get_template_directory() . '/style.css';
+    $css_uri  = get_template_directory_uri() . '/style.css';
+
+    wp_enqueue_style(
+        'pinnacle-insurance-accepted',
+        $css_uri,
+        array('pinnacle-style'),
+        file_exists($css_file) ? filemtime($css_file) : '1.0.0'
+    );
+}
+add_action('wp_enqueue_scripts', 'pinnacle_enqueue_insurance_accepted_assets');
+
+
+
+function pinnacle_register_insurance_accepted_fields() {
+
+    if ( ! function_exists('acf_add_local_field_group') ) {
+        return;
+    }
+
+    acf_add_local_field_group(array(
+        'key' => 'group_insurance_accepted_page',
+        'title' => 'Insurance Accepted Page',
+
+        // ... all the fields ...
+
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'page-insurance-accepted.php',
+                ),
+            ),
+        ),
+    ));
+}
+
+add_action(
+    'acf/init',
+    'pinnacle_register_insurance_accepted_fields'
+);
+
+
+/* =========================================================
+ * INSURANCE PROVIDERS
+ * ========================================================= */
+
+function pinnacle_register_insurance_provider_cpt() {
 
     $labels = array(
-        'name'                  => 'Blog Posts',
-        'singular_name'         => 'Blog Post',
-        'menu_name'             => 'Blog Posts',
-        'add_new'               => 'Add Blog Post',
-        'add_new_item'          => 'Add New Blog Post',
-        'edit_item'             => 'Edit Blog Post',
-        'new_item'              => 'New Blog Post',
-        'view_item'             => 'View Blog Post',
-        'search_items'          => 'Search Blog Posts',
-        'not_found'             => 'No blog posts found',
-        'not_found_in_trash'    => 'No blog posts found in trash',
-        'all_items'             => 'All Blog Posts',
+        'name'               => 'Insurance Providers',
+        'singular_name'      => 'Insurance Provider',
+        'menu_name'          => 'Insurance Providers',
+        'name_admin_bar'     => 'Insurance Provider',
+        'add_new'            => 'Add New',
+        'add_new_item'       => 'Add New Insurance Provider',
+        'new_item'           => 'New Insurance Provider',
+        'edit_item'          => 'Edit Insurance Provider',
+        'view_item'          => 'View Insurance Provider',
+        'all_items'          => 'Insurance Providers',
+        'search_items'       => 'Search Insurance Providers',
+        'not_found'          => 'No insurance providers found.',
+        'not_found_in_trash' => 'No insurance providers found in Trash.',
     );
 
     $args = array(
-        'labels'             => $labels,
+        'labels' => $labels,
 
-        'public'             => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'menu_icon'          => 'dashicons-edit-page',
+        'public' => false,
 
-        'supports'           => array(
+        'show_ui' => true,
+
+        'show_in_menu' => true,
+
+        'show_in_rest' => true,
+
+        'menu_icon' => 'dashicons-shield',
+
+        'supports' => array(
             'title',
-            'editor',
-            'thumbnail',
-            'excerpt',
-            'author',
         ),
 
-        'show_in_rest'       => true,
+        'capability_type' => 'post',
 
-        /*
-         * Do not create a separate archive page.
-         * Your existing /blog/ page will display the posts.
-         */
-        'has_archive'        => false,
+        'has_archive' => false,
 
-        'rewrite'            => array(
-            'slug'       => 'blog',
-            'with_front' => false,
-        ),
-
-        'publicly_queryable' => true,
+        'rewrite' => false,
     );
 
     register_post_type(
-        'blog_post',
+        'insurance_provider',
         $args
     );
 }
 
 add_action(
     'init',
-    'pinnacle_register_blog_post_cpt'
+    'pinnacle_register_insurance_provider_cpt'
 );
 
 
 /* =========================================================
- * BLOG CATEGORY TAXONOMY
+ * INSURANCE PROVIDER FIELDS
  * ========================================================= */
 
-/* =========================================================
- * BLOG CATEGORY TAXONOMY
- * ========================================================= */
+function pinnacle_register_insurance_provider_fields() {
 
-function pinnacle_register_blog_category_taxonomy() {
+    if (
+        ! function_exists(
+            'acf_add_local_field_group'
+        )
+    ) {
+        return;
+    }
 
-    $labels = array(
-        'name'              => 'Blog Categories',
-        'singular_name'     => 'Blog Category',
-        'search_items'      => 'Search Blog Categories',
-        'all_items'         => 'All Blog Categories',
-        'parent_item'       => 'Parent Blog Category',
-        'parent_item_colon' => 'Parent Blog Category:',
-        'edit_item'         => 'Edit Blog Category',
-        'update_item'       => 'Update Blog Category',
-        'add_new_item'      => 'Add New Blog Category',
-        'new_item_name'     => 'New Blog Category Name',
-        'menu_name'         => 'Categories',
-    );
-
-    register_taxonomy(
-        'blog_category',
-        array('blog_post'),
+    acf_add_local_field_group(
         array(
-            'labels'            => $labels,
-            'public'            => true,
-            'show_ui'           => true,
-            'show_admin_column' => true,
-            'show_in_rest'      => true,
-            'hierarchical'      => true,
 
-            'rewrite' => array(
-                'slug'       => 'blog-category',
-                'with_front' => false,
+            'key' => 'group_insurance_provider',
+
+            'title' => 'Insurance Provider Information',
+
+            'fields' => array(
+
+                /*
+                 * LOGO
+                 */
+                array(
+                    'key' => 'field_insurance_provider_logo',
+
+                    'label' => 'Insurance Logo',
+
+                    'name' => 'insurance_logo',
+
+                    'type' => 'image',
+
+                    'return_format' => 'array',
+
+                    'preview_size' => 'medium',
+
+                    'library' => 'all',
+                ),
+
+                /*
+                 * MEDICATION MANAGEMENT
+                 */
+                array(
+                    'key' => 'field_insurance_medication',
+
+                    'label' => 'Medication Management',
+
+                    'name' => 'insurance_medication',
+
+                    'type' => 'text',
+
+                    'default_value' => 'In-Network',
+
+                    'placeholder' => 'In-Network',
+                ),
+
+                /*
+                 * NEUROSTAR TMS
+                 */
+                array(
+                    'key' => 'field_insurance_tms',
+
+                    'label' => 'NeuroStar TMS Therapy',
+
+                    'name' => 'insurance_tms',
+
+                    'type' => 'text',
+
+                    'default_value' =>
+                        'Covered — Prior Authorization Required',
+
+                    'placeholder' =>
+                        'Covered — Prior Authorization Required',
+                ),
+
+                /*
+                 * SPRAVATO
+                 */
+                array(
+                    'key' => 'field_insurance_spravato',
+
+                    'label' => 'Spravato (Esketamine)',
+
+                    'name' => 'insurance_spravato',
+
+                    'type' => 'text',
+
+                    'default_value' =>
+                        'Covered — Prior Authorization Required',
+
+                    'placeholder' =>
+                        'Covered — Prior Authorization Required',
+                ),
+
+                /*
+                 * DISPLAY ORDER
+                 */
+                array(
+                    'key' => 'field_insurance_order',
+
+                    'label' => 'Display Order',
+
+                    'name' => 'insurance_order',
+
+                    'type' => 'number',
+
+                    'default_value' => 10,
+
+                    'instructions' =>
+                        'Lower numbers appear first on the Insurance Accepted page.',
+                ),
+
             ),
+
+            'location' => array(
+
+                array(
+
+                    array(
+
+                        'param' =>
+                            'post_type',
+
+                        'operator' =>
+                            '==',
+
+                        'value' =>
+                            'insurance_provider',
+
+                    ),
+
+                ),
+
+            ),
+
+            'position' => 'normal',
+
+            'style' => 'default',
+
+            'active' => true,
         )
     );
 }
 
 add_action(
-    'init',
-    'pinnacle_register_blog_category_taxonomy'
+    'acf/init',
+    'pinnacle_register_insurance_provider_fields'
 );
-?>
 
-<?php
-/**
- * Pinnacle Behavioral Healthcare theme functions.
- */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
-
-/**
- * Theme setup.
- */
-function pinnacle_setup() {
-	add_theme_support( 'title-tag' );
-	add_theme_support( 'post-thumbnails' );
-	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
-	add_theme_support( 'custom-logo' );
-
-	register_nav_menus(
-		array(
-			'primary' => __( 'Primary Menu', 'pinnacle-behavioral' ),
-		)
-	);
-}
-add_action( 'after_setup_theme', 'pinnacle_setup' );
-
-/**
- * Enqueue styles and scripts.
- */
-function pinnacle_assets() {
-	// Google Fonts used by the design.
-	wp_enqueue_style(
-		'pinnacle-google-fonts',
-		'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap',
-		array(),
-		null
-	);
-
-	// Main theme stylesheet.
-	wp_enqueue_style(
-		'pinnacle-style',
-		get_stylesheet_uri(),
-		array( 'pinnacle-google-fonts' ),
-		wp_get_theme()->get( 'Version' )
-	);
-
-	// Main theme script (waveform, FAQ accordion, scroll reveal).
-	wp_enqueue_script(
-		'pinnacle-main',
-		get_template_directory_uri() . '/assets/js/main.js',
-		array(),
-		wp_get_theme()->get( 'Version' ),
-		true
-	);
-
-	// Existing-patients intake page script (request-type selector, form submit).
-	if ( is_page_template( 'page-existing-patients.php' ) ) {
-		wp_enqueue_script(
-			'pinnacle-intake',
-			get_template_directory_uri() . '/assets/js/intake.js',
-			array(),
-			wp_get_theme()->get( 'Version' ),
-			true
-		);
-	}
-}
-add_action( 'wp_enqueue_scripts', 'pinnacle_assets' );
-
-/**
- * Preconnect to Google Fonts origins, matching the original markup.
- */
-function pinnacle_resource_hints( $urls, $relation_type ) {
-	if ( 'preconnect' === $relation_type ) {
-		$urls[] = array(
-			'href' => 'https://fonts.googleapis.com',
-		);
-		$urls[] = array(
-			'href' => 'https://fonts.gstatic.com',
-			'crossorigin',
-		);
-	}
-	return $urls;
-}
-add_filter( 'wp_resource_hints', 'pinnacle_resource_hints', 10, 2 );
-?>
-<?php
-/* ============================================================
-   Fixed: the file is actually named page-service-detail.php,
-   so that's what is_page_template() must check against.
-   ============================================================ */
-
-add_action('wp_enqueue_scripts', function () {
-    if (is_page_template('telehealth-psychiatric-medication-management-in-minneapolis.php')) {
-
-        wp_enqueue_style(
-            'pinnacle-telehealth',
-            get_stylesheet_directory_uri() . '/style.css',
-            ['pinnacle-theme'],
-            '1.0.0'
-        );
-
-        wp_enqueue_style(
-            'pinnacle-telehealth-consult-modal',
-            get_stylesheet_directory_uri() . '/style.css',
-            ['pinnacle-telehealth'],
-            '1.0.0'
-        );
-
-        wp_enqueue_script(
-            'pinnacle-telehealth-consult-modal',
-            get_stylesheet_directory_uri() . '/assets/js/telehealth-consult-modal.js',
-            [],
-            '1.0.0',
-            true
-        );
-    }
-});
-
-/* ------------------------------------------------------------
-   MORE ROBUST ALTERNATIVE — matches by the file's actual path
-   no matter what it's renamed to later, using WP's own record
-   of which template a page is assigned:
-   ------------------------------------------------------------ */
-
-add_action('wp_enqueue_scripts', function () {
-    $template_slugs = [
-        'page-service-detail.php', // current filename
-        // add more filenames here if you rename it again later,
-        // or ever reuse this same layout for another file
-    ];
-
-    if (is_page_template($template_slugs)) {
-        // ...same wp_enqueue_style / wp_enqueue_script calls
-    }
-});
-
-/* ------------------------------------------------------------
-   OR simplest of all if this is a single, specific page —
-   skip the template check entirely and target the page by
-   slug or ID instead (works even if the template file gets
-   renamed again in the future):
-   ------------------------------------------------------------ */
-
-add_action('wp_enqueue_scripts', function () {
-    if (is_page('telehealth')) { // matches /telehealth/ by slug
-        // ...same wp_enqueue_style / wp_enqueue_script calls
-    }
-});
-?>
-
-<?php
-/**
- * Add this to your existing functions.php.
- * Do NOT add a second copy of these functions if they already exist.
- */
-
-function pinnacle_new_patients_assets() {
-    if (is_page_template('page-new-patients.php')) {
-        wp_enqueue_style(
-            'pnp-google-fonts',
-            'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap',
-            array(),
-            null
-        );
-
-        wp_enqueue_style(
-            'pnp-new-patients',
-            get_template_directory_uri() . '/assets/css/new-patients.css',
-            array(),
-            '1.0.0'
-        );
-
-        wp_enqueue_script(
-            'pnp-new-patients',
-            get_template_directory_uri() . '/assets/js/new-patients.js',
-            array(),
-            '1.0.0',
-            true
-        );
-    }
-}
-add_action('wp_enqueue_scripts', 'pinnacle_new_patients_assets');
 

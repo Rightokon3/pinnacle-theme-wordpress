@@ -535,6 +535,11 @@ if ( ! is_array( $testimonials ) ) {
                  OPTIONAL
             ================================================== -->
 
+            <?php
+            get_template_part(
+             'template-parts/providers/booking-form'
+          );
+           ?>
             <?php if ( $psychology_today_url ) : ?>
 
                 <section

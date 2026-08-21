@@ -16498,3 +16498,633 @@ body.mobile-nav-open {
     transition: none;
   }
 }
+/* =========================================================
+   PROVIDER BOOKING FORM
+   ========================================================= */
+
+.pinnacle-provider-booking-form {
+    width: 100%;
+    max-width: 100%;
+    margin: 45px 0 0;
+    padding: 38px;
+    box-sizing: border-box;
+
+    background: #eaf5fc;
+    border-radius: 18px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.pinnacle-booking-heading {
+    margin-bottom: 30px;
+}
+
+.pinnacle-booking-heading h2 {
+    margin: 0 0 10px;
+
+    color: #1583c7;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.pinnacle-booking-heading p {
+    margin: 0;
+
+    color: #617181;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.pinnacle-booking-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.pinnacle-booking-field {
+    margin-bottom: 22px;
+}
+
+.pinnacle-booking-field label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #17324d;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pinnacle-provider-booking-form input,
+.pinnacle-provider-booking-form select,
+.pinnacle-provider-booking-form textarea {
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    border: 1px solid #cbd8e1;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #1d2b39;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.pinnacle-provider-booking-form input:focus,
+.pinnacle-provider-booking-form select:focus,
+.pinnacle-provider-booking-form textarea:focus {
+    border-color: #2ca9df;
+
+    box-shadow: 0 0 0 3px rgba(44, 169, 223, 0.12);
+}
+
+.pinnacle-provider-booking-form textarea {
+    min-height: 130px;
+
+    resize: vertical;
+}
+
+.pinnacle-booking-submit {
+    display: inline-flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 52px;
+
+    margin-top: 5px;
+
+    padding: 0 28px !important;
+
+    border: 0 !important;
+    border-radius: 999px !important;
+
+    background: #2ca9df !important;
+
+    color: #ffffff !important;
+
+    font-family: "Poppins", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.pinnacle-booking-submit:hover {
+    background: #1583c7 !important;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   PROVIDER PAGE PLACEMENT
+   ========================================================= */
+
+.provider-booking-section {
+    width: 100%;
+    margin-top: 35px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .pinnacle-provider-booking-form {
+        margin-top: 30px;
+        padding: 25px 20px;
+        border-radius: 14px;
+    }
+
+    .pinnacle-booking-heading h2 {
+        font-size: 26px;
+    }
+
+    .pinnacle-booking-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .pinnacle-booking-field {
+        margin-bottom: 18px;
+    }
+
+    .pinnacle-booking-submit {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   INSURANCE ACCEPTED PAGE — PINNACLE THEME
+   ========================================================= */
+
+.insurance-page {
+    --insurance-blue: #2ca9df;
+    --insurance-blue-dark: #1583c7;
+    --insurance-navy: #1d3045;
+    --insurance-soft: #eaf5fb;
+    --insurance-border: #dce8ef;
+    background: #fff;
+    color: var(--insurance-navy);
+}
+
+.insurance-container {
+    width: min(1240px, calc(100% - 64px));
+    margin: 0 auto;
+}
+
+.insurance-hero {
+    position: relative;
+    min-height: 345px;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.insurance-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.82) 34%, rgba(255,255,255,.18) 65%, rgba(255,255,255,0) 100%);
+}
+
+.insurance-hero__inner {
+    position: relative;
+    z-index: 1;
+}
+
+.insurance-hero__title {
+    max-width: 900px;
+    margin: 0;
+    color: #000;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(44px, 5.2vw, 72px);
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+}
+
+.insurance-content {
+    padding: 54px 0 0;
+}
+
+.insurance-share {
+    margin-bottom: 38px;
+}
+
+.insurance-share__title {
+    margin: 0 0 10px;
+    color: #000;
+    font-family: "Poppins", sans-serif;
+    font-size: 31px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.insurance-share__buttons {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.insurance-share__label {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    color: #656565;
+    font-size: 19px;
+    line-height: 1;
+}
+
+.insurance-share__label small {
+    margin-top: 3px;
+    font-size: 9px;
+    letter-spacing: .03em;
+}
+
+.insurance-share__button {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.insurance-share__button--facebook { background: #1877f2; }
+.insurance-share__button--pinterest { background: #e51b23; }
+.insurance-share__button--pdf { background: #ef3340; font-size: 10px; font-weight: 700; }
+.insurance-share__button--copy { background: #34495e; }
+.insurance-share__button--more { background: #ff6b00; font-size: 20px; }
+
+.insurance-copy__eyebrow {
+    margin: 0 0 20px;
+    color: #1a3550;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.insurance-copy__title {
+    max-width: 1180px;
+    margin: 0 0 20px;
+    color: #000;
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(32px, 4vw, 55px);
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.insurance-copy__body,
+.insurance-providers__intro {
+    max-width: 1180px;
+    color: #233c54;
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+.insurance-copy__body p,
+.insurance-providers__intro p {
+    margin: 0 0 18px;
+}
+
+.insurance-providers {
+    margin-top: 36px;
+    padding-bottom: 72px;
+}
+
+.insurance-providers__title {
+    margin: 0 0 18px;
+    color: #000;
+    font-family: "Poppins", sans-serif;
+    font-size: 28px;
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   INSURANCE LOGO GRID
+   ========================================================= */
+
+.insurance-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 30px;
+}
+
+
+/* =========================================================
+   LOGO CARD
+   ========================================================= */
+
+.insurance-card--logo-only {
+    min-height: 180px;
+    background: #ffffff;
+    border: 1px solid #e3eaf0;
+    border-radius: 14px;
+    padding: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.insurance-card--logo-only:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   LOGO AREA
+   ========================================================= */
+
+.insurance-card--logo-only
+.insurance-card__logo-wrap {
+    width: 100%;
+    height: 130px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef8fc;
+
+    border-radius: 10px;
+
+    padding: 18px;
+    box-sizing: border-box;
+}
+
+
+.insurance-card--logo-only
+.insurance-card__logo {
+    display: block;
+
+    width: auto;
+    max-width: 85%;
+    max-height: 90px;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+    .insurance-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .insurance-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .insurance-card--logo-only {
+        min-height: 150px;
+        padding: 18px;
+    }
+
+    .insurance-card--logo-only
+    .insurance-card__logo-wrap {
+        height: 110px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .insurance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .insurance-card--logo-only {
+        min-height: 160px;
+    }
+
+}
+
+
+.insurance-card {
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--insurance-border);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(34, 68, 95, .06);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.insurance-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(44,169,223,.45);
+    box-shadow: 0 18px 34px rgba(34, 68, 95, .10);
+}
+
+.insurance-card__logo-wrap {
+    min-height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--insurance-soft);
+}
+
+.insurance-card__logo {
+    display: block;
+    width: auto;
+    max-width: 180px;
+    max-height: 68px;
+    object-fit: contain;
+}
+
+.insurance-card__logo-fallback {
+    color: var(--insurance-navy);
+    font-family: "Poppins", sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.insurance-card__name {
+    margin: 0 0 16px;
+    color: #17324d;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.insurance-card__coverage {
+    margin: 0;
+}
+
+.insurance-card__coverage > div {
+    padding: 11px 0;
+    border-top: 1px solid #e8eef2;
+}
+
+.insurance-card__coverage dt,
+.insurance-card__coverage dd {
+    margin: 0;
+}
+
+.insurance-card__coverage dt {
+    color: #587086;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.insurance-card__coverage dd {
+    margin-top: 3px;
+    color: #17324d;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.insurance-empty {
+    margin-top: 30px;
+    padding: 30px;
+    border: 1px dashed #bdd4e2;
+    border-radius: 16px;
+    background: #f7fbfd;
+}
+
+.insurance-cta {
+    background: linear-gradient(90deg, #dff3fc 0%, #eaf7fd 100%);
+}
+
+.insurance-cta__inner {
+    min-height: 145px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.insurance-cta h2 {
+    margin: 0;
+    color: var(--insurance-blue);
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(34px, 4vw, 52px);
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.insurance-cta__button {
+    min-height: 50px;
+    padding: 0 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    border-radius: 999px;
+    background: var(--insurance-blue);
+    color: #fff;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color .2s ease, transform .2s ease;
+}
+
+.insurance-cta__button:hover {
+    background: var(--insurance-blue-dark);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 1023px) {
+    .insurance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+    .insurance-container { width: min(100% - 36px, 680px); }
+    .insurance-hero { min-height: 300px; }
+    .insurance-hero__overlay { background: linear-gradient(90deg, rgba(255,255,255,.96), rgba(255,255,255,.60)); }
+    .insurance-hero__title { max-width: 680px; font-size: 43px; }
+    .insurance-content { padding-top: 38px; }
+    .insurance-share__title { font-size: 27px; }
+    .insurance-copy__title { font-size: 34px; }
+    .insurance-copy__body,
+    .insurance-providers__intro { font-size: 16px; line-height: 1.78; }
+    .insurance-grid { grid-template-columns: 1fr; gap: 16px; }
+    .insurance-card { padding: 20px; }
+    .insurance-card__logo-wrap { min-height: 84px; }
+    .insurance-cta__inner { min-height: 0; padding-top: 34px; padding-bottom: 34px; flex-direction: column; align-items: flex-start; }
+    .insurance-cta h2 { font-size: 34px; }
+    .insurance-cta__button { width: 100%; }
+}
+
+@media print {
+    .insurance-hero { min-height: 220px; }
+    .site-header, .site-footer, .insurance-share, .insurance-cta { display: none !important; }
+}
+
+
