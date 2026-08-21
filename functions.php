@@ -2540,7 +2540,7 @@ function pinnacle_register_provider_fields() {
                 'toolbar' => 'basic',
                 'media_upload' => false,
             ),
-  array(
+    array(
       'key' => 'field_provider_email',
       'label' => 'Provider Email',
      'name' => 'provider_email',
@@ -2652,6 +2652,80 @@ add_action('acf/init', 'pinnacle_register_provider_fields');
  * NATIVE PROVIDER TESTIMONIALS
  * Does not require ACF Pro.
  * ========================================================= */
+
+
+
+/* =========================================================
+ * BLOG POSTS CUSTOM POST TYPE
+ * ========================================================= */
+
+/* =========================================================
+ * BLOG POSTS CUSTOM POST TYPE
+ * ========================================================= */
+
+function pinnacle_register_blog_post_cpt() {
+
+    $labels = array(
+        'name'               => 'Blog Posts',
+        'singular_name'      => 'Blog Post',
+        'menu_name'          => 'Blog Posts',
+        'name_admin_bar'     => 'Blog Post',
+        'add_new'            => 'Add Post',
+        'add_new_item'       => 'Add New Blog Post',
+        'new_item'           => 'New Blog Post',
+        'edit_item'          => 'Edit Blog Post',
+        'view_item'          => 'View Blog Post',
+        'all_items'          => 'Blog Posts',
+        'search_items'       => 'Search Blog Posts',
+        'not_found'          => 'No blog posts found.',
+        'not_found_in_trash' => 'No blog posts found in Trash.',
+    );
+
+    $args = array(
+        'labels' => $labels,
+
+        'public' => true,
+
+        'publicly_queryable' => true,
+
+        'show_ui' => true,
+
+        'show_in_menu' => true,
+
+        'show_in_rest' => true,
+
+        'menu_icon' => 'dashicons-edit-page',
+
+        'supports' => array(
+            'title',
+            'editor',
+            'thumbnail',
+            'excerpt',
+            'author',
+        ),
+
+        'has_archive' => false,
+
+        'query_var' => true,
+
+        'rewrite' => array(
+            'slug'       => 'blog',
+            'with_front' => false,
+        ),
+    );
+
+    register_post_type(
+        'blog_post',
+        $args
+    );
+}
+
+add_action(
+    'init',
+    'pinnacle_register_blog_post_cpt'
+);
+
+
 
 
 /**
