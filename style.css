@@ -17157,3 +17157,937 @@ body.mobile-nav-open {
     .insurance-hero { min-height: 220px; }
     .site-header, .site-footer, .insurance-share, .insurance-cta { display: none !important; }
 }
+
+/* =========================================================
+   SEARCH RESULTS PAGE
+   ========================================================= */
+
+.search-page {
+    width: 100%;
+    background: #fff;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.search-page__hero {
+    position: relative;
+
+    min-height: 300px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        url("assets/images/back.webp")
+        center center / cover no-repeat;
+
+    overflow: hidden;
+}
+
+.search-page__hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.97) 0%,
+            rgba(255,255,255,0.86) 34%,
+            rgba(255,255,255,0.25) 66%,
+            rgba(255,255,255,0.04) 100%
+        );
+}
+
+.search-page__container {
+    width: 100%;
+    max-width: 1280px;
+
+    margin: 0 auto;
+
+    padding-left: 32px;
+    padding-right: 32px;
+
+    box-sizing: border-box;
+}
+
+.search-page__hero-title {
+    position: relative;
+    z-index: 2;
+
+    margin: 0;
+
+    color: #000;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 56px;
+
+    line-height: 1.1;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.search-page__content {
+    padding: 72px 0 90px;
+
+    background: #fff;
+}
+
+.search-page__grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(320px, 0.9fr);
+
+    gap: 36px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   QUERY HEADING
+   ========================================================= */
+
+.search-page__query-heading {
+    margin: 0 0 28px;
+
+    color: #8a939d;
+
+    font-size: 32px;
+
+    font-weight: 500;
+
+    line-height: 1.25;
+}
+
+.search-page__query-heading span {
+    color: #111;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   SEARCH FORM
+   ========================================================= */
+
+.search-page__form {
+    display: flex;
+
+    width: 100%;
+
+    margin-bottom: 34px;
+}
+
+.search-page__input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 56px;
+
+    padding:
+        0 20px;
+
+    border:
+        1px solid #dfe6ec;
+
+    border-right: 0;
+
+    border-radius:
+        999px 0 0 999px;
+
+    background: #fff;
+
+    color: #1d2733;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+.search-page__input:focus {
+    border-color: var(--primary);
+}
+
+.search-page__submit {
+    min-width: 130px;
+
+    padding:
+        0 24px;
+
+    border: 0;
+
+    border-radius:
+        0 999px 999px 0;
+
+    background:
+        var(--primary);
+
+    color: #fff;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease;
+}
+
+.search-page__submit:hover {
+    background:
+        var(--primary-dark);
+}
+
+
+/* =========================================================
+   SECTION LABEL
+   ========================================================= */
+
+.search-page__section-label {
+    margin:
+        26px 0 16px;
+
+    color:
+        var(--primary);
+
+    font-family:
+        "Poppins", sans-serif;
+
+    font-size:
+        20px;
+
+    font-weight:
+        700;
+}
+
+
+/* =========================================================
+   RESULT CARD
+   ========================================================= */
+
+.search-result-card {
+    display: flex;
+
+    gap: 0;
+
+    margin-bottom: 18px;
+
+    background: #fff;
+
+    border:
+        1px solid #edf1f4;
+
+    box-shadow:
+        0 8px 24px
+        rgba(0,0,0,0.06);
+
+    overflow: hidden;
+}
+
+.search-result-card--exact {
+    border:
+        2px solid
+        rgba(21,131,199,0.25);
+}
+
+
+/* =========================================================
+   RESULT IMAGE
+   ========================================================= */
+
+.search-result-card__image {
+    flex:
+        0 0 230px;
+
+    display: block;
+
+    min-height: 220px;
+
+    overflow: hidden;
+}
+
+.search-result-card__image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.35s ease;
+}
+
+.search-result-card:hover
+.search-result-card__image img {
+    transform: scale(1.03);
+}
+
+
+/* =========================================================
+   RESULT BODY
+   ========================================================= */
+
+.search-result-card__body {
+    flex: 1;
+
+    padding:
+        30px 32px;
+}
+
+.search-result-card__type {
+    display: inline-block;
+
+    margin-bottom: 9px;
+
+    color:
+        var(--primary);
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        0.05em;
+}
+
+.search-result-card__title {
+    margin:
+        0 0 14px;
+
+    color:
+        #101820;
+
+    font-family:
+        "Poppins", sans-serif;
+
+    font-size:
+        25px;
+
+    line-height:
+        1.28;
+
+    font-weight:
+        700;
+}
+
+.search-result-card__title a {
+    color: inherit;
+
+    text-decoration: none;
+}
+
+.search-result-card__title a:hover {
+    color:
+        var(--primary);
+}
+
+.search-result-card__excerpt {
+    margin:
+        0 0 20px;
+
+    color:
+        #243140;
+
+    font-size:
+        16px;
+
+    line-height:
+        1.9;
+}
+
+.search-result-card__link {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        var(--primary);
+
+    text-decoration:
+        none;
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.02em;
+}
+
+.search-result-card__link:hover {
+    color:
+        var(--primary-dark);
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.search-page__sidebar {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        24px;
+}
+
+
+/* =========================================================
+   SIDEBAR CARD
+   ========================================================= */
+
+.search-sidebar-card {
+    background:
+        #eaf6fc;
+}
+
+
+/* =========================================================
+   SIDEBAR SEARCH
+   ========================================================= */
+
+.search-sidebar-card--search {
+    padding:
+        14px;
+}
+
+.search-sidebar-form {
+    display:
+        flex;
+
+    width:
+        100%;
+
+    background:
+        #fff;
+
+    border-radius:
+        999px;
+
+    overflow:
+        hidden;
+}
+
+.search-sidebar-form input {
+    flex:
+        1;
+
+    min-width:
+        0;
+
+    height:
+        56px;
+
+    padding:
+        0 20px;
+
+    border:
+        0;
+
+    outline:
+        none;
+
+    background:
+        #fff;
+
+    color:
+        #222;
+
+    font-family:
+        inherit;
+
+    font-size:
+        15px;
+}
+
+.search-sidebar-form button {
+    width:
+        58px;
+
+    border:
+        0;
+
+    background:
+        #fff;
+
+    color:
+        var(--primary);
+
+    cursor:
+        pointer;
+}
+
+
+/* =========================================================
+   CONTACT SIDEBAR
+   ========================================================= */
+
+.search-sidebar-card--contact {
+    padding:
+        34px 30px;
+}
+
+.search-sidebar-card--contact h2,
+.search-sidebar-card--areas h2 {
+    margin:
+        0 0 24px;
+
+    color:
+        var(--primary);
+
+    font-family:
+        "Poppins", sans-serif;
+
+    font-size:
+        34px;
+
+    line-height:
+        1.2;
+
+    font-weight:
+        700;
+
+    text-align:
+        center;
+}
+
+
+/* =========================================================
+   CONTACT FORM COMPATIBILITY
+   ========================================================= */
+
+.search-sidebar-card--contact input,
+.search-sidebar-card--contact textarea,
+.search-sidebar-card--contact select {
+    width:
+        100%;
+
+    box-sizing:
+        border-box;
+}
+
+
+/* =========================================================
+   PRACTICE AREAS
+   ========================================================= */
+
+.search-sidebar-card--areas {
+    padding:
+        34px 30px;
+}
+
+.search-sidebar-card--areas ul {
+    margin:
+        0;
+
+    padding:
+        0;
+
+    list-style:
+        none;
+}
+
+.search-sidebar-card--areas li {
+    border-bottom:
+        1px solid
+        rgba(21,131,199,0.10);
+}
+
+.search-sidebar-card--areas li:last-child {
+    border-bottom:
+        0;
+}
+
+.search-sidebar-card--areas a {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+    padding:
+        17px 0;
+
+    color:
+        #111;
+
+    text-decoration:
+        none;
+
+    font-size:
+        16px;
+}
+
+.search-sidebar-card--areas a span:last-child {
+    color:
+        #526273;
+
+    font-size:
+        25px;
+
+    line-height:
+        1;
+}
+
+.search-sidebar-card--areas a:hover {
+    color:
+        var(--primary);
+}
+
+
+/* =========================================================
+   NO RESULTS
+   ========================================================= */
+
+.search-page__empty {
+    padding:
+        52px 38px;
+
+    background:
+        #f7fbfd;
+
+    border:
+        1px solid #e3edf3;
+
+    text-align:
+        center;
+}
+
+.search-page__empty h2 {
+    margin:
+        0 0 14px;
+
+    font-family:
+        "Poppins", sans-serif;
+
+    font-size:
+        30px;
+}
+
+.search-page__empty p {
+    margin:
+        0 0 22px;
+
+    color:
+        #56616d;
+
+    line-height:
+        1.7;
+}
+
+.search-page__empty-button {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-height:
+        46px;
+
+    padding:
+        0 24px;
+
+    border-radius:
+        999px;
+
+    background:
+        var(--primary);
+
+    color:
+        #fff;
+
+    text-decoration:
+        none;
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.search-pagination {
+    margin-top:
+        34px;
+}
+
+.search-pagination ul {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    list-style:
+        none;
+}
+
+.search-pagination a,
+.search-pagination span {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-width:
+        40px;
+
+    height:
+        40px;
+
+    padding:
+        0 10px;
+
+    border:
+        1px solid #dbe5eb;
+
+    border-radius:
+        999px;
+
+    color:
+        #26313c;
+
+    text-decoration:
+        none;
+
+    font-size:
+        14px;
+}
+
+.search-pagination .current {
+    background:
+        var(--primary);
+
+    border-color:
+        var(--primary);
+
+    color:
+        #fff;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1023px) {
+
+    .search-page__grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .search-page__sidebar {
+        margin-top:
+            10px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .search-page__hero {
+        min-height:
+            230px;
+    }
+
+    .search-page__container {
+        padding-left:
+            16px;
+
+        padding-right:
+            16px;
+    }
+
+    .search-page__hero-title {
+        font-size:
+            40px;
+    }
+
+    .search-page__content {
+        padding:
+            44px 0 60px;
+    }
+
+    .search-page__query-heading {
+        font-size:
+            25px;
+
+        line-height:
+            1.35;
+    }
+
+    .search-page__form {
+        flex-direction:
+            column;
+
+        gap:
+            10px;
+    }
+
+    .search-page__input {
+        width:
+            100%;
+
+        border:
+            1px solid #dfe6ec;
+
+        border-radius:
+            999px;
+    }
+
+    .search-page__submit {
+        width:
+            100%;
+
+        height:
+            48px;
+
+        border-radius:
+            999px;
+    }
+
+    .search-result-card {
+        flex-direction:
+            column;
+    }
+
+    .search-result-card__image {
+        flex:
+            none;
+
+        width:
+            100%;
+
+        height:
+            210px;
+
+        min-height:
+            0;
+    }
+
+    .search-result-card__body {
+        padding:
+            24px 20px;
+    }
+
+    .search-result-card__title {
+        font-size:
+            21px;
+    }
+
+    .search-result-card__excerpt {
+        font-size:
+            15px;
+
+        line-height:
+            1.75;
+    }
+
+    .search-sidebar-card--contact,
+    .search-sidebar-card--areas {
+        padding:
+            26px 20px;
+    }
+
+    .search-sidebar-card--contact h2,
+    .search-sidebar-card--areas h2 {
+        font-size:
+            29px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .search-page__hero-title {
+        font-size:
+            34px;
+    }
+
+    .search-page__query-heading {
+        font-size:
+            22px;
+    }
+
+    .search-result-card__body {
+        padding:
+            20px 16px;
+    }
+
+}

@@ -3850,4 +3850,30 @@ add_action(
     'pinnacle_register_insurance_provider_fields'
 );
 
+add_action(
+    'pre_get_posts',
+    'pinnacle_extend_search_post_types'
+);
+
+function pinnacle_extend_search_post_types( $query ) {
+
+    if (
+        is_admin()
+        || ! $query->is_main_query()
+        || ! $query->is_search()
+    ) {
+        return;
+    }
+
+    $query->set(
+        'post_type',
+        array(
+            'page',
+            'post',
+            'blog_post',
+            'provider',
+        )
+    );
+}
+
 
