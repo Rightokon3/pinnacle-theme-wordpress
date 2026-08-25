@@ -21,7 +21,7 @@ $cta_text = get_field('why_choose_cta_text', 'option')
     ?: 'Schedule Consultation';
 
 $cta_link = get_field('why_choose_cta_link', 'option')
-    ?: '#appointment';
+    ?: '' . home_url('/contact') . '';
 
 
 /* =========================================================

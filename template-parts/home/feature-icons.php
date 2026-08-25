@@ -94,7 +94,7 @@ function pinnacle_feature_icon(string $icon): string {
          * Hands / care icon
          * =====================================================
          */
-      'clipboard' => '
+     'clipboard' => '
     <svg
         width="72"
         height="72"
@@ -104,7 +104,7 @@ function pinnacle_feature_icon(string $icon): string {
         aria-hidden="true"
         focusable="false"
     >
-
+      <g transform="translate(0, 5)">
         <!-- Central blue shape -->
         <path
             d="M36 8
@@ -162,10 +162,10 @@ function pinnacle_feature_icon(string $icon): string {
                C31 22 34 20 36 20
                C38 20 41 22 43 26"
             stroke="#ffffff"
-            stroke-width="2.2"
+            stroke-width="2"
             stroke-linecap="round"
         />
-
+      </g>
     </svg>
 ',
 

@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Pinnacle Behavioral Healthcare — consolidated theme functions.
@@ -29,12 +30,12 @@ add_action('after_setup_theme', 'pinnacle_theme_setup');
 
 
 function pinnacle_theme_assets() {
-wp_enqueue_style(
-    'pinnacle-style',
-    get_stylesheet_uri(),
-    [],
-    filemtime(get_stylesheet_directory() . '/style.css')
-);
+    wp_enqueue_style(
+        'pinnacle-style',
+        get_stylesheet_uri(),
+        [],
+        filemtime(get_stylesheet_directory() . '/style.css')
+    );
 
     wp_enqueue_script(
         'pinnacle-nav-dropdown',
@@ -114,6 +115,7 @@ wp_enqueue_style(
 
     // Newer theme-wide interactions. Load only when the files exist.
     $main_js = get_template_directory() . '/assets/js/main.js';
+
     if (file_exists($main_js)) {
         wp_enqueue_script(
             'pinnacle-main',
@@ -126,6 +128,7 @@ wp_enqueue_style(
 
     if (is_page_template('page-existing-patients.php')) {
         $intake_js = get_template_directory() . '/assets/js/intake.js';
+
         if (file_exists($intake_js)) {
             wp_enqueue_script(
                 'pinnacle-intake',
@@ -137,6 +140,8 @@ wp_enqueue_style(
         }
     }
 }
+
+
 function pinnacle_theme_fonts() {
     wp_enqueue_style(
         'pinnacle-fonts',
@@ -145,6 +150,7 @@ function pinnacle_theme_fonts() {
         null
     );
 }
+
 add_action('wp_enqueue_scripts', 'pinnacle_theme_fonts');
 add_action('wp_enqueue_scripts', 'pinnacle_theme_assets');
 
@@ -153,21 +159,13 @@ add_action('wp_enqueue_scripts', 'pinnacle_theme_assets');
  * ---------------------------------------------------------------
  * Homepage content — editable via ACF
  * ---------------------------------------------------------------
- * Registers an options page ("Homepage Content") so the client can
- * edit body-section copy/images from wp-admin, plus the field group
- * for it. Fields are added here in PHP so they ship with the theme
- * instead of needing to be recreated by hand in the ACF UI.
- *
- * Requires the free or Pro version of Advanced Custom Fields to be
- * active. Everything below is skipped gracefully if ACF isn't
- * installed — templates fall back to the original hardcoded copy.
  */
 
 add_action('acf/init', 'pinnacle_register_option_pages');
 
 function pinnacle_register_option_pages() {
 
-    if ( ! function_exists('acf_add_options_page') ) {
+    if (!function_exists('acf_add_options_page')) {
         return;
     }
 
@@ -197,20 +195,11 @@ function pinnacle_register_option_pages() {
         'icon_url'   => 'dashicons-heart',
         'redirect'   => false,
     ]);
-
-
 }
+
 
 if (function_exists('acf_add_local_field_group')) {
 
-    /**
-     * ---------------------------------------------------------------
-     * Hero Section (Homepage Content options page)
-     * ---------------------------------------------------------------
-     * NOTE: this group was accidentally dropped from the file when
-     * the Service Pillar page group was added below. Restored here —
-     * the homepage hero template part depends on these fields.
-     */
     acf_add_local_field_group([
         'key' => 'group_homepage_hero',
         'title' => 'Hero Section',
@@ -273,17 +262,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
-    /**
-     * ---------------------------------------------------------------
-     * Contact Section (Homepage Content options page)
-     * ---------------------------------------------------------------
-     * Single source of truth for the business address / phone / map,
-     * so it only needs setting once. page-service-detail.php already
-     * falls back to these same field names (contact_map_lat,
-     * contact_map_lng, contact_map_business_name, contact_map_address)
-     * when a page doesn't set its own override — this group is what
-     * actually registers them. page-contact.php uses them directly.
-     */
+
     acf_add_local_field_group([
         'key' => 'group_contact_section',
         'title' => 'Contact Section',
@@ -384,14 +363,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
-    /**
-     * ---------------------------------------------------------------
-     * Service Pillar page (page-service-pillar.php)
-     * ---------------------------------------------------------------
-     * Newer long-form service landing page template: hero image,
-     * banner CTA, alternating fact strip, optional video embed, FAQ
-     * accordion, contact form, and a sticky sidebar table of contents.
-     */
+
     acf_add_local_field_group([
         'key' => 'group_service_pillar',
         'title' => 'Service Pillar Page',
@@ -521,7 +493,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'repeater',
                 'layout' => 'table',
                 'button_label' => 'Add Link',
-                'instructions' => 'The anchor must match the id on the section it should jump to — the Fact Strip items get one automatically from their heading; add a matching #anchor manually for other sections (e.g. "faq" or "contact-form" are already built in).',
+                'instructions' => 'The anchor must match the id on the section it should jump to.',
                 'sub_fields' => [
                     [
                         'key' => 'field_pillar_sidebar_label',
@@ -548,6 +520,7 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
 
     acf_add_local_field_group([
         'key' => 'group_homepage_staff_announcement',
@@ -594,6 +567,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
+
     acf_add_local_field_group([
         'key' => 'group_homepage_feature_banner',
         'title' => 'Feature Banner',
@@ -625,6 +599,7 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
 
     acf_add_local_field_group([
         'key' => 'group_homepage_why_choose_us',
@@ -680,6 +655,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
+
     acf_add_local_field_group([
         'key' => 'group_homepage_feature_icons',
         'title' => 'Feature Icons',
@@ -723,6 +699,7 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
 
     acf_add_local_field_group([
         'key' => 'group_homepage_services',
@@ -792,6 +769,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
+
     acf_add_local_field_group([
         'key' => 'group_homepage_testimonials',
         'title' => 'Testimonials',
@@ -853,6 +831,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
+
     acf_add_local_field_group([
         'key' => 'group_homepage_cta',
         'title' => 'CTA Banner',
@@ -890,6 +869,7 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
 
     acf_add_local_field_group([
         'key' => 'group_homepage_about',
@@ -944,6 +924,7 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
 
     acf_add_local_field_group([
         'key' => 'group_homepage_service_highlights',
@@ -1014,6 +995,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
+
     acf_add_local_field_group([
         'key' => 'group_homepage_specialists',
         'title' => 'Specialists',
@@ -1068,6 +1050,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
+
     acf_add_local_field_group([
         'key' => 'group_homepage_supplement_banner',
         'title' => 'Supplement Banner',
@@ -1121,6 +1104,7 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
 
     acf_add_local_field_group([
         'key' => 'group_homepage_news',
@@ -1182,6 +1166,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
+
     acf_add_local_field_group([
         'key' => 'group_homepage_quick_facts',
         'title' => 'Quick Facts Band',
@@ -1226,6 +1211,7 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
 
     acf_add_local_field_group([
         'key' => 'group_homepage_contact',
@@ -1319,12 +1305,6 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
-    /**
-     * ---------------------------------------------------------------
-     * Providers page — banner/intro copy and the provider grid, on
-     * their own "Providers Page" options page. Same pattern as the
-     * Homepage Content groups above.
-     */
 
     acf_add_local_field_group([
         'key' => 'group_providers_banner',
@@ -1361,6 +1341,7 @@ if (function_exists('acf_add_local_field_group')) {
             ],
         ],
     ]);
+
 
     acf_add_local_field_group([
         'key' => 'group_providers_grid',
@@ -1450,12 +1431,6 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
-    /**
-     * ---------------------------------------------------------------
-     * Services page — alternating service list and the supplement
-     * promo banner, on their own "Services Page" options page. Same
-     * pattern as the Providers Page groups above.
-     */
 
     acf_add_local_field_group([
         'key' => 'group_services_list',
@@ -1510,6 +1485,7 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
+
     acf_add_local_field_group([
         'key' => 'group_services_supplement_banner',
         'title' => 'Services — Supplement Banner',
@@ -1562,15 +1538,14 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
-    /**
-     * ---------------------------------------------------------------
-     * Service Detail page (page-service-detail.php) — restored the
-     * optional per-service map override fields (service_map_lat,
-     * service_map_lng, service_map_business_name) that were dropped
-     * when the Service Pillar group was added; style.css's
-     * .service-sidebar-card--map classes depend on them.
-     */
 
+    /**
+     * Existing Service Detail group
+     * LEFT IN PLACE AS REQUESTED.
+     *
+     * This continues to support normal Pages that use
+     * page-service-detail.php.
+     */
     acf_add_local_field_group([
         'key' => 'group_service_detail',
         'title' => 'Service Detail Page',
@@ -1590,7 +1565,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'wysiwyg',
                 'tabs' => 'visual',
                 'media_upload' => 0,
-                'instructions' => 'Used when "Content Blocks" below is left empty. Simple pages (a single block of copy) can just use this field.',
+                'instructions' => 'Used when "Content Blocks" below is left empty.',
             ],
             [
                 'key' => 'field_service_content_blocks',
@@ -1598,7 +1573,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'name' => 'service_content_blocks',
                 'type' => 'flexible_content',
                 'button_label' => 'Add Block',
-                'instructions' => 'For pages that interleave text with videos/images (e.g. Spravato) — add blocks in the order they should appear. Leave empty to just use the plain "Content" field above instead.',
+                'instructions' => 'Existing field retained. Your new Spravato system does not depend on this field.',
                 'layouts' => [
                     'layout_block_text' => [
                         'key' => 'layout_block_text',
@@ -1627,7 +1602,6 @@ if (function_exists('acf_add_local_field_group')) {
                                 'label' => 'Embed URL',
                                 'name' => 'embed_url',
                                 'type' => 'url',
-                                'instructions' => 'Brightcove / YouTube / Vimeo embed (iframe src) URL.',
                             ],
                             [
                                 'key' => 'field_block_video_title',
@@ -1684,7 +1658,6 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => 'Sidebar Button Link',
                 'name' => 'service_cta_link',
                 'type' => 'text',
-                'instructions' => 'Defaults to the Contact page if left blank.',
             ],
             [
                 'key' => 'field_service_map_lat',
@@ -1692,7 +1665,6 @@ if (function_exists('acf_add_local_field_group')) {
                 'name' => 'service_map_lat',
                 'type' => 'number',
                 'step' => '0.000001',
-                'instructions' => 'Leave blank to use the same location as the main Contact page.',
             ],
             [
                 'key' => 'field_service_map_lng',
@@ -1700,28 +1672,24 @@ if (function_exists('acf_add_local_field_group')) {
                 'name' => 'service_map_lng',
                 'type' => 'number',
                 'step' => '0.000001',
-                'instructions' => 'Leave blank to use the same location as the main Contact page.',
             ],
             [
                 'key' => 'field_service_map_business_name',
                 'label' => 'Map Business Name (optional)',
                 'name' => 'service_map_business_name',
                 'type' => 'text',
-                'instructions' => 'Leave blank to use the same name as the main Contact page.',
             ],
             [
                 'key' => 'field_service_map_address',
                 'label' => 'Map Address Line (optional)',
                 'name' => 'service_map_address',
                 'type' => 'text',
-                'instructions' => 'Leave blank to use the same address as the main Contact page.',
             ],
             [
                 'key' => 'field_service_map_directions_url',
                 'label' => 'Map "Get Directions" Link (optional)',
                 'name' => 'service_map_directions_url',
                 'type' => 'url',
-                'instructions' => 'Google Maps share link. Leave blank to use the same link as the main Contact page.',
             ],
         ],
         'location' => [
@@ -1735,14 +1703,6 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
-    /**
-     * ---------------------------------------------------------------
-     * FAQ page (page-faq.php)
-     * ---------------------------------------------------------------
-     * Same banner/share/sidebar shell as the Service Detail template,
-     * with an accordion list of Q&A pairs (.pillar-faq, already in
-     * style.css) instead of the service content blocks.
-     */
 
     acf_add_local_field_group([
         'key' => 'group_faq_page',
@@ -1806,7 +1766,6 @@ if (function_exists('acf_add_local_field_group')) {
                 'label' => 'Sidebar Button Link',
                 'name' => 'faq_cta_link',
                 'type' => 'text',
-                'instructions' => 'Defaults to the Contact page if left blank.',
             ],
         ],
         'location' => [
@@ -1820,17 +1779,6 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
-    /**
-     * ---------------------------------------------------------------
-     * Existing Patients page (page-existing-patients.php)
-     * ---------------------------------------------------------------
-     * Intake page: a heading/subheading, a set of clickable "reason
-     * for contact" cards, a shared contact form (same field styling
-     * as the main Contact page), a requirements checklist (same
-     * pattern as the Service Detail page's "What You'll Need"), an
-     * FAQ accordion (same pattern/JS as the FAQ page), and a 3-step
-     * "what happens next" band.
-     */
 
     acf_add_local_field_group([
         'key' => 'group_existing_patients_page',
@@ -1858,7 +1806,6 @@ if (function_exists('acf_add_local_field_group')) {
                 'type' => 'repeater',
                 'layout' => 'table',
                 'button_label' => 'Add Request Type',
-                'instructions' => 'Leave empty to use the 5 default options (Refill, Appointment, Question, Insurance, Records).',
                 'sub_fields' => [
                     [
                         'key' => 'field_intake_type_icon',
@@ -1971,13 +1918,6 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
-    /**
-     * ---------------------------------------------------------------
-     * Blog Archive page (page-blog.php)
-     * ---------------------------------------------------------------
-     * Only the banner image is a field here — everything else on that
-     * template comes from real Posts, not ACF content.
-     */
 
     acf_add_local_field_group([
         'key' => 'group_blog_page',
@@ -2003,15 +1943,6 @@ if (function_exists('acf_add_local_field_group')) {
         ],
     ]);
 
-    /**
-     * ---------------------------------------------------------------
-     * Contact page (page-contact.php)
-     * ---------------------------------------------------------------
-     * Heading/intro only — address, phone, map, and socials all come
-     * from the shared "Contact Section" options group above so they
-     * only need setting in one place. The service dropdown reuses the
-     * existing Services Page "services_list" option.
-     */
 
     acf_add_local_field_group([
         'key' => 'group_contact_page',
@@ -2044,164 +1975,153 @@ if (function_exists('acf_add_local_field_group')) {
     ]);
 
 
-acf_add_local_field_group([
-    'key' => 'group_insurance_page',
-    'title' => 'Insurance Page',
-    'fields' => [
-
-        [
-            'key' => 'field_insurance_hero_image',
-            'label' => 'Hero Image',
-            'name' => 'insurance_hero_image',
-            'type' => 'image',
-            'return_format' => 'array',
-            'preview_size' => 'medium',
-        ],
-
-        [
-            'key' => 'field_insurance_page_title',
-            'label' => 'Page Title',
-            'name' => 'insurance_page_title',
-            'type' => 'text',
-            'default_value' => 'Mental Health & Psychiatry Insurance Accepted | Edina, MN',
-        ],
-
-        [
-            'key' => 'field_insurance_intro_heading',
-            'label' => 'Intro Heading',
-            'name' => 'insurance_intro_heading',
-            'type' => 'text',
-            'default_value' => 'We eliminate the guesswork from insurance verification so you can focus purely on recovery.',
-        ],
-
-        [
-            'key' => 'field_insurance_intro_body',
-            'label' => 'Intro Body',
-            'name' => 'insurance_intro_body',
-            'type' => 'textarea',
-            'rows' => 5,
-        ],
-
-        [
-            'key' => 'field_insurance_providers_heading',
-            'label' => 'Insurance Providers Heading',
-            'name' => 'insurance_providers_heading',
-            'type' => 'text',
-            'default_value' => 'In-Network Insurance Providers',
-        ],
-
-        [
-            'key' => 'field_insurance_providers_intro',
-            'label' => 'Insurance Providers Intro',
-            'name' => 'insurance_providers_intro',
-            'type' => 'textarea',
-            'rows' => 3,
-            'default_value' => 'Below is the structured list of insurance carriers currently accepted at our Edina clinic.',
-        ],
-
-        [
-            'key' => 'field_insurance_providers',
-            'label' => 'Insurance Carriers',
-            'name' => 'insurance_providers',
-            'type' => 'repeater',
-            'layout' => 'block',
-            'button_label' => 'Add Insurance Carrier',
-
-            'sub_fields' => [
-
-                [
-                    'key' => 'field_insurance_provider_logo',
-                    'label' => 'Insurance Logo',
-                    'name' => 'logo',
-                    'type' => 'image',
-                    'return_format' => 'array',
-                    'preview_size' => 'medium',
-                ],
-
-                [
-                    'key' => 'field_insurance_provider_name',
-                    'label' => 'Insurance Carrier Name',
-                    'name' => 'name',
-                    'type' => 'text',
-                ],
-
-                [
-                    'key' => 'field_insurance_provider_medication',
-                    'label' => 'Medication Management',
-                    'name' => 'medication_management',
-                    'type' => 'text',
-                    'default_value' => 'In-Network',
-                ],
-
-                [
-                    'key' => 'field_insurance_provider_tms',
-                    'label' => 'NeuroStar TMS Therapy',
-                    'name' => 'tms',
-                    'type' => 'text',
-                    'default_value' => 'Covered — Prior Authorization Required',
-                ],
-
-                [
-                    'key' => 'field_insurance_provider_spravato',
-                    'label' => 'Spravato (Esketamine)',
-                    'name' => 'spravato',
-                    'type' => 'text',
-                    'default_value' => 'Covered — Prior Authorization Required',
-                ],
-
-            ],
-        ],
-
-        [
-            'key' => 'field_insurance_cta_heading',
-            'label' => 'CTA Heading',
-            'name' => 'insurance_cta_heading',
-            'type' => 'text',
-            'default_value' => 'Book a Consultation',
-        ],
-
-        [
-            'key' => 'field_insurance_cta_text',
-            'label' => 'CTA Button Text',
-            'name' => 'insurance_cta_text',
-            'type' => 'text',
-            'default_value' => 'Schedule Consultation',
-        ],
-
-        [
-            'key' => 'field_insurance_cta_link',
-            'label' => 'CTA Button Link',
-            'name' => 'insurance_cta_link',
-            'type' => 'url',
-        ],
-
-    ],
-
-    'location' => [
-        [
+    acf_add_local_field_group([
+        'key' => 'group_insurance_page',
+        'title' => 'Insurance Page',
+        'fields' => [
             [
-                'param' => 'options_page',
-                'operator' => '==',
-                'value' => 'insurance-page',
+                'key' => 'field_insurance_hero_image',
+                'label' => 'Hero Image',
+                'name' => 'insurance_hero_image',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+            ],
+            [
+                'key' => 'field_insurance_page_title',
+                'label' => 'Page Title',
+                'name' => 'insurance_page_title',
+                'type' => 'text',
+                'default_value' => 'Mental Health & Psychiatry Insurance Accepted | Edina, MN',
+            ],
+            [
+                'key' => 'field_insurance_intro_heading',
+                'label' => 'Intro Heading',
+                'name' => 'insurance_intro_heading',
+                'type' => 'text',
+                'default_value' => 'We eliminate the guesswork from insurance verification so you can focus purely on recovery.',
+            ],
+            [
+                'key' => 'field_insurance_intro_body',
+                'label' => 'Intro Body',
+                'name' => 'insurance_intro_body',
+                'type' => 'textarea',
+                'rows' => 5,
+            ],
+            [
+                'key' => 'field_insurance_providers_heading',
+                'label' => 'Insurance Providers Heading',
+                'name' => 'insurance_providers_heading',
+                'type' => 'text',
+                'default_value' => 'In-Network Insurance Providers',
+            ],
+            [
+                'key' => 'field_insurance_providers_intro',
+                'label' => 'Insurance Providers Intro',
+                'name' => 'insurance_providers_intro',
+                'type' => 'textarea',
+                'rows' => 3,
+                'default_value' => 'Below is the structured list of insurance carriers currently accepted at our Edina clinic.',
+            ],
+            [
+                'key' => 'field_insurance_providers',
+                'label' => 'Insurance Carriers',
+                'name' => 'insurance_providers',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Insurance Carrier',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_insurance_provider_logo',
+                        'label' => 'Insurance Logo',
+                        'name' => 'logo',
+                        'type' => 'image',
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                    ],
+                    [
+                        'key' => 'field_insurance_provider_name',
+                        'label' => 'Insurance Carrier Name',
+                        'name' => 'name',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_insurance_provider_medication',
+                        'label' => 'Medication Management',
+                        'name' => 'medication_management',
+                        'type' => 'text',
+                        'default_value' => 'In-Network',
+                    ],
+                    [
+                        'key' => 'field_insurance_provider_tms',
+                        'label' => 'NeuroStar TMS Therapy',
+                        'name' => 'tms',
+                        'type' => 'text',
+                        'default_value' => 'Covered — Prior Authorization Required',
+                    ],
+                    [
+                        'key' => 'field_insurance_provider_spravato',
+                        'label' => 'Spravato (Esketamine)',
+                        'name' => 'spravato',
+                        'type' => 'text',
+                        'default_value' => 'Covered — Prior Authorization Required',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_insurance_cta_heading',
+                'label' => 'CTA Heading',
+                'name' => 'insurance_cta_heading',
+                'type' => 'text',
+                'default_value' => 'Book a Consultation',
+            ],
+            [
+                'key' => 'field_insurance_cta_text',
+                'label' => 'CTA Button Text',
+                'name' => 'insurance_cta_text',
+                'type' => 'text',
+                'default_value' => 'Schedule Consultation',
+            ],
+            [
+                'key' => 'field_insurance_cta_link',
+                'label' => 'CTA Button Link',
+                'name' => 'insurance_cta_link',
+                'type' => 'url',
             ],
         ],
-    ],
-]);
-
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'insurance-page',
+                ],
+            ],
+        ],
+    ]);
 
 }
 
+
 function pinnacle_enqueue_homepage_scripts() {
+
     if (is_front_page()) {
+
         wp_enqueue_script(
             'pinnacle-homepage',
             get_template_directory_uri() . '/assets/js/homepage.js',
             array(),
-            filemtime(get_template_directory() . '/assets/js/homepage.js'),
+            filemtime(
+                get_template_directory()
+                . '/assets/js/homepage.js'
+            ),
             true
         );
+
     }
 }
+
+
 /**
  * Medical Professionals Custom Post Type
  */
@@ -2236,9 +2156,16 @@ function pinnacle_register_provider_cpt() {
         'show_in_rest'       => true,
     );
 
-    register_post_type('provider', $args);
+    register_post_type(
+        'provider',
+        $args
+    );
 }
-add_action('init', 'pinnacle_register_provider_cpt');
+
+add_action(
+    'init',
+    'pinnacle_register_provider_cpt'
+);
 
 
 /* =========================================================
@@ -2248,27 +2175,27 @@ add_action('init', 'pinnacle_register_provider_cpt');
 function pinnacle_register_testimonial_cpt() {
 
     $labels = array(
-        'name'                  => 'Testimonials',
-        'singular_name'         => 'Testimonial',
-        'menu_name'             => 'Testimonials',
-        'add_new'               => 'Add Testimonial',
-        'add_new_item'          => 'Add New Testimonial',
-        'edit_item'             => 'Edit Testimonial',
-        'new_item'              => 'New Testimonial',
-        'view_item'             => 'View Testimonial',
-        'search_items'          => 'Search Testimonials',
-        'not_found'             => 'No testimonials found',
-        'not_found_in_trash'    => 'No testimonials found in trash',
+        'name'               => 'Testimonials',
+        'singular_name'      => 'Testimonial',
+        'menu_name'          => 'Testimonials',
+        'add_new'            => 'Add Testimonial',
+        'add_new_item'       => 'Add New Testimonial',
+        'edit_item'          => 'Edit Testimonial',
+        'new_item'           => 'New Testimonial',
+        'view_item'          => 'View Testimonial',
+        'search_items'       => 'Search Testimonials',
+        'not_found'          => 'No testimonials found',
+        'not_found_in_trash' => 'No testimonials found in trash',
     );
 
     $args = array(
-        'labels'             => $labels,
-        'public'             => false,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'menu_icon'          => 'dashicons-format-quote',
-        'supports'           => array('title', 'editor'),
-        'show_in_rest'       => true,
+        'labels'       => $labels,
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_menu' => true,
+        'menu_icon'    => 'dashicons-format-quote',
+        'supports'     => array('title', 'editor'),
+        'show_in_rest' => true,
     );
 
     register_post_type(
@@ -2305,7 +2232,9 @@ add_action(
 );
 
 
-function pinnacle_render_testimonial_meta_box( $post ) {
+function pinnacle_render_testimonial_meta_box(
+    $post
+) {
 
     wp_nonce_field(
         'pinnacle_save_testimonial',
@@ -2329,7 +2258,11 @@ function pinnacle_render_testimonial_meta_box( $post ) {
     <p>
         <label
             for="pinnacle_testimonial_reviewer_name"
-            style="display:block;font-weight:600;margin-bottom:6px;"
+            style="
+                display:block;
+                font-weight:600;
+                margin-bottom:6px;
+            "
         >
             Reviewer Name
         </label>
@@ -2338,9 +2271,14 @@ function pinnacle_render_testimonial_meta_box( $post ) {
             type="text"
             id="pinnacle_testimonial_reviewer_name"
             name="pinnacle_testimonial_reviewer_name"
-            value="<?php echo esc_attr( $reviewer_name ); ?>"
+            value="<?php echo esc_attr(
+                $reviewer_name
+            ); ?>"
             placeholder="Ikram Osman"
-            style="width:100%;max-width:600px;"
+            style="
+                width:100%;
+                max-width:600px;
+            "
         >
     </p>
 
@@ -2348,7 +2286,11 @@ function pinnacle_render_testimonial_meta_box( $post ) {
     <p>
         <label
             for="pinnacle_testimonial_source"
-            style="display:block;font-weight:600;margin-bottom:6px;"
+            style="
+                display:block;
+                font-weight:600;
+                margin-bottom:6px;
+            "
         >
             Source
         </label>
@@ -2357,14 +2299,20 @@ function pinnacle_render_testimonial_meta_box( $post ) {
             type="text"
             id="pinnacle_testimonial_source"
             name="pinnacle_testimonial_source"
-            value="<?php echo esc_attr( $source ); ?>"
+            value="<?php echo esc_attr(
+                $source
+            ); ?>"
             placeholder="Google"
-            style="width:100%;max-width:600px;"
+            style="
+                width:100%;
+                max-width:600px;
+            "
         >
     </p>
 
     <p style="color:#646970;">
-        Enter the testimonial itself in the normal WordPress editor above/below.
+        Enter the testimonial itself in the normal WordPress
+        editor above/below.
     </p>
 
     <?php
@@ -2393,14 +2341,16 @@ function pinnacle_save_testimonial(
     }
 
     if (
-        defined( 'DOING_AUTOSAVE' )
+        defined('DOING_AUTOSAVE')
         && DOING_AUTOSAVE
     ) {
         return;
     }
 
     if (
-        wp_is_post_revision( $post_id )
+        wp_is_post_revision(
+            $post_id
+        )
     ) {
         return;
     }
@@ -2415,7 +2365,9 @@ function pinnacle_save_testimonial(
     }
 
     if (
-        get_post_type( $post_id ) !== 'testimonial'
+        get_post_type(
+            $post_id
+        ) !== 'testimonial'
     ) {
         return;
     }
@@ -2461,276 +2413,313 @@ add_action(
     'pinnacle_save_testimonial'
 );
 
-/**
- * Medical Professional ACF Fields
- */
+
+/* =========================================================
+ * MEDICAL PROFESSIONAL ACF FIELDS
+ * ========================================================= */
+
 function pinnacle_register_provider_fields() {
 
-    if ( ! function_exists('acf_add_local_field_group') ) {
+    if (
+        ! function_exists(
+            'acf_add_local_field_group'
+        )
+    ) {
         return;
     }
 
-    acf_add_local_field_group(array(
-        'key' => 'group_provider_information',
-        'title' => 'Medical Professional Information',
-        'fields' => array(
+    acf_add_local_field_group(
+        array(
 
-            array(
-                'key' => 'field_provider_photo',
-                'label' => 'Professional Photo',
-                'name' => 'provider_photo',
-                'type' => 'image',
-                'return_format' => 'array',
-                'preview_size' => 'medium',
-                'library' => 'all',
-            ),
+            'key' =>
+                'group_provider_information',
 
-            array(
-                'key' => 'field_provider_credentials',
-                'label' => 'Name & Credentials',
-                'name' => 'provider_credentials',
-                'type' => 'text',
-                'placeholder' => 'Dara Awosika BSW, MSW, LICSW',
-            ),
+            'title' =>
+                'Medical Professional Information',
 
-            array(
-                'key' => 'field_provider_title',
-                'label' => 'Professional Title',
-                'name' => 'provider_title',
-                'type' => 'text',
-                'placeholder' => 'Psychotherapist',
-            ),
-
-            array(
-                'key' => 'field_provider_bio',
-                'label' => 'Biography',
-                'name' => 'provider_bio',
-                'type' => 'wysiwyg',
-                'tabs' => 'all',
-                'toolbar' => 'full',
-                'media_upload' => false,
-            ),
-
-            array(
-                'key' => 'field_provider_education',
-                'label' => 'Education',
-                'name' => 'provider_education',
-                'type' => 'wysiwyg',
-                'tabs' => 'all',
-                'toolbar' => 'basic',
-                'media_upload' => false,
-            ),
-
-            array(
-                'key' => 'field_provider_philosophy',
-                'label' => 'Treatment Philosophy',
-                'name' => 'provider_treatment_philosophy',
-                'type' => 'wysiwyg',
-                'tabs' => 'all',
-                'toolbar' => 'basic',
-                'media_upload' => false,
-            ),
-
-            array(
-                'key' => 'field_provider_modalities',
-                'label' => 'Therapy Modalities',
-                'name' => 'provider_therapy_modalities',
-                'type' => 'wysiwyg',
-                'tabs' => 'all',
-                'toolbar' => 'basic',
-                'media_upload' => false,
-            ),
-    array(
-      'key' => 'field_provider_email',
-      'label' => 'Provider Email',
-     'name' => 'provider_email',
-    'type' => 'email',
-    'instructions' => 'Email address that should receive booking requests for this provider.',
-    'placeholder' => 'provider@example.com',
-    ),
-
-            array(
-                'key' => 'field_provider_focus',
-                'label' => 'Areas of Focus',
-                'name' => 'provider_areas_of_focus',
-                'type' => 'wysiwyg',
-                'tabs' => 'all',
-                'toolbar' => 'basic',
-                'media_upload' => false,
-            ),
-
-            array(
-                'key' => 'field_provider_experience',
-                'label' => 'Professional Experience',
-                'name' => 'provider_professional_experience',
-                'type' => 'wysiwyg',
-                'tabs' => 'all',
-                'toolbar' => 'basic',
-                'media_upload' => false,
-            ),
-
-            array(
-                'key' => 'field_provider_community',
-                'label' => 'Community Involvement',
-                'name' => 'provider_community_involvement',
-                'type' => 'wysiwyg',
-                'tabs' => 'all',
-                'toolbar' => 'basic',
-                'media_upload' => false,
-            ),
-
-            array(
-                'key' => 'field_provider_consultation',
-                'label' => 'Consultation Link',
-                'name' => 'provider_consultation_link',
-                'type' => 'url',
-                'placeholder' => 'https://...',
-            ),
-            /* =========================================================
- * OPTIONAL PROVIDER SECTIONS
- * ========================================================= */
-
-/*
- * Psychology Today
- */
-array(
-    'key' => 'field_provider_psychology_today',
-    'label' => 'Psychology Today Profile',
-    'name' => 'provider_psychology_today_url',
-    'type' => 'url',
-    'instructions' => 'Optional. Add the provider\'s Psychology Today profile URL.',
-    'placeholder' => 'https://www.psychologytoday.com/...',
-),
-
-/*
- * Show Testimonials
- */
-array(
-    'key' => 'field_provider_show_testimonials',
-    'label' => 'Show Testimonials',
-    'name' => 'provider_show_testimonials',
-    'type' => 'true_false',
-    'instructions' => 'Turn this on to display the Testimonials section on this provider page.',
-    'default_value' => 0,
-    'ui' => 1,
-    'ui_on_text' => 'Yes',
-    'ui_off_text' => 'No',
-),
-
-array(
-    'key' => 'field_provider_testimonials_heading',
-    'label' => 'Testimonials Section Heading',
-    'name' => 'provider_testimonials_heading',
-    'type' => 'text',
-    'instructions' => 'Optional. Enter the heading to display above this provider\'s testimonials.',
-    'default_value' => 'Testimonials',
-    'placeholder' => 'Testimonials',
-),
-
-
-        ),
-
-        'location' => array(
-            array(
+            'fields' =>
                 array(
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'provider',
+
+                    array(
+                        'key' =>
+                            'field_provider_photo',
+                        'label' =>
+                            'Professional Photo',
+                        'name' =>
+                            'provider_photo',
+                        'type' =>
+                            'image',
+                        'return_format' =>
+                            'array',
+                        'preview_size' =>
+                            'medium',
+                        'library' =>
+                            'all',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_credentials',
+                        'label' =>
+                            'Name & Credentials',
+                        'name' =>
+                            'provider_credentials',
+                        'type' =>
+                            'text',
+                        'placeholder' =>
+                            'Dara Awosika BSW, MSW, LICSW',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_title',
+                        'label' =>
+                            'Professional Title',
+                        'name' =>
+                            'provider_title',
+                        'type' =>
+                            'text',
+                        'placeholder' =>
+                            'Psychotherapist',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_bio',
+                        'label' =>
+                            'Biography',
+                        'name' =>
+                            'provider_bio',
+                        'type' =>
+                            'wysiwyg',
+                        'tabs' =>
+                            'all',
+                        'toolbar' =>
+                            'full',
+                        'media_upload' =>
+                            false,
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_education',
+                        'label' =>
+                            'Education',
+                        'name' =>
+                            'provider_education',
+                        'type' =>
+                            'wysiwyg',
+                        'tabs' =>
+                            'all',
+                        'toolbar' =>
+                            'basic',
+                        'media_upload' =>
+                            false,
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_philosophy',
+                        'label' =>
+                            'Treatment Philosophy',
+                        'name' =>
+                            'provider_treatment_philosophy',
+                        'type' =>
+                            'wysiwyg',
+                        'tabs' =>
+                            'all',
+                        'toolbar' =>
+                            'basic',
+                        'media_upload' =>
+                            false,
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_modalities',
+                        'label' =>
+                            'Therapy Modalities',
+                        'name' =>
+                            'provider_therapy_modalities',
+                        'type' =>
+                            'wysiwyg',
+                        'tabs' =>
+                            'all',
+                        'toolbar' =>
+                            'basic',
+                        'media_upload' =>
+                            false,
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_email',
+                        'label' =>
+                            'Provider Email',
+                        'name' =>
+                            'provider_email',
+                        'type' =>
+                            'email',
+                        'instructions' =>
+                            'Email address that should receive booking requests for this provider.',
+                        'placeholder' =>
+                            'provider@example.com',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_focus',
+                        'label' =>
+                            'Areas of Focus',
+                        'name' =>
+                            'provider_areas_of_focus',
+                        'type' =>
+                            'wysiwyg',
+                        'tabs' =>
+                            'all',
+                        'toolbar' =>
+                            'basic',
+                        'media_upload' =>
+                            false,
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_experience',
+                        'label' =>
+                            'Professional Experience',
+                        'name' =>
+                            'provider_professional_experience',
+                        'type' =>
+                            'wysiwyg',
+                        'tabs' =>
+                            'all',
+                        'toolbar' =>
+                            'basic',
+                        'media_upload' =>
+                            false,
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_community',
+                        'label' =>
+                            'Community Involvement',
+                        'name' =>
+                            'provider_community_involvement',
+                        'type' =>
+                            'wysiwyg',
+                        'tabs' =>
+                            'all',
+                        'toolbar' =>
+                            'basic',
+                        'media_upload' =>
+                            false,
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_consultation',
+                        'label' =>
+                            'Consultation Link',
+                        'name' =>
+                            'provider_consultation_link',
+                        'type' =>
+                            'url',
+                        'placeholder' =>
+                            'https://...',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_psychology_today',
+                        'label' =>
+                            'Psychology Today Profile',
+                        'name' =>
+                            'provider_psychology_today_url',
+                        'type' =>
+                            'url',
+                        'instructions' =>
+                            'Optional. Add the provider\'s Psychology Today profile URL.',
+                        'placeholder' =>
+                            'https://www.psychologytoday.com/...',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_show_testimonials',
+                        'label' =>
+                            'Show Testimonials',
+                        'name' =>
+                            'provider_show_testimonials',
+                        'type' =>
+                            'true_false',
+                        'instructions' =>
+                            'Turn this on to display the Testimonials section on this provider page.',
+                        'default_value' =>
+                            0,
+                        'ui' =>
+                            1,
+                        'ui_on_text' =>
+                            'Yes',
+                        'ui_off_text' =>
+                            'No',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_provider_testimonials_heading',
+                        'label' =>
+                            'Testimonials Section Heading',
+                        'name' =>
+                            'provider_testimonials_heading',
+                        'type' =>
+                            'text',
+                        'instructions' =>
+                            'Optional. Enter the heading to display above this provider\'s testimonials.',
+                        'default_value' =>
+                            'Testimonials',
+                        'placeholder' =>
+                            'Testimonials',
+                    ),
                 ),
-            ),
-        ),
 
-        'position' => 'normal',
-        'style' => 'default',
-        'active' => true,
-    ));
-}
+            'location' =>
+                array(
+                    array(
+                        array(
+                            'param' =>
+                                'post_type',
+                            'operator' =>
+                                '==',
+                            'value' =>
+                                'provider',
+                        ),
+                    ),
+                ),
 
-add_action('acf/init', 'pinnacle_register_provider_fields');
+            'position' =>
+                'normal',
 
-/* =========================================================
- * NATIVE PROVIDER TESTIMONIALS
- * Does not require ACF Pro.
- * ========================================================= */
+            'style' =>
+                'default',
 
-
-
-/* =========================================================
- * BLOG POSTS CUSTOM POST TYPE
- * ========================================================= */
-
-/* =========================================================
- * BLOG POSTS CUSTOM POST TYPE
- * ========================================================= */
-
-function pinnacle_register_blog_post_cpt() {
-
-    $labels = array(
-        'name'               => 'Blog Posts',
-        'singular_name'      => 'Blog Post',
-        'menu_name'          => 'Blog Posts',
-        'name_admin_bar'     => 'Blog Post',
-        'add_new'            => 'Add Post',
-        'add_new_item'       => 'Add New Blog Post',
-        'new_item'           => 'New Blog Post',
-        'edit_item'          => 'Edit Blog Post',
-        'view_item'          => 'View Blog Post',
-        'all_items'          => 'Blog Posts',
-        'search_items'       => 'Search Blog Posts',
-        'not_found'          => 'No blog posts found.',
-        'not_found_in_trash' => 'No blog posts found in Trash.',
-    );
-
-    $args = array(
-        'labels' => $labels,
-
-        'public' => true,
-
-        'publicly_queryable' => true,
-
-        'show_ui' => true,
-
-        'show_in_menu' => true,
-
-        'show_in_rest' => true,
-
-        'menu_icon' => 'dashicons-edit-page',
-
-        'supports' => array(
-            'title',
-            'editor',
-            'thumbnail',
-            'excerpt',
-            'author',
-        ),
-
-        'has_archive' => false,
-
-        'query_var' => true,
-
-        'rewrite' => array(
-            'slug'       => 'blog',
-            'with_front' => false,
-        ),
-    );
-
-    register_post_type(
-        'blog_post',
-        $args
+            'active' =>
+                true,
+        )
     );
 }
 
 add_action(
-    'init',
-    'pinnacle_register_blog_post_cpt'
+    'acf/init',
+    'pinnacle_register_provider_fields'
 );
 
 
+/* =========================================================
+ * NATIVE PROVIDER TESTIMONIALS
+ * ========================================================= */
 
-
-/**
- * Add the Testimonials metabox.
- */
 function pinnacle_add_provider_testimonials_metabox() {
 
     add_meta_box(
@@ -2749,10 +2738,9 @@ add_action(
 );
 
 
-/**
- * Render the Testimonials editor.
- */
-function pinnacle_render_provider_testimonials_metabox( $post ) {
+function pinnacle_render_provider_testimonials_metabox(
+    $post
+) {
 
     wp_nonce_field(
         'pinnacle_save_provider_testimonials',
@@ -2765,7 +2753,11 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
         true
     );
 
-    if ( ! is_array( $testimonials ) ) {
+    if (
+        ! is_array(
+            $testimonials
+        )
+    ) {
         $testimonials = array();
     }
 
@@ -2777,10 +2769,9 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
     >
 
         <p>
-            Add the testimonials you have permission to publish for this
-            medical professional.
+            Add the testimonials you have permission to publish
+            for this medical professional.
         </p>
-
 
         <div
             id="pinnacle-testimonial-items"
@@ -2788,10 +2779,15 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
 
             <?php
 
-            if ( ! empty( $testimonials ) ) :
+            if (
+                ! empty(
+                    $testimonials
+                )
+            ) :
 
                 foreach (
-                    $testimonials as $index => $testimonial
+                    $testimonials
+                    as $index => $testimonial
                 ) :
 
                     pinnacle_render_provider_testimonial_row(
@@ -2814,7 +2810,6 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
 
         </div>
 
-
         <p>
 
             <button
@@ -2830,13 +2825,18 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
     </div>
 
 
-    <script type="text/html" id="pinnacle-testimonial-template">
+    <script
+        type="text/html"
+        id="pinnacle-testimonial-template"
+    >
 
         <?php
+
         pinnacle_render_provider_testimonial_row(
             '__INDEX__',
             array()
         );
+
         ?>
 
     </script>
@@ -2851,7 +2851,6 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
         .pinnacle-testimonial-row {
             margin-bottom: 20px;
             padding: 20px;
-
             border: 1px solid #dcdcde;
             background: #fff;
             box-sizing: border-box;
@@ -2863,16 +2862,13 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
                 100px
                 1fr
                 180px;
-
             gap: 15px;
             margin-bottom: 15px;
         }
 
         .pinnacle-testimonial-field label {
             display: block;
-
             margin-bottom: 6px;
-
             font-weight: 600;
         }
 
@@ -2930,7 +2926,6 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
                     'pinnacle-testimonial-template'
                 );
 
-
             if (
                 !container ||
                 !addButton ||
@@ -2939,12 +2934,10 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
                 return;
             }
 
-
             let index =
                 container.querySelectorAll(
                     '.pinnacle-testimonial-row'
                 ).length;
-
 
             addButton.addEventListener(
                 'click',
@@ -2966,7 +2959,6 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
                 }
             );
 
-
             container.addEventListener(
                 'click',
                 function (event) {
@@ -2976,10 +2968,11 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
                             '.pinnacle-remove-testimonial'
                         );
 
-                    if ( ! removeButton ) {
+                    if (
+                        ! removeButton
+                    ) {
                         return;
                     }
-
 
                     const row =
                         removeButton.closest(
@@ -3002,31 +2995,36 @@ function pinnacle_render_provider_testimonials_metabox( $post ) {
 }
 
 
-/**
- * Output one testimonial row.
- */
 function pinnacle_render_provider_testimonial_row(
     $index,
     $testimonial
 ) {
 
     $initial =
-        isset( $testimonial['initial'] )
+        isset(
+            $testimonial['initial']
+        )
             ? $testimonial['initial']
             : '';
 
     $name =
-        isset( $testimonial['name'] )
+        isset(
+            $testimonial['name']
+        )
             ? $testimonial['name']
             : '';
 
     $role =
-        isset( $testimonial['role'] )
+        isset(
+            $testimonial['role']
+        )
             ? $testimonial['role']
             : '';
 
     $text =
-        isset( $testimonial['text'] )
+        isset(
+            $testimonial['text']
+        )
             ? $testimonial['text']
             : '';
 
@@ -3034,15 +3032,14 @@ function pinnacle_render_provider_testimonial_row(
 
     <div
         class="pinnacle-testimonial-row"
-        data-index="<?php echo esc_attr( $index ); ?>"
+        data-index="<?php echo esc_attr(
+            $index
+        ); ?>"
     >
 
         <div
             class="pinnacle-testimonial-row__grid"
         >
-
-
-            <!-- Initial -->
 
             <div
                 class="pinnacle-testimonial-field pinnacle-testimonial-field--initial"
@@ -3054,16 +3051,18 @@ function pinnacle_render_provider_testimonial_row(
 
                 <input
                     type="text"
-                    name="pinnacle_testimonials[<?php echo esc_attr( $index ); ?>][initial]"
-                    value="<?php echo esc_attr( $initial ); ?>"
+                    name="pinnacle_testimonials[<?php echo esc_attr(
+                        $index
+                    ); ?>][initial]"
+                    value="<?php echo esc_attr(
+                        $initial
+                    ); ?>"
                     maxlength="1"
                     placeholder="J"
                 >
 
             </div>
 
-
-            <!-- Name -->
 
             <div
                 class="pinnacle-testimonial-field"
@@ -3075,15 +3074,17 @@ function pinnacle_render_provider_testimonial_row(
 
                 <input
                     type="text"
-                    name="pinnacle_testimonials[<?php echo esc_attr( $index ); ?>][name]"
-                    value="<?php echo esc_attr( $name ); ?>"
+                    name="pinnacle_testimonials[<?php echo esc_attr(
+                        $index
+                    ); ?>][name]"
+                    value="<?php echo esc_attr(
+                        $name
+                    ); ?>"
                     placeholder="J.R. or Anonymous"
                 >
 
             </div>
 
-
-            <!-- Role -->
 
             <div
                 class="pinnacle-testimonial-field"
@@ -3095,8 +3096,12 @@ function pinnacle_render_provider_testimonial_row(
 
                 <input
                     type="text"
-                    name="pinnacle_testimonials[<?php echo esc_attr( $index ); ?>][role]"
-                    value="<?php echo esc_attr( $role ); ?>"
+                    name="pinnacle_testimonials[<?php echo esc_attr(
+                        $index
+                    ); ?>][role]"
+                    value="<?php echo esc_attr(
+                        $role
+                    ); ?>"
                     placeholder="Client"
                 >
 
@@ -3104,8 +3109,6 @@ function pinnacle_render_provider_testimonial_row(
 
         </div>
 
-
-        <!-- Testimonial -->
 
         <div
             class="pinnacle-testimonial-field pinnacle-testimonial-field--full"
@@ -3116,10 +3119,14 @@ function pinnacle_render_provider_testimonial_row(
             </label>
 
             <textarea
-                name="pinnacle_testimonials[<?php echo esc_attr( $index ); ?>][text]"
+                name="pinnacle_testimonials[<?php echo esc_attr(
+                    $index
+                ); ?>][text]"
                 rows="5"
                 placeholder="Enter the testimonial..."
-            ><?php echo esc_textarea( $text ); ?></textarea>
+            ><?php echo esc_textarea(
+                $text
+            ); ?></textarea>
 
         </div>
 
@@ -3137,16 +3144,10 @@ function pinnacle_render_provider_testimonial_row(
 }
 
 
-/**
- * Save the testimonials.
- */
 function pinnacle_save_provider_testimonials(
     $post_id
 ) {
 
-    /*
-     * Nonce check.
-     */
     if (
         ! isset(
             $_POST['pinnacle_provider_testimonials_nonce']
@@ -3154,7 +3155,6 @@ function pinnacle_save_provider_testimonials(
     ) {
         return;
     }
-
 
     if (
         ! wp_verify_nonce(
@@ -3165,31 +3165,21 @@ function pinnacle_save_provider_testimonials(
         return;
     }
 
-
-    /*
-     * Autosave check.
-     */
     if (
-        defined( 'DOING_AUTOSAVE' )
+        defined('DOING_AUTOSAVE')
         && DOING_AUTOSAVE
     ) {
         return;
     }
 
-
-    /*
-     * Revision check.
-     */
     if (
-        wp_is_post_revision( $post_id )
+        wp_is_post_revision(
+            $post_id
+        )
     ) {
         return;
     }
 
-
-    /*
-     * Permission check.
-     */
     if (
         ! current_user_can(
             'edit_post',
@@ -3199,12 +3189,10 @@ function pinnacle_save_provider_testimonials(
         return;
     }
 
-
-    /*
-     * Only providers.
-     */
     if (
-        get_post_type( $post_id ) !== 'provider'
+        get_post_type(
+            $post_id
+        ) !== 'provider'
     ) {
         return;
     }
@@ -3221,44 +3209,53 @@ function pinnacle_save_provider_testimonials(
     $clean = array();
 
 
-    if ( is_array( $submitted ) ) {
+    if (
+        is_array(
+            $submitted
+        )
+    ) {
 
         foreach (
             $submitted as $testimonial
         ) {
 
             $initial =
-                isset( $testimonial['initial'] )
+                isset(
+                    $testimonial['initial']
+                )
                     ? sanitize_text_field(
                         $testimonial['initial']
                     )
                     : '';
 
             $name =
-                isset( $testimonial['name'] )
+                isset(
+                    $testimonial['name']
+                )
                     ? sanitize_text_field(
                         $testimonial['name']
                     )
                     : '';
 
             $role =
-                isset( $testimonial['role'] )
+                isset(
+                    $testimonial['role']
+                )
                     ? sanitize_text_field(
                         $testimonial['role']
                     )
                     : '';
 
             $text =
-                isset( $testimonial['text'] )
+                isset(
+                    $testimonial['text']
+                )
                     ? sanitize_textarea_field(
                         $testimonial['text']
                     )
                     : '';
 
 
-            /*
-             * Don't save completely empty rows.
-             */
             if (
                 $initial === ''
                 && $name === ''
@@ -3270,14 +3267,18 @@ function pinnacle_save_provider_testimonials(
 
 
             $clean[] = array(
-                'initial' => mb_substr(
-                    $initial,
-                    0,
-                    1
-                ),
-                'name'    => $name,
-                'role'    => $role,
-                'text'    => $text,
+                'initial' =>
+                    mb_substr(
+                        $initial,
+                        0,
+                        1
+                    ),
+                'name' =>
+                    $name,
+                'role' =>
+                    $role,
+                'text' =>
+                    $text,
             );
 
         }
@@ -3285,7 +3286,11 @@ function pinnacle_save_provider_testimonials(
     }
 
 
-    if ( ! empty( $clean ) ) {
+    if (
+        ! empty(
+            $clean
+        )
+    ) {
 
         update_post_meta(
             $post_id,
@@ -3309,185 +3314,353 @@ add_action(
     'pinnacle_save_provider_testimonials'
 );
 
-add_action('wp_enqueue_scripts', 'pinnacle_enqueue_homepage_scripts');
-/* =========================================================
-   Cart page - "Return to Shop" points to the real store
-   (Fullscript), not the unused local WooCommerce shop page
-   ========================================================= */
 
-add_filter('woocommerce_return_to_shop_redirect', function () {
-    return 'https://us.fullscript.com/s/pinnaclebhc/shop';
-});
+add_action(
+    'wp_enqueue_scripts',
+    'pinnacle_enqueue_homepage_scripts'
+);
+
+
+/* =========================================================
+ * WOOCOMMERCE
+ * ========================================================= */
+
+add_filter(
+    'woocommerce_return_to_shop_redirect',
+    function () {
+        return 'https://us.fullscript.com/s/pinnaclebhc/shop';
+    }
+);
 
 
 /* =========================================================
  * GOOGLE FONT RESOURCE HINTS
  * ========================================================= */
-function pinnacle_resource_hints($urls, $relation_type) {
-    if ('preconnect' !== $relation_type) {
+
+function pinnacle_resource_hints(
+    $urls,
+    $relation_type
+) {
+
+    if (
+        'preconnect'
+        !== $relation_type
+    ) {
         return $urls;
     }
 
-    $urls[] = [
-        'href' => 'https://fonts.googleapis.com',
-    ];
+    $urls[] = array(
+        'href' =>
+            'https://fonts.googleapis.com',
+    );
 
-    $urls[] = [
-        'href' => 'https://fonts.gstatic.com',
+    $urls[] = array(
+        'href' =>
+            'https://fonts.gstatic.com',
         'crossorigin',
-    ];
+    );
 
     return $urls;
 }
-add_filter('wp_resource_hints', 'pinnacle_resource_hints', 10, 2);
+
+add_filter(
+    'wp_resource_hints',
+    'pinnacle_resource_hints',
+    10,
+    2
+);
 
 
 /* =========================================================
  * EDINA LOCATION PAGE
  * ========================================================= */
+
 function pinnacle_enqueue_edina_location_assets() {
-    if (!is_page_template('page-edina.php')) {
+
+    if (
+        ! is_page_template(
+            'page-edina.php'
+        )
+    ) {
         return;
     }
 
-    $js_file = get_template_directory() . '/assets/js/edina.js';
+    $js_file =
+        get_template_directory()
+        . '/assets/js/edina.js';
 
-    if (file_exists($js_file)) {
+    if (
+        file_exists(
+            $js_file
+        )
+    ) {
+
         wp_enqueue_script(
             'pinnacle-edina-location',
-            get_template_directory_uri() . '/assets/js/edina.js',
+            get_template_directory_uri()
+                . '/assets/js/edina.js',
             [],
-            filemtime($js_file),
+            filemtime(
+                $js_file
+            ),
             true
         );
-    }
-}
-add_action('wp_enqueue_scripts', 'pinnacle_enqueue_edina_location_assets');
 
-function pinnacle_edina_location_document_title($title) {
-    if (is_page_template('page-edina.php')) {
+    }
+
+}
+
+add_action(
+    'wp_enqueue_scripts',
+    'pinnacle_enqueue_edina_location_assets'
+);
+
+
+function pinnacle_edina_location_document_title(
+    $title
+) {
+
+    if (
+        is_page_template(
+            'page-edina.php'
+        )
+    ) {
+
         return 'Psychiatric & Behavioral Health Care in Edina, MN | Pinnacle Behavioral Healthcare';
+
     }
 
     return $title;
 }
-add_filter('pre_get_document_title', 'pinnacle_edina_location_document_title');
+
+add_filter(
+    'pre_get_document_title',
+    'pinnacle_edina_location_document_title'
+);
+
 
 function pinnacle_edina_location_schema() {
-    if (!is_page_template('page-edina.php')) {
+
+    if (
+        ! is_page_template(
+            'page-edina.php'
+        )
+    ) {
         return;
     }
 
-    $schema = [
-        '@context' => 'https://schema.org',
-        '@type' => 'MedicalClinic',
-        'name' => 'Pinnacle Behavioral Healthcare | Edina',
-        'image' => 'https://pinnaclebhc.com/wp-content/uploads/2024/05/Pinnacle_Logo_final_L.webp',
-        'address' => [
-            '@type' => 'PostalAddress',
-            'streetAddress' => '6600 France Ave S, Suite 415',
-            'addressLocality' => 'Edina',
-            'addressRegion' => 'MN',
-            'postalCode' => '55435',
-            'addressCountry' => 'US',
-        ],
-        'url' => home_url('/locations/edina/'),
-        'aggregateRating' => [
-            '@type' => 'AggregateRating',
-            'ratingValue' => '4.6',
-            'reviewCount' => '274',
-        ],
-        'medicalSpecialty' => 'Psychiatric',
-    ];
+    $schema = array(
 
-    echo '<script type="application/ld+json">'
-        . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+        '@context' =>
+            'https://schema.org',
+
+        '@type' =>
+            'MedicalClinic',
+
+        'name' =>
+            'Pinnacle Behavioral Healthcare | Edina',
+
+        'image' =>
+            'https://pinnaclebhc.com/wp-content/uploads/2024/05/Pinnacle_Logo_final_L.webp',
+
+        'address' => array(
+
+            '@type' =>
+                'PostalAddress',
+
+            'streetAddress' =>
+                '6600 France Ave S, Suite 415',
+
+            'addressLocality' =>
+                'Edina',
+
+            'addressRegion' =>
+                'MN',
+
+            'postalCode' =>
+                '55435',
+
+            'addressCountry' =>
+                'US',
+        ),
+
+        'url' =>
+            home_url(
+                '/locations/edina/'
+            ),
+
+        'aggregateRating' => array(
+
+            '@type' =>
+                'AggregateRating',
+
+            'ratingValue' =>
+                '4.6',
+
+            'reviewCount' =>
+                '274',
+        ),
+
+        'medicalSpecialty' =>
+            'Psychiatric',
+    );
+
+    echo
+        '<script type="application/ld+json">'
+        . wp_json_encode(
+            $schema,
+            JSON_UNESCAPED_SLASHES
+                | JSON_UNESCAPED_UNICODE
+        )
         . '</script>';
 }
-add_action('wp_head', 'pinnacle_edina_location_schema', 20);
+
+add_action(
+    'wp_head',
+    'pinnacle_edina_location_schema',
+    20
+);
 
 
 /* =========================================================
  * TELEHEALTH PAGE
  * ========================================================= */
-function pinnacle_telehealth_assets() {
-    $is_telehealth = is_page('telehealth')
-        || is_page_template('telehealth-psychiatric-medication-management-in-minneapolis.php')
-        || is_page_template('page-service-detail.php');
 
-    if (!$is_telehealth) {
+function pinnacle_telehealth_assets() {
+
+    $is_telehealth =
+        is_page(
+            'telehealth'
+        )
+        ||
+        is_page_template(
+            'telehealth-psychiatric-medication-management-in-minneapolis.php'
+        )
+        ||
+        is_page_template(
+            'page-service-detail.php'
+        );
+
+    if (
+        ! $is_telehealth
+    ) {
         return;
     }
 
-    $js_file = get_template_directory() . '/assets/js/telehealth-consult-modal.js';
+    $js_file =
+        get_template_directory()
+        . '/assets/js/telehealth-consult-modal.js';
 
-    if (file_exists($js_file)) {
+    if (
+        file_exists(
+            $js_file
+        )
+    ) {
+
         wp_enqueue_script(
             'pinnacle-telehealth-consult-modal',
-            get_template_directory_uri() . '/assets/js/telehealth-consult-modal.js',
+            get_template_directory_uri()
+                . '/assets/js/telehealth-consult-modal.js',
             [],
-            filemtime($js_file),
+            filemtime(
+                $js_file
+            ),
             true
         );
+
     }
+
 }
-add_action('wp_enqueue_scripts', 'pinnacle_telehealth_assets', 20);
+
+add_action(
+    'wp_enqueue_scripts',
+    'pinnacle_telehealth_assets',
+    20
+);
 
 
 /* =========================================================
  * NEW PATIENTS PAGE
  * ========================================================= */
+
 function pinnacle_new_patients_assets() {
-    if (!is_page_template('page-new-patients.php')) {
+
+    if (
+        ! is_page_template(
+            'page-new-patients.php'
+        )
+    ) {
         return;
     }
 
-    $css_file = get_template_directory() . '/assets/css/new-patients.css';
-    $js_file  = get_template_directory() . '/assets/js/new-patients.js';
+    $css_file =
+        get_template_directory()
+        . '/assets/css/new-patients.css';
 
-    if (file_exists($css_file)) {
+    $js_file =
+        get_template_directory()
+        . '/assets/js/new-patients.js';
+
+    if (
+        file_exists(
+            $css_file
+        )
+    ) {
+
         wp_enqueue_style(
             'pinnacle-new-patients',
-            get_template_directory_uri() . '/assets/css/new-patients.css',
+            get_template_directory_uri()
+                . '/assets/css/new-patients.css',
             [],
-            filemtime($css_file)
+            filemtime(
+                $css_file
+            )
         );
+
     }
 
-    if (file_exists($js_file)) {
+    if (
+        file_exists(
+            $js_file
+        )
+    ) {
+
         wp_enqueue_script(
             'pinnacle-new-patients',
-            get_template_directory_uri() . '/assets/js/new-patients.js',
+            get_template_directory_uri()
+                . '/assets/js/new-patients.js',
             [],
-            filemtime($js_file),
+            filemtime(
+                $js_file
+            ),
             true
         );
+
     }
+
 }
-add_action('wp_enqueue_scripts', 'pinnacle_new_patients_assets', 20);
+
+add_action(
+    'wp_enqueue_scripts',
+    'pinnacle_new_patients_assets',
+    20
+);
 
 
 /* =========================================================
  * WOOCOMMERCE / FULLSCRIPT
  * ========================================================= */
-add_filter('woocommerce_return_to_shop_redirect', function () {
-    return 'https://us.fullscript.com/s/pinnaclebhc/shop';
-});
+
+add_filter(
+    'woocommerce_return_to_shop_redirect',
+    function () {
+        return 'https://us.fullscript.com/s/pinnaclebhc/shop';
+    }
+);
 
 
 /* =========================================================
  * CONTACT FORM 7 — ROUTE PROVIDER BOOKING EMAIL
- * ========================================================= */
-/* =========================================================
- * PROVIDER BOOKING EMAIL ROUTING
- * =========================================================
- *
- * Contact Form 7 form ID: f756eed
- *
- * The booking form submits provider_id.
- * We use that ID to find the provider's ACF
- * provider_email field and send the form to that
- * provider.
  * ========================================================= */
 
 add_filter(
@@ -3497,141 +3670,185 @@ add_filter(
     3
 );
 
+
 function pinnacle_route_provider_booking_email(
     $components,
     $contact_form,
     $mail
 ) {
 
-    /*
-     * Only run for the Provider Booking Form.
-     */
     if (
-        ! $contact_form ||
-        (string) $contact_form->id() !== 'f756eed'
+        ! $contact_form
+        ||
+        (string) $contact_form->id()
+            !== 'f756eed'
     ) {
         return $components;
     }
 
 
-    /*
-     * Get the current Contact Form 7 submission.
-     */
-    $submission = WPCF7_Submission::get_instance();
-
-    if ( ! $submission ) {
-        return $components;
-    }
+    $submission =
+        WPCF7_Submission::get_instance();
 
 
-    /*
-     * Get the provider ID from the hidden form field.
-     */
-    $provider_id = $submission->get_posted_data(
-        'provider_id'
-    );
-
-    $provider_id = absint( $provider_id );
-
-
-    /*
-     * If no provider ID was submitted,
-     * keep the normal Contact Form 7 recipient.
-     */
-    if ( ! $provider_id ) {
-        return $components;
-    }
-
-
-    /*
-     * Make sure this is actually a provider post.
-     */
     if (
-        get_post_type( $provider_id ) !== 'provider'
+        ! $submission
     ) {
         return $components;
     }
 
 
-    /*
-     * Get the provider email from ACF.
-     */
-    $provider_email = get_field(
-        'provider_email',
-        $provider_id
-    );
-    
+    $provider_id =
+        $submission->get_posted_data(
+            'provider_id'
+        );
+
+
+    $provider_id =
+        absint(
+            $provider_id
+        );
+
+
+    if (
+        ! $provider_id
+    ) {
+        return $components;
+    }
+
+
+    if (
+        get_post_type(
+            $provider_id
+        ) !== 'provider'
+    ) {
+        return $components;
+    }
+
+
+    $provider_email =
+        get_field(
+            'provider_email',
+            $provider_id
+        );
+
+
     error_log(
-    'PROVIDER BOOKING ROUTING: provider_id=' .
-    $provider_id .
-    ' email=' .
-    $provider_email
-);
+        'PROVIDER BOOKING ROUTING: provider_id='
+        . $provider_id
+        . ' email='
+        . $provider_email
+    );
 
 
-    /*
-     * Make sure the email is valid.
-     */
     if (
-        ! $provider_email ||
-        ! is_email( $provider_email )
+        ! $provider_email
+        ||
+        ! is_email(
+            $provider_email
+        )
     ) {
         return $components;
     }
 
 
-    /*
-     * Replace Contact Form 7's recipient.
-     */
-    $components['recipient'] = sanitize_email(
-        $provider_email
-    );
+    $components['recipient'] =
+        sanitize_email(
+            $provider_email
+        );
 
 
     return $components;
 }
 
+
+/* =========================================================
+ * INSURANCE ACCEPTED ASSETS
+ * ========================================================= */
+
 function pinnacle_enqueue_insurance_accepted_assets() {
-    if ( ! is_page_template( 'page-insurance-accepted.php' ) ) {
+
+    if (
+        ! is_page_template(
+            'page-insurance-accepted.php'
+        )
+    ) {
         return;
     }
 
-    $css_file = get_template_directory() . '/style.css';
-    $css_uri  = get_template_directory_uri() . '/style.css';
+    $css_file =
+        get_template_directory()
+        . '/style.css';
+
+    $css_uri =
+        get_template_directory_uri()
+        . '/style.css';
 
     wp_enqueue_style(
         'pinnacle-insurance-accepted',
         $css_uri,
-        array('pinnacle-style'),
-        file_exists($css_file) ? filemtime($css_file) : '1.0.0'
+        array(
+            'pinnacle-style'
+        ),
+        file_exists(
+            $css_file
+        )
+            ? filemtime(
+                $css_file
+            )
+            : '1.0.0'
     );
 }
-add_action('wp_enqueue_scripts', 'pinnacle_enqueue_insurance_accepted_assets');
+
+add_action(
+    'wp_enqueue_scripts',
+    'pinnacle_enqueue_insurance_accepted_assets'
+);
 
 
+/* =========================================================
+ * INSURANCE ACCEPTED FIELD GROUP
+ * ========================================================= */
 
 function pinnacle_register_insurance_accepted_fields() {
 
-    if ( ! function_exists('acf_add_local_field_group') ) {
+    if (
+        ! function_exists(
+            'acf_add_local_field_group'
+        )
+    ) {
         return;
     }
 
-    acf_add_local_field_group(array(
-        'key' => 'group_insurance_accepted_page',
-        'title' => 'Insurance Accepted Page',
+    acf_add_local_field_group(
+        array(
 
-        // ... all the fields ...
+            'key' =>
+                'group_insurance_accepted_page',
 
-        'location' => array(
-            array(
+            'title' =>
+                'Insurance Accepted Page',
+
+            'fields' =>
                 array(
-                    'param' => 'page_template',
-                    'operator' => '==',
-                    'value' => 'page-insurance-accepted.php',
+
                 ),
-            ),
-        ),
-    ));
+
+            'location' =>
+                array(
+                    array(
+                        array(
+                            'param' =>
+                                'page_template',
+                            'operator' =>
+                                '==',
+                            'value' =>
+                                'page-insurance-accepted.php',
+                        ),
+                    ),
+                ),
+        )
+    );
 }
 
 add_action(
@@ -3663,27 +3880,37 @@ function pinnacle_register_insurance_provider_cpt() {
     );
 
     $args = array(
-        'labels' => $labels,
+        'labels' =>
+            $labels,
 
-        'public' => false,
+        'public' =>
+            false,
 
-        'show_ui' => true,
+        'show_ui' =>
+            true,
 
-        'show_in_menu' => true,
+        'show_in_menu' =>
+            true,
 
-        'show_in_rest' => true,
+        'show_in_rest' =>
+            true,
 
-        'menu_icon' => 'dashicons-shield',
+        'menu_icon' =>
+            'dashicons-shield',
 
-        'supports' => array(
-            'title',
-        ),
+        'supports' =>
+            array(
+                'title',
+            ),
 
-        'capability_type' => 'post',
+        'capability_type' =>
+            'post',
 
-        'has_archive' => false,
+        'has_archive' =>
+            false,
 
-        'rewrite' => false,
+        'rewrite' =>
+            false,
     );
 
     register_post_type(
@@ -3715,102 +3942,510 @@ function pinnacle_register_insurance_provider_fields() {
     acf_add_local_field_group(
         array(
 
-            'key' => 'group_insurance_provider',
+            'key' =>
+                'group_insurance_provider',
 
-            'title' => 'Insurance Provider Information',
+            'title' =>
+                'Insurance Provider Information',
+
+            'fields' =>
+                array(
+
+                    array(
+                        'key' =>
+                            'field_insurance_provider_logo',
+                        'label' =>
+                            'Insurance Logo',
+                        'name' =>
+                            'insurance_logo',
+                        'type' =>
+                            'image',
+                        'return_format' =>
+                            'array',
+                        'preview_size' =>
+                            'medium',
+                        'library' =>
+                            'all',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_insurance_medication',
+                        'label' =>
+                            'Medication Management',
+                        'name' =>
+                            'insurance_medication',
+                        'type' =>
+                            'text',
+                        'default_value' =>
+                            'In-Network',
+                        'placeholder' =>
+                            'In-Network',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_insurance_tms',
+                        'label' =>
+                            'NeuroStar TMS Therapy',
+                        'name' =>
+                            'insurance_tms',
+                        'type' =>
+                            'text',
+                        'default_value' =>
+                            'Covered — Prior Authorization Required',
+                        'placeholder' =>
+                            'Covered — Prior Authorization Required',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_insurance_spravato',
+                        'label' =>
+                            'Spravato (Esketamine)',
+                        'name' =>
+                            'insurance_spravato',
+                        'type' =>
+                            'text',
+                        'default_value' =>
+                            'Covered — Prior Authorization Required',
+                        'placeholder' =>
+                            'Covered — Prior Authorization Required',
+                    ),
+
+                    array(
+                        'key' =>
+                            'field_insurance_order',
+                        'label' =>
+                            'Display Order',
+                        'name' =>
+                            'insurance_order',
+                        'type' =>
+                            'number',
+                        'default_value' =>
+                            10,
+                        'instructions' =>
+                            'Lower numbers appear first on the Insurance Accepted page.',
+                    ),
+                ),
+
+            'location' =>
+                array(
+                    array(
+                        array(
+                            'param' =>
+                                'post_type',
+                            'operator' =>
+                                '==',
+                            'value' =>
+                                'insurance_provider',
+                        ),
+                    ),
+                ),
+
+            'position' =>
+                'normal',
+
+            'style' =>
+                'default',
+
+            'active' =>
+                true,
+        )
+    );
+}
+
+add_action(
+    'acf/init',
+    'pinnacle_register_insurance_provider_fields'
+);
+
+
+/* =========================================================
+ * BLOG POSTS CUSTOM POST TYPE
+ * ========================================================= */
+
+function pinnacle_register_blog_post_cpt() {
+
+    $labels = array(
+        'name'               => 'Blog Posts',
+        'singular_name'      => 'Blog Post',
+        'menu_name'          => 'Blog Posts',
+        'name_admin_bar'     => 'Blog Post',
+        'add_new'            => 'Add Post',
+        'add_new_item'       => 'Add New Blog Post',
+        'new_item'           => 'New Blog Post',
+        'edit_item'          => 'Edit Blog Post',
+        'view_item'          => 'View Blog Post',
+        'all_items'          => 'Blog Posts',
+        'search_items'       => 'Search Blog Posts',
+        'not_found'          => 'No blog posts found.',
+        'not_found_in_trash' => 'No blog posts found in Trash.',
+    );
+
+    $args = array(
+        'labels' =>
+            $labels,
+
+        'public' =>
+            true,
+
+        'publicly_queryable' =>
+            true,
+
+        'show_ui' =>
+            true,
+
+        'show_in_menu' =>
+            true,
+
+        'show_in_rest' =>
+            true,
+
+        'menu_icon' =>
+            'dashicons-edit-page',
+
+        'supports' =>
+            array(
+                'title',
+                'editor',
+                'thumbnail',
+                'excerpt',
+                'author',
+            ),
+
+        'has_archive' =>
+            false,
+
+        'query_var' =>
+            true,
+
+        'rewrite' =>
+            array(
+                'slug' =>
+                    'blog',
+                'with_front' =>
+                    false,
+            ),
+    );
+
+    register_post_type(
+        'blog_post',
+        $args
+    );
+}
+
+add_action(
+    'init',
+    'pinnacle_register_blog_post_cpt'
+);
+
+
+/* =========================================================
+ * SPRAVATO CUSTOM POST TYPE
+ * ========================================================= */
+
+function pinnacle_register_spravato_cpt() {
+
+    $labels = array(
+        'name'               => 'Spravato',
+        'singular_name'      => 'Spravato Page',
+        'menu_name'          => 'Spravato',
+        'name_admin_bar'     => 'Spravato Page',
+        'add_new'            => 'Add New',
+        'add_new_item'       => 'Add New Spravato Page',
+        'new_item'           => 'New Spravato Page',
+        'edit_item'          => 'Edit Spravato Page',
+        'view_item'          => 'View Spravato Page',
+        'all_items'          => 'All Spravato Pages',
+        'search_items'       => 'Search Spravato Pages',
+        'not_found'          => 'No Spravato pages found.',
+        'not_found_in_trash' => 'No Spravato pages found in Trash.',
+    );
+
+    $args = array(
+
+        'labels' =>
+            $labels,
+
+        'public' =>
+            true,
+
+        'publicly_queryable' =>
+            true,
+
+        'show_ui' =>
+            true,
+
+        'show_in_menu' =>
+            true,
+
+        'show_in_rest' =>
+            true,
+
+        'menu_icon' =>
+            'dashicons-heart',
+
+        'supports' =>
+            array(
+                'title',
+                'editor',
+                'thumbnail',
+                'excerpt',
+            ),
+
+        'has_archive' =>
+            false,
+
+        'query_var' =>
+            true,
+
+        'rewrite' =>
+            array(
+                'slug' =>
+                    'spravato',
+                'with_front' =>
+                    false,
+            ),
+    );
+
+    register_post_type(
+        'spravato',
+        $args
+    );
+}
+
+add_action(
+    'init',
+    'pinnacle_register_spravato_cpt'
+);
+
+
+/* =========================================================
+ * SPRAVATO ACF FIELDS
+ *
+ * Existing fields retained.
+ * ========================================================= */
+
+
+/* =========================================================
+ * SPRAVATO ACF FIELDS
+ * ========================================================= */
+
+function pinnacle_register_spravato_fields() {
+
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        return;
+    }
+
+    acf_add_local_field_group(
+        array(
+
+            'key' => 'group_spravato_page',
+
+            'title' => 'Spravato Page Information',
 
             'fields' => array(
 
-                /*
-                 * LOGO
-                 */
+                /* =====================================================
+                 * HERO IMAGE
+                 * ===================================================== */
+
                 array(
-                    'key' => 'field_insurance_provider_logo',
-
-                    'label' => 'Insurance Logo',
-
-                    'name' => 'insurance_logo',
-
+                    'key' => 'field_spravato_hero_image',
+                    'label' => 'Hero Image',
+                    'name' => 'spravato_hero_image',
                     'type' => 'image',
-
                     'return_format' => 'array',
-
                     'preview_size' => 'medium',
-
                     'library' => 'all',
+                    'required' => 0,
                 ),
 
-                /*
-                 * MEDICATION MANAGEMENT
-                 */
+                /* =====================================================
+                 * HERO TITLE
+                 * ===================================================== */
+
                 array(
-                    'key' => 'field_insurance_medication',
-
-                    'label' => 'Medication Management',
-
-                    'name' => 'insurance_medication',
-
+                    'key' => 'field_spravato_hero_title',
+                    'label' => 'Hero Title',
+                    'name' => 'spravato_hero_title',
                     'type' => 'text',
-
-                    'default_value' => 'In-Network',
-
-                    'placeholder' => 'In-Network',
+                    'default_value' => 'Spravato',
+                    'required' => 0,
                 ),
 
-                /*
-                 * NEUROSTAR TMS
-                 */
+                /* =====================================================
+                 * EYEBROW
+                 * ===================================================== */
+
                 array(
-                    'key' => 'field_insurance_tms',
-
-                    'label' => 'NeuroStar TMS Therapy',
-
-                    'name' => 'insurance_tms',
-
+                    'key' => 'field_spravato_eyebrow',
+                    'label' => 'Eyebrow Text',
+                    'name' => 'spravato_eyebrow',
                     'type' => 'text',
-
-                    'default_value' =>
-                        'Covered — Prior Authorization Required',
-
-                    'placeholder' =>
-                        'Covered — Prior Authorization Required',
+                    'default_value' => 'Mental Health Treatment',
+                    'required' => 0,
                 ),
 
-                /*
-                 * SPRAVATO
-                 */
+                /* =====================================================
+                 * PAGE CONTENT
+                 * ===================================================== */
+
                 array(
-                    'key' => 'field_insurance_spravato',
-
-                    'label' => 'Spravato (Esketamine)',
-
-                    'name' => 'insurance_spravato',
-
-                    'type' => 'text',
-
-                    'default_value' =>
-                        'Covered — Prior Authorization Required',
-
-                    'placeholder' =>
-                        'Covered — Prior Authorization Required',
-                ),
-
-                /*
-                 * DISPLAY ORDER
-                 */
-                array(
-                    'key' => 'field_insurance_order',
-
-                    'label' => 'Display Order',
-
-                    'name' => 'insurance_order',
-
-                    'type' => 'number',
-
-                    'default_value' => 10,
-
+                    'key' => 'field_spravato_intro',
+                    'label' => 'Page Content',
+                    'name' => 'spravato_intro',
+                    'type' => 'wysiwyg',
+                    'tabs' => 'all',
+                    'toolbar' => 'full',
+                    'media_upload' => true,
+                    'required' => 0,
                     'instructions' =>
-                        'Lower numbers appear first on the Insurance Accepted page.',
+                        'Enter the main content for the Spravato page here.',
+                ),
+
+                /* =====================================================
+                 * VIDEO TITLE
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_video_title',
+                    'label' => 'Video Title',
+                    'name' => 'spravato_video_title',
+                    'type' => 'text',
+                    'default_value' => 'Learn More About Spravato',
+                    'required' => 0,
+                ),
+
+                /* =====================================================
+                 * VIDEO URL
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_video_url',
+                    'label' => 'Video / iFrame Source URL',
+                    'name' => 'spravato_video_url',
+                    'type' => 'text',
+                    'default_value' => '',
+                    'required' => 0,
+                    'instructions' =>
+                        'Paste only the embeddable source URL. Example: https://www.youtube.com/embed/VIDEO_ID or https://player.vimeo.com/video/VIDEO_ID',
+                    'placeholder' =>
+                        'https://www.youtube.com/embed/VIDEO_ID',
+                ),
+
+                /* =====================================================
+                 * VIDEO DESCRIPTION
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_video_description',
+                    'label' => 'Video Description',
+                    'name' => 'spravato_video_description',
+                    'type' => 'textarea',
+                    'rows' => 4,
+                    'required' => 0,
+                ),
+
+                /* =====================================================
+                 * CONTENT IMAGE
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_content_image',
+                    'label' => 'Content Image',
+                    'name' => 'spravato_content_image',
+                    'type' => 'image',
+                    'return_format' => 'array',
+                    'preview_size' => 'medium',
+                    'library' => 'all',
+                    'required' => 0,
+                ),
+
+                /* =====================================================
+                 * CONTENT IMAGE ALT
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_content_image_alt',
+                    'label' => 'Content Image Alt Text',
+                    'name' => 'spravato_content_image_alt',
+                    'type' => 'text',
+                    'required' => 0,
+                ),
+
+                /* =====================================================
+                 * SIDEBAR CTA TEXT
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_sidebar_cta_text',
+                    'label' => 'Sidebar CTA Text',
+                    'name' => 'spravato_sidebar_cta_text',
+                    'type' => 'text',
+                    'default_value' => 'Schedule Consultation',
+                    'required' => 0,
+                ),
+
+                /* =====================================================
+                 * SIDEBAR CTA LINK
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_sidebar_cta_link',
+                    'label' => 'Sidebar CTA Link',
+                    'name' => 'spravato_sidebar_cta_link',
+                    'type' => 'text',
+                    'default_value' => '/contact/',
+                    'required' => 0,
+                    'instructions' =>
+                        'Use a WordPress path such as /contact/ or a complete URL.',
+                    'placeholder' =>
+                        '/contact/',
+                ),
+
+                /* =====================================================
+                 * BOTTOM CTA HEADING
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_bottom_cta_heading',
+                    'label' => 'Bottom CTA Heading',
+                    'name' => 'spravato_bottom_cta_heading',
+                    'type' => 'text',
+                    'default_value' => 'Book a Consultation',
+                    'required' => 0,
+                ),
+
+                /* =====================================================
+                 * BOTTOM CTA BUTTON TEXT
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_bottom_cta_text',
+                    'label' => 'Bottom CTA Button Text',
+                    'name' => 'spravato_bottom_cta_text',
+                    'type' => 'text',
+                    'default_value' => 'Schedule Consultation',
+                    'required' => 0,
+                ),
+
+                /* =====================================================
+                 * BOTTOM CTA LINK
+                 * ===================================================== */
+
+                array(
+                    'key' => 'field_spravato_bottom_cta_link',
+                    'label' => 'Bottom CTA Button Link',
+                    'name' => 'spravato_bottom_cta_link',
+                    'type' => 'text',
+                    'default_value' => '/contact/',
+                    'required' => 0,
+                    'instructions' =>
+                        'Use a WordPress path such as /contact/ or a complete URL.',
+                    'placeholder' =>
+                        '/contact/',
                 ),
 
             ),
@@ -3820,16 +4455,9 @@ function pinnacle_register_insurance_provider_fields() {
                 array(
 
                     array(
-
-                        'param' =>
-                            'post_type',
-
-                        'operator' =>
-                            '==',
-
-                        'value' =>
-                            'insurance_provider',
-
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => 'spravato',
                     ),
 
                 ),
@@ -3847,20 +4475,446 @@ function pinnacle_register_insurance_provider_fields() {
 
 add_action(
     'acf/init',
-    'pinnacle_register_insurance_provider_fields'
+    'pinnacle_register_spravato_fields'
 );
+
+
+
+
+/* =========================================================
+ * NEW SPRAVATO SERVICE DETAIL FIELDS
+ *
+ * These fields match page-service-detail.php.
+ *
+ * They are separate from the existing spravato_* fields,
+ * so nothing above is removed.
+ * ========================================================= */
+
+function pinnacle_register_spravato_service_detail_fields() {
+
+    if (
+        ! function_exists(
+            'acf_add_local_field_group'
+        )
+    ) {
+        return;
+    }
+
+    acf_add_local_field_group(
+        array(
+
+            'key' =>
+                'group_spravato_service_detail',
+
+            'title' =>
+                'Spravato Service Detail',
+
+            'fields' =>
+                array(
+
+                    /*
+                     * BANNER IMAGE
+                     */
+                    array(
+                        'key' =>
+                            'field_spravato_service_banner_image',
+
+                        'label' =>
+                            'Banner Image',
+
+                        'name' =>
+                            'service_banner_image',
+
+                        'type' =>
+                            'image',
+
+                        'return_format' =>
+                            'array',
+
+                        'preview_size' =>
+                            'medium',
+
+                        'library' =>
+                            'all',
+                    ),
+
+                    /*
+                     * INTRODUCTION
+                     */
+                    array(
+                        'key' =>
+                            'field_spravato_service_intro_content',
+
+                        'label' =>
+                            'Page Introduction / Main Content',
+
+                        'name' =>
+                            'service_intro_content',
+
+                        'type' =>
+                            'wysiwyg',
+
+                        'tabs' =>
+                            'all',
+
+                        'toolbar' =>
+                            'full',
+
+                        'media_upload' =>
+                            true,
+
+                        'instructions' =>
+                            'Enter the main introductory content for the Spravato page.',
+                    ),
+
+                    /*
+                     * VIDEO URL
+                     */
+                    array(
+                        'key' =>
+                            'field_spravato_service_video_url',
+
+                        'label' =>
+                            'Video / iFrame Source URL',
+
+                        'name' =>
+                            'service_video_url',
+
+                        'type' =>
+                            'url',
+
+                        'instructions' =>
+                            'Paste the embeddable source URL. YouTube example: https://www.youtube.com/embed/VIDEO_ID. Vimeo and other iframe providers can also be used when embedding is allowed.',
+
+                        'placeholder' =>
+                            'https://www.youtube.com/embed/VIDEO_ID',
+                    ),
+
+                    /*
+                     * VIDEO TITLE
+                     */
+                    array(
+                        'key' =>
+                            'field_spravato_service_video_title',
+
+                        'label' =>
+                            'Video Title',
+
+                        'name' =>
+                            'service_video_title',
+
+                        'type' =>
+                            'text',
+
+                        'default_value' =>
+                            'Learn More About Spravato',
+                    ),
+
+                    /*
+                     * VIDEO DESCRIPTION
+                     */
+                    array(
+                        'key' =>
+                            'field_spravato_service_video_description',
+
+                        'label' =>
+                            'Video Description',
+
+                        'name' =>
+                            'service_video_description',
+
+                        'type' =>
+                            'textarea',
+
+                        'rows' =>
+                            3,
+                    ),
+
+                    /*
+                     * CONTENT IMAGE
+                     */
+                    array(
+                        'key' =>
+                            'field_spravato_service_content_image',
+
+                        'label' =>
+                            'Content Image',
+
+                        'name' =>
+                            'service_content_image',
+
+                        'type' =>
+                            'image',
+
+                        'return_format' =>
+                            'array',
+
+                        'preview_size' =>
+                            'medium',
+
+                        'library' =>
+                            'all',
+                    ),
+
+                    /*
+                     * SIDEBAR CTA TEXT
+                     */
+                    array(
+                        'key' =>
+                            'field_spravato_service_cta_text',
+
+                        'label' =>
+                            'Sidebar Button Text',
+
+                        'name' =>
+                            'service_cta_text',
+
+                        'type' =>
+                            'text',
+
+                        'default_value' =>
+                            'Schedule Consultation',
+                    ),
+
+                    /*
+                     * SIDEBAR CTA LINK
+                     */
+                    array(
+                        'key' =>
+                            'field_spravato_service_cta_link',
+
+                        'label' =>
+                            'Sidebar Button Link',
+
+                        'name' =>
+                            'service_cta_link',
+
+                        'type' =>
+                            'url',
+
+                        'default_value' =>
+                            '/contact/',
+                    ),
+
+                ),
+
+            'location' =>
+                array(
+                    array(
+                        array(
+                            'param' =>
+                                'post_type',
+                            'operator' =>
+                                '==',
+                            'value' =>
+                                'spravato',
+                        ),
+                    ),
+                ),
+
+            'position' =>
+                'normal',
+
+            'style' =>
+                'default',
+
+            'active' =>
+                true,
+        )
+    );
+}
+
+add_action(
+    'acf/init',
+    'pinnacle_register_spravato_service_detail_fields'
+);
+
+
+/* =========================================================
+ * SPRAVATO → SERVICE DETAIL TEMPLATE
+ *
+ * This makes:
+ *
+ * /spravato/
+ *
+ * use:
+ *
+ * page-service-detail.php
+ *
+ * instead of the normal WordPress single template.
+ * ========================================================= */
+
+function pinnacle_spravato_single_template(
+    $template
+) {
+
+    if (
+        is_singular(
+            'spravato'
+        )
+    ) {
+
+        $service_template =
+            get_template_directory()
+            . '/page-service-detail.php';
+
+        if (
+            file_exists(
+                $service_template
+            )
+        ) {
+
+            return $service_template;
+
+        }
+
+    }
+
+    return $template;
+}
+
+add_filter(
+    'single_template',
+    'pinnacle_spravato_single_template'
+);
+
+
+/* =========================================================
+ * SPRAVATO HERO TITLE OVERRIDE
+ *
+ * Allows the Hero Title field to control the front-end title.
+ * ========================================================= */
+
+function pinnacle_spravato_title_override(
+    $title,
+    $post_id
+) {
+
+    if (
+        ! $post_id
+        ||
+        get_post_type(
+            $post_id
+        ) !== 'spravato'
+    ) {
+        return $title;
+    }
+
+    if (
+        is_admin()
+        &&
+        ! wp_doing_ajax()
+    ) {
+        return $title;
+    }
+
+    if (
+        is_singular(
+            'spravato'
+        )
+    ) {
+
+        $custom_title =
+            get_field(
+                'spravato_hero_title',
+                $post_id
+            );
+
+        if (
+            $custom_title
+        ) {
+
+            return $custom_title;
+
+        }
+
+    }
+
+    return $title;
+}
+
+add_filter(
+    'the_title',
+    'pinnacle_spravato_title_override',
+    10,
+    2
+);
+
+
+/* =========================================================
+ * SPRAVATO VIDEO SECURITY / EMBED URL
+ *
+ * Keeps allowed URLs as URLs and leaves validation to the
+ * ACF URL field plus iframe/browser restrictions.
+ * ========================================================= */
+
+function pinnacle_spravato_video_url_value(
+    $value,
+    $post_id,
+    $field
+) {
+
+    if (
+        get_post_type(
+            $post_id
+        ) !== 'spravato'
+    ) {
+        return $value;
+    }
+
+    if (
+        ! is_string(
+            $value
+        )
+    ) {
+        return $value;
+    }
+
+    return esc_url_raw(
+        $value
+    );
+}
+
+add_filter(
+    'acf/update_value/name=service_video_url',
+    'pinnacle_spravato_video_url_value',
+    10,
+    3
+);
+
+
+/* =========================================================
+ * PROVIDER BOOKING EMAIL ROUTING
+ * ========================================================= */
+
+add_filter(
+    'wpcf7_mail_components',
+    'pinnacle_route_provider_booking_email',
+    10,
+    3
+);
+
+
+/* =========================================================
+ * SEARCH
+ * ========================================================= */
 
 add_action(
     'pre_get_posts',
     'pinnacle_extend_search_post_types'
 );
 
-function pinnacle_extend_search_post_types( $query ) {
+
+function pinnacle_extend_search_post_types(
+    $query
+) {
 
     if (
         is_admin()
-        || ! $query->is_main_query()
-        || ! $query->is_search()
+        ||
+        ! $query->is_main_query()
+        ||
+        ! $query->is_search()
     ) {
         return;
     }
@@ -3872,8 +4926,32 @@ function pinnacle_extend_search_post_types( $query ) {
             'post',
             'blog_post',
             'provider',
+            'spravato',
         )
     );
 }
 
+
+/* =========================================================
+ * SPRAVATO REWRITE REFRESH
+ *
+ * Run once when the theme is switched/activated.
+ * You should also go to:
+ *
+ * Settings → Permalinks → Save Changes
+ *
+ * after adding this code.
+ * ========================================================= */
+
+function pinnacle_flush_spravato_rewrites() {
+
+    pinnacle_register_spravato_cpt();
+
+    flush_rewrite_rules();
+}
+
+add_action(
+    'after_switch_theme',
+    'pinnacle_flush_spravato_rewrites'
+);
 

@@ -96,10 +96,7 @@ $header_phone_tel    = preg_replace('/\D+/', '', $header_phone_number);
                 </a>
             </div>
 
-            <a href="<?php echo esc_url(site_url('/cart/')); ?>" class="icon-btn" aria-label="View cart">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                <span class="icon-btn__badge" id="mini-cart-count"><?php echo (int) $cart_count; ?></span>
-            </a>
+
 
             <a href="tel:<?php echo esc_attr($header_phone_tel); ?>" class="header-phone">
                 <span class="icon-phone-animate" aria-hidden="true">
@@ -155,10 +152,7 @@ $header_phone_tel    = preg_replace('/\D+/', '', $header_phone_number);
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
             </a>
 
-            <a href="<?php echo esc_url(site_url('/cart/')); ?>" class="icon-btn" aria-label="View cart">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                <span class="icon-btn__badge"><?php echo (int) $cart_count; ?></span>
-            </a>
+
 
             <button
                 type="button"

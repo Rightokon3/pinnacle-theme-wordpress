@@ -88,3 +88,43 @@
     });
   });
 })();
+
+document.addEventListener('DOMContentLoaded', function () {
+    const params = new URLSearchParams(window.location.search);
+    const requestType = params.get('request');
+
+    if (requestType !== 'callback') {
+        return;
+    }
+
+    const callbackCard = document.querySelector(
+        '.req-card[data-type="callback"]'
+    );
+
+    if (!callbackCard) {
+        return;
+    }
+
+    /*
+     * Click the existing callback card.
+     * This allows the page's existing JavaScript
+     * to handle the active state and show the
+     * callback-specific fields.
+     */
+    callbackCard.click();
+
+    /*
+     * Scroll to the request area after the page
+     * has finished loading.
+     */
+    setTimeout(function () {
+        const requestGrid = document.getElementById('reqGrid');
+
+        if (requestGrid) {
+            requestGrid.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }, 250);
+});

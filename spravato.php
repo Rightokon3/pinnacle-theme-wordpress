@@ -1,19 +1,31 @@
+
 <?php
 /**
  * Template Name: Service Detail
  *
- * Reusable service-detail template for:
+ * Pinnacle Behavioral Healthcare
+ *
+ * Reusable service page template for:
  * - Spravato
  * - TMS
  * - ADHD Testing
  * - Individual Psychotherapy
  * - Medication Management
- * - Other service detail pages
+ * - Other service pages
  *
- * Content priority:
- * 1. ACF Flexible Content: service_content_blocks
- * 2. ACF WYSIWYG: service_intro_content
- * 3. Normal WordPress page editor content
+ * ACF FREE compatible.
+ *
+ * Content:
+ * 1. Banner image
+ * 2. Intro content
+ * 3. Video embed
+ * 4. Content image
+ * 5. Normal WordPress editor content
+ * 6. Requirements
+ * 7. Contact sidebar
+ * 8. Services navigation
+ * 9. Consultation CTA
+ * 10. Existing site contact section
  */
 
 get_header();
@@ -23,66 +35,166 @@ get_header();
    PAGE DATA
    ========================================================= */
 
-$banner_image = get_field('service_banner_image');
+$banner_image = get_field(
+    'service_banner_image'
+);
 
 $banner_image_url = (
-    is_array($banner_image) &&
-    !empty($banner_image['url'])
+    is_array( $banner_image )
+    && ! empty( $banner_image['url'] )
 )
     ? $banner_image['url']
-    : get_template_directory_uri() . '/assets/images/back.webp';
+    : get_template_directory_uri()
+        . '/assets/images/back.webp';
+
 
 $banner_image_alt = (
-    is_array($banner_image) &&
-    !empty($banner_image['alt'])
+    is_array( $banner_image )
+    && ! empty( $banner_image['alt'] )
 )
     ? $banner_image['alt']
     : get_the_title();
 
 
-$content_blocks = get_field('service_content_blocks');
-$intro_content  = get_field('service_intro_content');
-$requirements   = get_field('service_requirements');
+/*
+ * Main introduction.
+ *
+ * ACF Free WYSIWYG.
+ */
+$intro_content = get_field(
+    'service_intro_content'
+);
 
-$cta_text = get_field('service_cta_text');
 
-if (!$cta_text) {
+/*
+ * Video.
+ */
+$video_url = get_field(
+    'service_video_url'
+);
+
+$video_title = get_field(
+    'service_video_title'
+);
+
+if ( ! $video_title ) {
+    $video_title =
+        get_the_title()
+        . ' Video';
+}
+
+$video_description = get_field(
+    'service_video_description'
+);
+
+
+/*
+ * Content image.
+ */
+$content_image = get_field(
+    'service_content_image'
+);
+
+
+/*
+ * Requirements.
+ *
+ * This assumes your existing ACF field
+ * service_requirements is a repeater.
+ */
+$requirements = get_field(
+    'service_requirements'
+);
+
+
+/*
+ * Sidebar CTA.
+ */
+$cta_text = get_field(
+    'service_cta_text'
+);
+
+if ( ! $cta_text ) {
     $cta_text = 'Schedule Consultation';
 }
 
-$cta_link = get_field('service_cta_link');
 
-if (!$cta_link) {
-    $cta_link = home_url('/contact/');
+$cta_link = get_field(
+    'service_cta_link'
+);
+
+if ( ! $cta_link ) {
+    $cta_link = home_url(
+        '/contact/'
+    );
 }
 
 
 /* =========================================================
-   YOUTUBE / BRIGHTCOVE HELPER
+   YOUTUBE URL HELPER
    ========================================================= */
 
-function pinnacle_extract_youtube_id($url) {
+if (
+    ! function_exists(
+        'pinnacle_extract_youtube_id'
+    )
+) {
 
-    if (!$url) {
+    function pinnacle_extract_youtube_id(
+        $url
+    ) {
+
+        if ( ! $url ) {
+            return '';
+        }
+
+
+        $patterns = array(
+
+            /*
+             * youtu.be/XXXXXXXXXXX
+             */
+            '~youtu\.be/([A-Za-z0-9_-]{11})~i',
+
+            /*
+             * youtube.com/watch?v=XXXXXXXXXXX
+             */
+            '~youtube\.com/watch\?[^#]*v=([A-Za-z0-9_-]{11})~i',
+
+            /*
+             * youtube.com/embed/XXXXXXXXXXX
+             */
+            '~youtube\.com/embed/([A-Za-z0-9_-]{11})~i',
+
+            /*
+             * youtube.com/shorts/XXXXXXXXXXX
+             */
+            '~youtube\.com/shorts/([A-Za-z0-9_-]{11})~i',
+        );
+
+
+        foreach (
+            $patterns as $pattern
+        ) {
+
+            if (
+                preg_match(
+                    $pattern,
+                    $url,
+                    $matches
+                )
+            ) {
+
+                return $matches[1];
+
+            }
+
+        }
+
+
         return '';
     }
 
-    $patterns = array(
-        '/youtu\.be\/([A-Za-z0-9_-]{11})/i',
-        '/youtube\.com\/watch\?v=([A-Za-z0-9_-]{11})/i',
-        '/youtube\.com\/embed\/([A-Za-z0-9_-]{11})/i',
-        '/youtube\.com\/shorts\/([A-Za-z0-9_-]{11})/i',
-    );
-
-    foreach ($patterns as $pattern) {
-
-        if (preg_match($pattern, $url, $matches)) {
-            return $matches[1];
-        }
-
-    }
-
-    return '';
 }
 
 
@@ -94,7 +206,12 @@ function pinnacle_extract_youtube_id($url) {
 
 <section
     class="providers-banner"
-    style="background-image:url('<?php echo esc_url($banner_image_url); ?>');"
+    style="
+        background-image:
+        url('<?php echo esc_url(
+            $banner_image_url
+        ); ?>');
+    "
 >
 
     <div class="providers-banner__overlay">
@@ -102,7 +219,13 @@ function pinnacle_extract_youtube_id($url) {
         <div class="providers-banner__inner">
 
             <h1 class="providers-banner__title">
-                <?php echo esc_html(get_the_title()); ?>
+
+                <?php
+                echo esc_html(
+                    get_the_title()
+                );
+                ?>
+
             </h1>
 
         </div>
@@ -116,11 +239,19 @@ function pinnacle_extract_youtube_id($url) {
      BREADCRUMB
 ========================================================== -->
 
-<div class="providers-breadcrumb-container">
+<div
+    class="providers-breadcrumb-container"
+>
 
-    <p class="providers-banner__breadcrumb">
+    <p
+        class="providers-banner__breadcrumb"
+    >
 
-        <a href="<?php echo esc_url(home_url('/')); ?>">
+        <a
+            href="<?php echo esc_url(
+                home_url('/')
+            ); ?>"
+        >
             Home
         </a>
 
@@ -129,7 +260,11 @@ function pinnacle_extract_youtube_id($url) {
         </span>
 
         <span>
-            <?php echo esc_html(get_the_title()); ?>
+            <?php
+            echo esc_html(
+                get_the_title()
+            );
+            ?>
         </span>
 
     </p>
@@ -141,28 +276,40 @@ function pinnacle_extract_youtube_id($url) {
      SHARE
 ========================================================== -->
 
-<section class="share-section">
+<section
+    class="share-section"
+>
 
-    <h2 class="share-section__title">
+    <h2
+        class="share-section__title"
+    >
         Share and Enjoy !
     </h2>
 
-    <div class="share-section__buttons">
 
-        <span class="share-section__label">
+    <div
+        class="share-section__buttons"
+    >
+
+        <span
+            class="share-section__label"
+        >
             SHARES
         </span>
 
 
-        <!-- Facebook -->
+        <!-- FACEBOOK -->
 
         <a
             class="share-btn share-btn--facebook"
-            href="https://www.facebook.com/share.php?u=<?php echo rawurlencode(get_permalink()); ?>"
+            href="https://www.facebook.com/share.php?u=<?php echo rawurlencode(
+                get_permalink()
+            ); ?>"
             aria-label="Share on Facebook"
             target="_blank"
             rel="noopener noreferrer"
         >
+
             <svg
                 width="16"
                 height="16"
@@ -170,20 +317,28 @@ function pinnacle_extract_youtube_id($url) {
                 fill="currentColor"
                 aria-hidden="true"
             >
-                <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+
+                <path
+                    d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"
+                />
+
             </svg>
+
         </a>
 
 
-        <!-- Pinterest -->
+        <!-- PINTEREST -->
 
         <a
             class="share-btn share-btn--pinterest"
-            href="https://www.pinterest.com/pin/create/button/?url=<?php echo rawurlencode(get_permalink()); ?>"
+            href="https://www.pinterest.com/pin/create/button/?url=<?php echo rawurlencode(
+                get_permalink()
+            ); ?>"
             aria-label="Share on Pinterest"
             target="_blank"
             rel="noopener noreferrer"
         >
+
             <svg
                 width="16"
                 height="16"
@@ -191,8 +346,13 @@ function pinnacle_extract_youtube_id($url) {
                 fill="currentColor"
                 aria-hidden="true"
             >
-                <path d="M12 2C6.5 2 2 6.5 2 12c0 4.2 2.6 7.8 6.3 9.3-.1-.8-.2-2 0-2.9l1.4-6s-.4-.7-.4-1.8c0-1.7 1-2.9 2.2-2.9 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.7-2.3 3.7-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.5 2.6-5.5 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3-.1.4-.3 1.2-.3 1.4-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.4 3 7.4 6.9 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.7-1.4l-.8 2.9c-.3 1-1 2.3-1.5 3.1 1.1.3 2.3.5 3.5.5 5.5 0 10-4.5 10-10S17.5 2 12 2z"/>
+
+                <path
+                    d="M12 2C6.5 2 2 6.5 2 12c0 4.2 2.6 7.8 6.3 9.3-.1-.8-.2-2 0-2.9l1.4-6s-.4-.7-.4-1.8c0-1.7 1-2.9 2.2-2.9 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.7-2.3 3.7-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.5 2.6-5.5 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3-.1.4-.3 1.2-.3 1.4-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.4 3 7.4 6.9 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.7-1.4l-.8 2.9c-.3 1-1 2.3-1.5 3.1 1.1.3 2.3.5 3.5.5 5.5 0 10-4.5 10-10S17.5 2 12 2z"
+                />
+
             </svg>
+
         </a>
 
 
@@ -204,6 +364,7 @@ function pinnacle_extract_youtube_id($url) {
             onclick="window.print();"
             aria-label="Print / Save as PDF"
         >
+
             <svg
                 width="16"
                 height="16"
@@ -215,21 +376,38 @@ function pinnacle_extract_youtube_id($url) {
                 stroke-linejoin="round"
                 aria-hidden="true"
             >
-                <path d="M6 9V2h9l5 5v2"/>
-                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
-                <rect x="6" y="14" width="12" height="8"/>
+
+                <path
+                    d="M6 9V2h9l5 5v2"
+                />
+
+                <path
+                    d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+                />
+
+                <rect
+                    x="6"
+                    y="14"
+                    width="12"
+                    height="8"
+                />
+
             </svg>
+
         </button>
 
 
-        <!-- Copy -->
+        <!-- COPY LINK -->
 
         <button
             type="button"
             class="share-btn share-btn--copy"
-            data-copy-link="<?php echo esc_url(get_permalink()); ?>"
+            data-copy-link="<?php echo esc_url(
+                get_permalink()
+            ); ?>"
             aria-label="Copy link"
         >
+
             <svg
                 width="16"
                 height="16"
@@ -241,13 +419,25 @@ function pinnacle_extract_youtube_id($url) {
                 stroke-linejoin="round"
                 aria-hidden="true"
             >
-                <rect x="9" y="9" width="13" height="13" rx="2"/>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+
+                <rect
+                    x="9"
+                    y="9"
+                    width="13"
+                    height="13"
+                    rx="2"
+                />
+
+                <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                />
+
             </svg>
+
         </button>
 
 
-        <!-- More -->
+        <!-- MORE -->
 
         <button
             type="button"
@@ -260,10 +450,13 @@ function pinnacle_extract_youtube_id($url) {
                         url: window.location.href
                     });
                 } else if (navigator.clipboard) {
-                    navigator.clipboard.writeText(window.location.href);
+                    navigator.clipboard.writeText(
+                        window.location.href
+                    );
                 }
             "
         >
+
             <svg
                 width="16"
                 height="16"
@@ -275,9 +468,23 @@ function pinnacle_extract_youtube_id($url) {
                 stroke-linejoin="round"
                 aria-hidden="true"
             >
-                <line x1="12" y1="5" x2="12" y2="19"/>
-                <line x1="5" y1="12" x2="19" y2="12"/>
+
+                <line
+                    x1="12"
+                    y1="5"
+                    x2="12"
+                    y2="19"
+                />
+
+                <line
+                    x1="5"
+                    y1="12"
+                    x2="19"
+                    y2="12"
+                />
+
             </svg>
+
         </button>
 
     </div>
@@ -286,181 +493,40 @@ function pinnacle_extract_youtube_id($url) {
 
 
 <!-- =========================================================
-     SERVICE CONTENT
+     MAIN SERVICE CONTENT
 ========================================================== -->
 
-<section class="service-detail">
+<section
+    class="service-detail"
+>
 
-    <div class="service-detail__grid">
+    <div
+        class="service-detail__grid"
+    >
 
 
         <!-- =====================================================
              MAIN CONTENT
         ====================================================== -->
 
-        <div class="service-detail__main">
-
-            <?php if (!empty($content_blocks)) : ?>
-
-                <div class="service-detail__content">
-
-                    <?php foreach ($content_blocks as $block) : ?>
-
-                        <?php
-                        $layout = $block['acf_fc_layout'] ?? '';
-                        ?>
+        <div
+            class="service-detail__main"
+        >
 
 
-                        <!-- =====================================
-                             TEXT BLOCK
-                        ====================================== -->
+            <!-- =================================================
+                 ACF INTRO
+            ================================================== -->
 
-                        <?php if ($layout === 'text') : ?>
+            <?php if (
+                ! empty(
+                    $intro_content
+                )
+            ) : ?>
 
-                            <?php if (!empty($block['content'])) : ?>
-
-                                <?php
-                                echo wp_kses_post(
-                                    $block['content']
-                                );
-                                ?>
-
-                            <?php endif; ?>
-
-
-                        <!-- =====================================
-                             VIDEO BLOCK
-                        ====================================== -->
-
-                        <?php elseif ($layout === 'video') : ?>
-
-                            <?php
-
-                            $video_url = $block['embed_url'] ?? '';
-
-                            $video_title = !empty($block['title'])
-                                ? $block['title']
-                                : get_the_title() . ' video';
-
-                            $youtube_id =
-                                pinnacle_extract_youtube_id(
-                                    $video_url
-                                );
-
-                            ?>
-
-                            <?php if ($youtube_id) : ?>
-
-                                <!-- YouTube -->
-
-                                <div class="pillar-video">
-
-                                    <div class="pillar-video__frame">
-
-                                        <iframe
-                                            src="https://www.youtube.com/embed/<?php echo esc_attr($youtube_id); ?>"
-                                            title="<?php echo esc_attr($video_title); ?>"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            allowfullscreen
-                                            loading="lazy"
-                                        ></iframe>
-
-                                    </div>
-
-                                </div>
-
-
-                            <?php elseif (strpos($video_url, 'brightcove') !== false) : ?>
-
-                                <!-- Brightcove -->
-
-                                <div class="pillar-video">
-
-                                    <div class="pillar-video__frame">
-
-                                        <iframe
-                                            src="<?php echo esc_url($video_url); ?>"
-                                            title="<?php echo esc_attr($video_title); ?>"
-                                            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-                                            allowfullscreen
-                                            loading="lazy"
-                                        ></iframe>
-
-                                    </div>
-
-                                </div>
-
-
-                            <?php elseif ($video_url) : ?>
-
-                                <!-- Generic Embed -->
-
-                                <div class="pillar-video">
-
-                                    <div class="pillar-video__frame">
-
-                                        <iframe
-                                            src="<?php echo esc_url($video_url); ?>"
-                                            title="<?php echo esc_attr($video_title); ?>"
-                                            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-                                            allowfullscreen
-                                            loading="lazy"
-                                        ></iframe>
-
-                                    </div>
-
-                                </div>
-
-                            <?php endif; ?>
-
-
-                        <!-- =====================================
-                             IMAGE BLOCK
-                        ====================================== -->
-
-                        <?php elseif ($layout === 'image') : ?>
-
-                            <?php
-
-                            $block_image =
-                                $block['image'] ?? null;
-
-                            ?>
-
-                            <?php if (
-                                is_array($block_image) &&
-                                !empty($block_image['url'])
-                            ) : ?>
-
-                                <figure class="service-detail__image">
-
-                                    <img
-                                        src="<?php echo esc_url($block_image['url']); ?>"
-                                        alt="<?php echo esc_attr(
-                                            $block_image['alt']
-                                                ?? get_the_title()
-                                        ); ?>"
-                                        loading="lazy"
-                                    >
-
-                                </figure>
-
-                            <?php endif; ?>
-
-                        <?php endif; ?>
-
-                    <?php endforeach; ?>
-
-                </div>
-
-
-            <?php elseif (!empty($intro_content)) : ?>
-
-                <!-- =============================================
-                     ACF WYSIWYG FALLBACK
-                ============================================== -->
-
-                <div class="service-detail__content">
+                <div
+                    class="service-detail__content"
+                >
 
                     <?php
                     echo wp_kses_post(
@@ -470,29 +536,187 @@ function pinnacle_extract_youtube_id($url) {
 
                 </div>
 
+            <?php endif; ?>
 
-            <?php elseif (trim(get_the_content())) : ?>
 
-                <!-- =============================================
-                     WORDPRESS EDITOR FALLBACK
-                ============================================== -->
+            <!-- =================================================
+                 CONTENT IMAGE
+            ================================================== -->
 
-                <div class="service-detail__content">
+            <?php if (
+                is_array(
+                    $content_image
+                )
+                && ! empty(
+                    $content_image['url']
+                )
+            ) : ?>
+
+                <figure
+                    class="service-detail__image"
+                >
+
+                    <img
+                        src="<?php echo esc_url(
+                            $content_image['url']
+                        ); ?>"
+                        alt="<?php echo esc_attr(
+                            ! empty(
+                                $content_image['alt']
+                            )
+                                ? $content_image['alt']
+                                : get_the_title()
+                        ); ?>"
+                        loading="lazy"
+                    >
+
+                </figure>
+
+            <?php endif; ?>
+
+
+            <!-- =================================================
+                 VIDEO
+            ================================================== -->
+
+            <?php if (
+                $video_url
+            ) : ?>
+
+                <?php
+
+                $youtube_id =
+                    pinnacle_extract_youtube_id(
+                        $video_url
+                    );
+
+                ?>
+
+                <section
+                    class="service-detail__video"
+                >
+
+                    <h2>
+                        <?php
+                        echo esc_html(
+                            $video_title
+                        );
+                        ?>
+                    </h2>
+
+
+                    <div
+                        class="pillar-video"
+                    >
+
+                        <div
+                            class="pillar-video__frame"
+                        >
+
+                            <?php if (
+                                $youtube_id
+                            ) : ?>
+
+                                <!-- YOUTUBE -->
+
+                                <iframe
+                                    src="https://www.youtube.com/embed/<?php echo esc_attr(
+                                        $youtube_id
+                                    ); ?>"
+                                    title="<?php echo esc_attr(
+                                        $video_title
+                                    ); ?>"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen
+                                    loading="lazy"
+                                ></iframe>
+
+                            <?php elseif (
+                                strpos(
+                                    strtolower(
+                                        $video_url
+                                    ),
+                                    'brightcove'
+                                ) !== false
+                            ) : ?>
+
+                                <!-- BRIGHTCOVE -->
+
+                                <iframe
+                                    src="<?php echo esc_url(
+                                        $video_url
+                                    ); ?>"
+                                    title="<?php echo esc_attr(
+                                        $video_title
+                                    ); ?>"
+                                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                                    allowfullscreen
+                                    loading="lazy"
+                                ></iframe>
+
+                            <?php else : ?>
+
+                                <!-- GENERIC EMBED -->
+
+                                <iframe
+                                    src="<?php echo esc_url(
+                                        $video_url
+                                    ); ?>"
+                                    title="<?php echo esc_attr(
+                                        $video_title
+                                    ); ?>"
+                                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                                    allowfullscreen
+                                    loading="lazy"
+                                ></iframe>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
+
+
+                    <?php if (
+                        $video_description
+                    ) : ?>
+
+                        <p
+                            class="service-detail__video-description"
+                        >
+
+                            <?php
+                            echo esc_html(
+                                $video_description
+                            );
+                            ?>
+
+                        </p>
+
+                    <?php endif; ?>
+
+                </section>
+
+            <?php endif; ?>
+
+
+            <!-- =================================================
+                 NORMAL WORDPRESS EDITOR
+            ================================================== -->
+
+            <?php if (
+                trim(
+                    get_the_content()
+                )
+            ) : ?>
+
+                <div
+                    class="service-detail__content"
+                >
 
                     <?php
                     the_content();
                     ?>
-
-                </div>
-
-
-            <?php else : ?>
-
-                <div class="service-detail__content">
-
-                    <p>
-                        Content for this service page has not been added yet.
-                    </p>
 
                 </div>
 
@@ -503,33 +727,58 @@ function pinnacle_extract_youtube_id($url) {
                  REQUIREMENTS
             ================================================== -->
 
-            <?php if (!empty($requirements)) : ?>
+            <?php if (
+                ! empty(
+                    $requirements
+                )
+            ) : ?>
 
-                <div class="service-detail__requirements">
+                <section
+                    class="service-detail__requirements"
+                >
 
                     <h2>
                         What You'll Need
                     </h2>
 
+
                     <ul>
 
-                        <?php foreach ($requirements as $req) : ?>
+                        <?php
+                        foreach (
+                            $requirements
+                            as $requirement
+                        ) :
+                        ?>
 
-                            <?php if (!empty($req['item'])) : ?>
+                            <?php
+                            if (
+                                empty(
+                                    $requirement['item']
+                                )
+                            ) {
+                                continue;
+                            }
+                            ?>
 
-                                <li>
-                                    <?php echo esc_html($req['item']); ?>
-                                </li>
+                            <li>
 
-                            <?php endif; ?>
+                                <?php
+                                echo esc_html(
+                                    $requirement['item']
+                                );
+                                ?>
+
+                            </li>
 
                         <?php endforeach; ?>
 
                     </ul>
 
-                </div>
+                </section>
 
             <?php endif; ?>
+
 
         </div>
 
@@ -538,16 +787,22 @@ function pinnacle_extract_youtube_id($url) {
              RIGHT SIDEBAR
         ====================================================== -->
 
-        <aside class="service-detail__sidebar">
+        <aside
+            class="service-detail__sidebar"
+        >
 
 
             <!-- =================================================
                  CONTACT CARD
             ================================================== -->
 
-            <div class="pillar-sidebar__inner service-contact-card">
+            <div
+                class="pillar-sidebar__inner service-contact-card"
+            >
 
-                <h3 class="pillar-sidebar__title">
+                <h3
+                    class="pillar-sidebar__title"
+                >
                     Contact Us
                 </h3>
 
@@ -661,8 +916,18 @@ function pinnacle_extract_youtube_id($url) {
                             stroke-linejoin="round"
                             aria-hidden="true"
                         >
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                            <polyline points="12 5 19 12 12 19"/>
+
+                            <line
+                                x1="5"
+                                y1="12"
+                                x2="19"
+                                y2="12"
+                            />
+
+                            <polyline
+                                points="12 5 19 12 12 19"
+                            />
+
                         </svg>
 
                     </button>
@@ -673,7 +938,7 @@ function pinnacle_extract_youtube_id($url) {
 
 
             <!-- =================================================
-                 SERVICES NAVIGATION
+                 RELATED SERVICES
             ================================================== -->
 
             <?php
@@ -687,51 +952,89 @@ function pinnacle_extract_youtube_id($url) {
             ?>
 
 
-            <?php if (!empty($related_services)) : ?>
+            <?php if (
+                ! empty(
+                    $related_services
+                )
+            ) : ?>
 
-                <div class="pillar-sidebar__inner service-nav-card">
+                <div
+                    class="pillar-sidebar__inner service-nav-card"
+                >
 
-                    <h3 class="pillar-sidebar__title">
+                    <h3
+                        class="pillar-sidebar__title"
+                    >
                         Home
                     </h3>
 
 
-                    <ul class="pillar-sidebar__list">
+                    <ul
+                        class="pillar-sidebar__list"
+                    >
 
-                        <?php foreach ($related_services as $related) : ?>
+                        <?php
+                        foreach (
+                            $related_services
+                            as $related
+                        ) :
+                        ?>
 
                             <?php
 
                             $related_title =
-                                $related['title'] ?? '';
+                                isset(
+                                    $related['title']
+                                )
+                                    ? $related['title']
+                                    : '';
+
 
                             $related_link =
-                                $related['link']['url'] ?? '#';
+                                isset(
+                                    $related['link']['url']
+                                )
+                                    ? $related['link']['url']
+                                    : '#';
+
 
                             $is_current =
                                 strtolower(
-                                    trim($related_title)
-                                ) ===
+                                    trim(
+                                        $related_title
+                                    )
+                                )
+                                ===
                                 strtolower(
-                                    trim(get_the_title())
+                                    trim(
+                                        get_the_title()
+                                    )
                                 );
 
                             ?>
 
+
                             <li>
 
                                 <a
-                                    href="<?php echo esc_url($related_link); ?>"
-                                    class="<?php echo $is_current ? 'is-current' : ''; ?>"
+                                    href="<?php echo esc_url(
+                                        $related_link
+                                    ); ?>"
+                                    class="<?php echo $is_current
+                                        ? 'is-current'
+                                        : ''; ?>"
                                 >
 
                                     <span>
+
                                         <?php
                                         echo esc_html(
                                             $related_title
                                         );
                                         ?>
+
                                     </span>
+
 
                                     <svg
                                         width="16"
@@ -744,6 +1047,7 @@ function pinnacle_extract_youtube_id($url) {
                                         stroke-linejoin="round"
                                         aria-hidden="true"
                                     >
+
                                         <line
                                             x1="5"
                                             y1="12"
@@ -754,6 +1058,7 @@ function pinnacle_extract_youtube_id($url) {
                                         <polyline
                                             points="12 5 19 12 12 19"
                                         />
+
                                     </svg>
 
                                 </a>
@@ -769,53 +1074,110 @@ function pinnacle_extract_youtube_id($url) {
 
             <?php else : ?>
 
-                <!-- Fallback service navigation -->
+
+                <!-- =================================================
+                     FALLBACK SERVICES
+                ================================================== -->
 
                 <?php
 
                 $fallback_services = array(
 
                     'ADHD Testing' =>
-                        home_url('/adhd-testing/'),
+                        home_url(
+                            '/adhd-testing/'
+                        ),
 
                     'Individual Psychotherapy' =>
-                        home_url('/individual-psychotherapy-in-minneapolis/'),
+                        home_url(
+                            '/individual-psychotherapy-in-minneapolis/'
+                        ),
 
                     'NeuroStar Advanced TMS Therapy' =>
-                        home_url('/neurostar-advanced-tms-therapy-in-minneapolis/'),
+                        home_url(
+                            '/neurostar-advanced-tms-therapy-in-minneapolis/'
+                        ),
 
                     'Spravato' =>
-                        home_url('/spravato/'),
+                        home_url(
+                            '/spravato/'
+                        ),
 
                     'Telehealth Psychiatric Medication Management' =>
-                        home_url('/telehealth-psychiatric-medication-management/'),
+                        home_url(
+                            '/telehealth-psychiatric-medication-management/'
+                        ),
 
+                    'Medication Management' =>
+                        home_url(
+                            '/medication-management/'
+                        ),
                 );
 
                 ?>
 
 
-                <div class="pillar-sidebar__inner service-nav-card">
+                <div
+                    class="pillar-sidebar__inner service-nav-card"
+                >
 
-                    <h3 class="pillar-sidebar__title">
+                    <h3
+                        class="pillar-sidebar__title"
+                    >
                         Home
                     </h3>
 
 
-                    <ul class="pillar-sidebar__list">
+                    <ul
+                        class="pillar-sidebar__list"
+                    >
 
-                        <?php foreach ($fallback_services as $title => $url) : ?>
+                        <?php
+                        foreach (
+                            $fallback_services
+                            as $service_title => $service_url
+                        ) :
+                        ?>
+
+                            <?php
+
+                            $is_current =
+                                strtolower(
+                                    trim(
+                                        $service_title
+                                    )
+                                )
+                                ===
+                                strtolower(
+                                    trim(
+                                        get_the_title()
+                                    )
+                                );
+
+                            ?>
+
 
                             <li>
 
                                 <a
-                                    href="<?php echo esc_url($url); ?>"
-                                    class="<?php echo strtolower(trim($title)) === strtolower(trim(get_the_title())) ? 'is-current' : ''; ?>"
+                                    href="<?php echo esc_url(
+                                        $service_url
+                                    ); ?>"
+                                    class="<?php echo $is_current
+                                        ? 'is-current'
+                                        : ''; ?>"
                                 >
 
                                     <span>
-                                        <?php echo esc_html($title); ?>
+
+                                        <?php
+                                        echo esc_html(
+                                            $service_title
+                                        );
+                                        ?>
+
                                     </span>
+
 
                                     <svg
                                         width="16"
@@ -828,6 +1190,7 @@ function pinnacle_extract_youtube_id($url) {
                                         stroke-linejoin="round"
                                         aria-hidden="true"
                                     >
+
                                         <line
                                             x1="5"
                                             y1="12"
@@ -838,6 +1201,7 @@ function pinnacle_extract_youtube_id($url) {
                                         <polyline
                                             points="12 5 19 12 12 19"
                                         />
+
                                     </svg>
 
                                 </a>
@@ -854,10 +1218,27 @@ function pinnacle_extract_youtube_id($url) {
 
 
             <!-- =================================================
-                 BOOK CONSULTATION
+                 SIDEBAR CTA
             ================================================== -->
 
+            <a
+                href="<?php echo esc_url(
+                    $cta_link
+                ); ?>"
+                class="service-detail__sidebar-cta"
+            >
 
+                <?php
+                echo esc_html(
+                    $cta_text
+                );
+                ?>
+
+                <span>
+                    →
+                </span>
+
+            </a>
 
 
         </aside>
@@ -870,9 +1251,11 @@ function pinnacle_extract_youtube_id($url) {
     ====================================================== -->
 
     <?php
+
     get_template_part(
         'template-parts/contact/contact'
     );
+
     ?>
 
 </section>
@@ -906,21 +1289,25 @@ document.addEventListener(
                                 'data-copy-link'
                             );
 
+
                         if (
-                            !url ||
-                            !navigator.clipboard
+                            ! url
+                            || ! navigator.clipboard
                         ) {
                             return;
                         }
 
 
                         navigator.clipboard
-                            .writeText(url)
+                            .writeText(
+                                url
+                            )
                             .then(
                                 function () {
 
                                     const original =
                                         button.innerHTML;
+
 
                                     button.innerHTML =
                                         '✓';
@@ -951,4 +1338,7 @@ document.addEventListener(
 </script>
 
 
-<?php get_footer(); ?>
+<?php
+get_footer();
+?>
+

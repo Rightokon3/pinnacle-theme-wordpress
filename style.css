@@ -384,13 +384,15 @@ textarea:focus-visible {
    the whole mobile icon row (search/portal/billing/cart)
 --------------------------------------------------- */
 
+
+
 .icon-btn {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
     border: 2px solid var(--primary);
     border-radius: 999px;
@@ -581,14 +583,16 @@ textarea:focus-visible {
    Hamburger button (mobile only)
 --------------------------------------------------- */
 
+
+
 .menu-toggle {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 5px;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
     border: none;
     border-radius: 999px;
@@ -1100,6 +1104,7 @@ body.mobile-nav-open {
 .appointment-form__field--select {
     position: relative;
     display: block;
+    grid-column: 1 / -1;
 }
 
 .appointment-form__select {
@@ -1132,6 +1137,10 @@ body.mobile-nav-open {
     margin: 0 auto;
 }
 
+.appointment-form__submit-icon {
+    display: block;
+    flex-shrink: 0;
+}
 .appointment-form__submit:hover {
     background: var(--primary-dark);
 }
@@ -1284,7 +1293,7 @@ body.mobile-nav-open {
 
     object-fit: cover;
 
-    border-radius: 14px;
+    border-radius: 14px 14px 70px 14px;
 
     box-shadow:
         0 15px 35px rgba(15, 60, 90, 0.20);
@@ -1340,6 +1349,7 @@ body.mobile-nav-open {
         right: 20px;
         width: 220px;
         height: 285px;
+        border-radius: 14px 14px 55px 14px;
     }
 }
 
@@ -1383,24 +1393,23 @@ body.mobile-nav-open {
         font-size: 1rem;
     }
 
-    .staff-announcement__photo {
+ .staff-announcement__photo {
         position: relative;
-
         right: auto;
         top: auto;
-
         transform: none;
-
         width: 190px;
         height: 240px;
-
         margin: -10px auto 0;
-
         border-radius: 14px;
     }
 
     .staff-announcement__inner:hover .staff-announcement__photo {
         transform: scale(1.025);
+    }
+
+        .providers-intro__inner {
+        text-align: left;
     }
 }
 
@@ -1422,6 +1431,12 @@ body.mobile-nav-open {
     overflow: hidden;
     line-height: 0;
 }
+
+.feature-banner picture {
+    display: block;
+    width: 100%;
+}
+
 
 .feature-banner__link {
     display: block;
@@ -2157,13 +2172,13 @@ body.mobile-nav-open {
    ========================================================= */
 
 .services__panel {
-    order: 2;
-
-    position: relative;
-
-    z-index: 2;
+    order: 1;
+    padding-top: 38px;
+    padding-left: 46px;
+    padding-right: 46px;
+    padding-bottom: 38px;
+    background: #eaf8fd;
 }
-
 
 .services__content {
     background: var(--primary);
@@ -2490,9 +2505,8 @@ body.mobile-nav-open {
 @media (min-width: 1280px) {
 
     .services__panel {
-
         padding-left: 46px;
-
+        padding-right: 46px;
         padding-top: 38px;
     }
 
@@ -2791,19 +2805,14 @@ body.mobile-nav-open {
 
 .testimonials__track {
     display: flex;
-
+    align-items: stretch;
     gap: 30px;
-
     width: 100%;
-
     overflow-x: auto;
     overflow-y: hidden;
-
     scroll-snap-type: x mandatory;
-
     scrollbar-width: none;
     -ms-overflow-style: none;
-
     scroll-behavior: smooth;
 }
 
@@ -2818,11 +2827,9 @@ body.mobile-nav-open {
 
 .testimonials__slide {
     flex: 0 0 100%;
-
+    display: flex;
     min-width: 0;
-
     scroll-snap-align: start;
-
     box-sizing: border-box;
 }
 
@@ -2833,24 +2840,18 @@ body.mobile-nav-open {
 
 .testimonials__card {
     width: 100%;
+    height: 100%;
     min-height: 325px;
-
     box-sizing: border-box;
-
     padding: 40px;
-
     background: #ffffff;
-
     border: none;
     border-radius: 0;
-
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
-
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
-
 
 /* =====================================================
    CARD HEADER
@@ -2995,30 +2996,21 @@ body.mobile-nav-open {
 
 .testimonials__dots {
     display: flex;
-
     align-items: center;
     justify-content: center;
-
-    gap: 10px;
-
+    gap: 8px;
     margin-top: 38px;
 }
 
 
 .testimonials__dot {
-    width: 10px;
-    height: 10px;
-
+    width: 12px;
+    height: 12px;
     padding: 0;
-
     border: none;
-
     border-radius: 50%;
-
     background: #c8c8c8;
-
     cursor: pointer;
-
     transition:
         background-color 0.2s ease,
         transform 0.2s ease;
@@ -5744,7 +5736,7 @@ body.mobile-nav-open {
 .site-footer__disclaimer p {
     font-size: 11px;
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.6);
+    color: #c9c9c9 ;
     margin: 0;
 }
 
@@ -5902,7 +5894,9 @@ body.mobile-nav-open {
 .providers-intro__body {
     margin: 0;
     color: var(--ink-soft);
-    line-height: 1.7;
+    line-height: 1.55;
+    overflow-wrap: normal;
+    word-break: normal;
 }
 
 .providers-grid {
@@ -8403,19 +8397,25 @@ body.mobile-nav-open {
     margin-bottom:35px;
 }
 
-.brain-series__button,
-.brain-series__see-all{
-    display:inline-flex;
-    align-items:center;
-    gap:15px;
-    padding:18px 35px;
-    border-radius:999px;
-    background:#33A9E1;
-    color:#fff;
-    text-decoration:none;
-    font-size:1rem;
-    text-transform:uppercase;
-    transition:.3s;
+/* =====================================================
+   BRAIN SERIES — single source of truth for button color.
+   Do not add a second .brain-series__button rule elsewhere;
+   if a variant is ever needed, use a modifier class instead
+   (e.g. .brain-series__button--featured), never a bare override.
+   ===================================================== */
+.brain-series .brain-series__button,
+.brain-series .brain-series__see-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 35px;
+    border-radius: 999px;
+    background: #33A9E1;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: .3s;
 }
 
 .brain-series__button:hover,
@@ -16626,6 +16626,13 @@ body.mobile-nav-open {
     border-color: #2ca9df;
 
     box-shadow: 0 0 0 3px rgba(44, 169, 223, 0.12);
+}
+
+.pinnacle-provider-booking-form input::placeholder,
+.pinnacle-provider-booking-form select::placeholder,
+.pinnacle-provider-booking-form textarea::placeholder {
+    color: #6b7684;
+    opacity: 1;
 }
 
 .pinnacle-provider-booking-form textarea {
