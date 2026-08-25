@@ -18098,3 +18098,597 @@ body.mobile-nav-open {
     }
 
 }
+
+/* =========================================================
+   ADHD TESTING PAGE (page-adhd-testing.php)
+   Styles for the custom classes this template outputs that
+   aren't covered by the shared .service-detail__* rules above.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   EYEBROW (small label above the intro, optional field)
+   --------------------------------------------------------- */
+
+.service-detail__eyebrow {
+    display: inline-block;
+    margin: 0 0 14px;
+
+    color: var(--primary);
+
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------
+   TWO TOP IMAGES (QbTest headband photo + laptop photo)
+   --------------------------------------------------------- */
+
+.adhd-top-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+
+    margin: 24px 0 32px;
+}
+
+.adhd-top-images__item {
+    margin: 0;
+    padding: 0;
+
+    border-radius: 1rem;
+    overflow: hidden;
+
+    box-shadow: var(--shadow-card);
+}
+
+.adhd-top-images__item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+/* ---------------------------------------------------------
+   BODY TEXT BLOCKS (QbTest text + second-section text)
+   Same treatment as the rest of the article body copy.
+   --------------------------------------------------------- */
+
+.adhd-content__text,
+.adhd-second-section__text {
+    color: var(--ink-soft);
+
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+.adhd-content__text p,
+.adhd-second-section__text p {
+    margin: 0 0 20px;
+}
+
+.adhd-content__text p:last-child,
+.adhd-second-section__text p:last-child {
+    margin-bottom: 0;
+}
+
+.adhd-content__text a,
+.adhd-second-section__text a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.adhd-content__text a:hover,
+.adhd-second-section__text a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------------------------------------------------
+   QBTECH LOGO — centered, breathing room above/below
+   --------------------------------------------------------- */
+
+.adhd-qbtech-logo {
+    display: flex;
+    justify-content: center;
+
+    margin: 36px 0;
+}
+
+.adhd-qbtech-logo img {
+    display: block;
+
+    width: auto;
+    max-width: 220px;
+    height: auto;
+}
+
+/* ---------------------------------------------------------
+   SECOND SECTION — text beside image
+   (screenshot shows text on the left, photo on the right)
+   --------------------------------------------------------- */
+
+.adhd-second-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+
+    align-items: center;
+
+    margin: 8px 0 36px;
+}
+
+.adhd-second-section__image {
+    margin: 0;
+    padding: 0;
+
+    border-radius: 1rem;
+    overflow: hidden;
+
+    box-shadow: var(--shadow-card);
+}
+
+.adhd-second-section__image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+/* ---------------------------------------------------------
+   VIDEO SECTION
+   --------------------------------------------------------- */
+
+.adhd-video {
+    margin: 40px 0;
+}
+
+.adhd-video h2 {
+    margin: 0 0 20px;
+
+    color: var(--primary-dark);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.adhd-video__frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    border-radius: 1rem;
+    overflow: hidden;
+
+    box-shadow: var(--shadow-card);
+}
+
+.adhd-video__frame iframe {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+}
+
+.service-detail__video-description {
+    margin: 14px 0 0;
+
+    color: var(--ink-soft);
+
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* ---------------------------------------------------------
+   "WHAT TO EXPECT" / generic content sections further down
+   the page (also used for normal WP editor content).
+   --------------------------------------------------------- */
+
+.service-detail__section {
+    margin: 40px 0;
+}
+
+.service-detail__section h2 {
+    margin: 0 0 20px;
+
+    color: var(--primary-dark);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* ---------------------------------------------------------
+   SIDEBAR CTA — pill link under the Contact/Home cards
+   --------------------------------------------------------- */
+
+.service-detail__sidebar-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    min-height: 52px;
+    padding: 14px 20px;
+
+    border-radius: 999px;
+
+    background: var(--primary);
+    color: #fff;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.service-detail__sidebar-cta:hover {
+    background: var(--primary-dark);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.service-detail__sidebar-cta span {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* ---------------------------------------------------------
+   BOTTOM "BOOK A CONSULTATION" BANNER
+   Same light-blue full-width pattern used by
+   .consultation-banner elsewhere in the theme.
+   --------------------------------------------------------- */
+
+.service-detail__cta {
+    width: 100%;
+    margin-top: 56px;
+    padding: 40px 20px;
+
+    background: #dff3fb;
+}
+
+.service-detail__cta-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.service-detail__cta-inner h2 {
+    margin: 0;
+
+    color: var(--primary);
+
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.service-detail__cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 50px;
+    padding: 14px 26px;
+
+    border-radius: 999px;
+
+    background: var(--primary);
+    color: #fff;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.service-detail__cta-button:hover {
+    background: var(--primary-dark);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.service-detail__cta-button span {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* ---------------------------------------------------------
+   DESKTOP — second section becomes a real two-column row
+   --------------------------------------------------------- */
+
+@media (min-width: 768px) {
+
+    .adhd-second-section {
+        grid-template-columns: 1.1fr 1fr;
+        gap: 40px;
+    }
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 639px) {
+
+    .adhd-top-images {
+        grid-template-columns: 1fr;
+        gap: 16px;
+
+        margin: 20px 0 26px;
+    }
+
+    .adhd-content__text,
+    .adhd-second-section__text {
+        font-size: 16px;
+        line-height: 1.85;
+    }
+
+    .adhd-qbtech-logo {
+        margin: 28px 0;
+    }
+
+    .adhd-qbtech-logo img {
+        max-width: 170px;
+    }
+
+    .adhd-second-section {
+        margin: 4px 0 28px;
+    }
+
+    .adhd-video {
+        margin: 32px 0;
+    }
+
+    .adhd-video h2,
+    .service-detail__section h2 {
+        font-size: 1.35rem;
+    }
+
+    .service-detail__cta {
+        margin-top: 40px;
+        padding: 32px 18px;
+    }
+
+    .service-detail__cta-inner {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .service-detail__cta-button {
+        justify-content: center;
+    }
+}
+
+/* =========================================================
+   SHARE / COPY-LINK MODALS (FAQ page)
+   ========================================================= */
+
+.pinnacle-share-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.pinnacle-share-modal[hidden] {
+    display: none;
+}
+
+.pinnacle-share-modal__overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(31, 41, 55, 0.55);
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.pinnacle-share-modal.is-open .pinnacle-share-modal__overlay {
+    opacity: 1;
+}
+
+.pinnacle-share-modal__panel {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    max-width: 460px;
+
+    background: #fff;
+    border-radius: 18px;
+
+    padding: 32px 30px;
+
+    box-shadow: var(--shadow-card);
+
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.pinnacle-share-modal.is-open .pinnacle-share-modal__panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.pinnacle-share-modal__panel--narrow {
+    max-width: 400px;
+}
+
+.pinnacle-share-modal__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: var(--surface-blue);
+    color: var(--ink-soft);
+
+    font-size: 20px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pinnacle-share-modal__close:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.pinnacle-share-modal__title {
+    margin: 0 0 20px;
+
+    color: var(--primary);
+
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.pinnacle-share-modal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.pinnacle-share-modal__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 10px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+
+    color: var(--ink);
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.pinnacle-share-modal__link:hover {
+    background: var(--surface-blue);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.pinnacle-copy-modal__row {
+    display: flex;
+    gap: 10px;
+}
+
+.pinnacle-copy-modal__input {
+    flex: 1;
+    min-width: 0;
+
+    padding: 12px 14px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+
+    background: var(--surface-blue);
+}
+
+.pinnacle-copy-modal__input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.pinnacle-copy-modal__button {
+    flex-shrink: 0;
+
+    padding: 0 20px;
+
+    border: 0;
+    border-radius: 999px;
+
+    background: var(--primary);
+    color: #fff;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.pinnacle-copy-modal__button:hover {
+    background: var(--primary-dark);
+}
+
+@media (max-width: 480px) {
+
+    .pinnacle-share-modal__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pinnacle-copy-modal__row {
+        flex-direction: column;
+    }
+
+    .pinnacle-copy-modal__button {
+        width: 100%;
+    }
+
+}

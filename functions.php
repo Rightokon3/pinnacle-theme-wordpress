@@ -4730,6 +4730,285 @@ add_action(
 );
 
 
+
+
+/* =========================================================
+ * ADHD TESTING PAGE — ACF FREE
+ * ========================================================= */
+
+function pinnacle_register_adhd_testing_fields() {
+
+    if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        return;
+    }
+
+    acf_add_local_field_group( array(
+
+        'key'   => 'group_adhd_testing_page',
+        'title' => 'ADHD Testing Page',
+
+        'fields' => array(
+
+            array(
+                'key' => 'field_adhd_testing_hero_image',
+                'label' => 'Hero Image',
+                'name' => 'adhd_testing_hero_image',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_title',
+                'label' => 'Page Title',
+                'name' => 'adhd_testing_title',
+                'type' => 'text',
+                'default_value' => 'ADHD Testing',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_eyebrow',
+                'label' => 'Eyebrow Text',
+                'name' => 'adhd_testing_eyebrow',
+                'type' => 'text',
+                'default_value' => 'Comprehensive ADHD Assessment',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_intro',
+                'label' => 'Introduction',
+                'name' => 'adhd_testing_intro',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'full',
+                'media_upload' => true,
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_top_image_1',
+                'label' => 'Top Image 1',
+                'name' => 'adhd_testing_top_image_1',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_top_image_2',
+                'label' => 'Top Image 2',
+                'name' => 'adhd_testing_top_image_2',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_qbtest_text',
+                'label' => 'QbTest Content',
+                'name' => 'adhd_testing_qbtest_text',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'full',
+                'media_upload' => true,
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_qbtech_logo',
+                'label' => 'Qbtech Logo',
+                'name' => 'adhd_testing_qbtech_logo',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_second_section_text',
+                'label' => 'Second Section Content',
+                'name' => 'adhd_testing_second_section_text',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'full',
+                'media_upload' => true,
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_second_section_image',
+                'label' => 'Second Section Image',
+                'name' => 'adhd_testing_second_section_image',
+                'type' => 'image',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_video_title',
+                'label' => 'Video Title',
+                'name' => 'adhd_testing_video_title',
+                'type' => 'text',
+                'default_value' => 'Learn More About ADHD Testing',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_video_url',
+                'label' => 'Video / iFrame Source URL',
+                'name' => 'adhd_testing_video_url',
+                'type' => 'text',
+                'instructions' => 'Paste the embed URL, for example https://www.youtube.com/embed/VIDEO_ID',
+                'placeholder' => 'https://www.youtube.com/embed/VIDEO_ID',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_video_description',
+                'label' => 'Video Description',
+                'name' => 'adhd_testing_video_description',
+                'type' => 'textarea',
+                'rows' => 4,
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_expect_heading',
+                'label' => 'What to Expect Heading',
+                'name' => 'adhd_testing_expect_heading',
+                'type' => 'text',
+                'default_value' => 'What to Expect',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_expect',
+                'label' => 'What to Expect',
+                'name' => 'adhd_testing_expect',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'full',
+                'media_upload' => true,
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_sidebar_cta_text',
+                'label' => 'Sidebar CTA Text',
+                'name' => 'adhd_testing_sidebar_cta_text',
+                'type' => 'text',
+                'default_value' => 'Schedule Consultation',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_sidebar_cta_link',
+                'label' => 'Sidebar CTA Link',
+                'name' => 'adhd_testing_sidebar_cta_link',
+                'type' => 'text',
+                'default_value' => '/contact/',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_bottom_cta_heading',
+                'label' => 'Bottom CTA Heading',
+                'name' => 'adhd_testing_bottom_cta_heading',
+                'type' => 'text',
+                'default_value' => 'Book a Consultation',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_bottom_cta_text',
+                'label' => 'Bottom CTA Button Text',
+                'name' => 'adhd_testing_bottom_cta_text',
+                'type' => 'text',
+                'default_value' => 'Schedule Consultation',
+                'required' => 0,
+            ),
+
+            array(
+                'key' => 'field_adhd_testing_bottom_cta_link',
+                'label' => 'Bottom CTA Button Link',
+                'name' => 'adhd_testing_bottom_cta_link',
+                'type' => 'text',
+                'default_value' => '/contact/',
+                'required' => 0,
+            ),
+
+        ),
+
+        'location' => array(
+
+            array(
+
+                array(
+                    'param'    => 'page_template',
+                    'operator' => '==',
+                    'value'    => 'page-adhd-testing.php',
+                ),
+
+            ),
+
+        ),
+
+        'position' => 'normal',
+        'style'    => 'default',
+        'active'   => true,
+
+    ) );
+}
+
+add_action(
+    'acf/init',
+    'pinnacle_register_adhd_testing_fields'
+);
+
+/* =========================================================
+ * FAQ CUSTOM POST TYPE
+ * ========================================================= */
+
+function pinnacle_register_faq_cpt() {
+
+    $labels = array(
+        'name'               => 'FAQs',
+        'singular_name'      => 'FAQ',
+        'menu_name'          => 'FAQs',
+        'add_new'            => 'Add FAQ',
+        'add_new_item'       => 'Add New FAQ',
+        'edit_item'          => 'Edit FAQ',
+        'new_item'           => 'New FAQ',
+        'view_item'          => 'View FAQ',
+        'search_items'       => 'Search FAQs',
+        'not_found'          => 'No FAQs found',
+        'not_found_in_trash' => 'No FAQs found in Trash',
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => false,
+        'publicly_queryable' => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-editor-help',
+        'supports'           => array('title', 'editor', 'page-attributes'),
+        'has_archive'        => false,
+        'rewrite'            => false,
+    );
+
+    register_post_type('faq', $args);
+}
+
+add_action('init', 'pinnacle_register_faq_cpt');
+
 /* =========================================================
  * SPRAVATO → SERVICE DETAIL TEMPLATE
  *
@@ -4744,6 +5023,93 @@ add_action(
  * instead of the normal WordPress single template.
  * ========================================================= */
 
+/* =========================================================
+ * SHARE BUTTONS (reused on the FAQ page, both page-level
+ * and per-item)
+ * ========================================================= */
+
+function pinnacle_render_share_buttons($share_url, $share_title = '') {
+ 
+    $share_url = esc_url($share_url);
+    $encoded_url = rawurlencode($share_url);
+    $encoded_title = rawurlencode($share_title);
+ 
+    ?>
+ 
+    <div class="share-section">
+ 
+        <h2 class="share-section__title">Share and Enjoy !</h2>
+ 
+        <div
+            class="share-section__buttons"
+            data-share-url="<?php echo esc_attr($share_url); ?>"
+            data-share-title="<?php echo esc_attr($share_title); ?>"
+        >
+ 
+            <a
+                href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $encoded_url; ?>"
+                class="share-btn share-btn--facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Share on Facebook"
+            >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/>
+                </svg>
+            </a>
+ 
+            <a
+                href="https://pinterest.com/pin/create/button/?url=<?php echo $encoded_url; ?>&description=<?php echo $encoded_title; ?>"
+                class="share-btn share-btn--pinterest"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Share on Pinterest"
+            >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.63 7.86 6.35 9.32-.09-.79-.16-2.01.03-2.87.18-.79 1.15-5.01 1.15-5.01s-.29-.58-.29-1.44c0-1.36.79-2.37 1.77-2.37.83 0 1.24.63 1.24 1.38 0 .84-.53 2.1-.81 3.27-.23.98.49 1.78 1.46 1.78 1.75 0 3.1-1.85 3.1-4.51 0-2.36-1.7-4-4.12-4-2.81 0-4.46 2.1-4.46 4.28 0 .85.33 1.76.74 2.25a.3.3 0 0 1 .07.29c-.08.32-.25 1-.29 1.14-.04.19-.15.23-.35.14-1.3-.6-2.11-2.5-2.11-4.02 0-3.28 2.38-6.29 6.87-6.29 3.61 0 6.42 2.57 6.42 6.01 0 3.58-2.26 6.47-5.39 6.47-1.05 0-2.05-.55-2.39-1.19l-.65 2.48c-.24.9-.87 2.03-1.3 2.72.98.3 2.02.46 3.1.46 5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+                </svg>
+            </a>
+ 
+            <a
+                href="https://www.printfriendly.com/print?url=<?php echo $encoded_url; ?>"
+                class="share-btn share-btn--pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Convert to PDF"
+            >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M6 9V2h9l3 3v4M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/>
+                </svg>
+            </a>
+ 
+            <button
+                type="button"
+                class="share-btn share-btn--copy pinnacle-copy-link-trigger"
+                aria-label="Copy short link"
+            >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+            </button>
+ 
+            <button
+                type="button"
+                class="share-btn share-btn--more pinnacle-share-more-trigger"
+                aria-label="More share links"
+            >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+            </button>
+ 
+        </div>
+ 
+    </div>
+ 
+    <?php
+}
 function pinnacle_spravato_single_template(
     $template
 ) {
