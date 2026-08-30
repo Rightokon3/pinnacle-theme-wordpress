@@ -145,95 +145,11 @@ $status = isset($_GET['pbh_insurance']) ? sanitize_key(wp_unslash($_GET['pbh_ins
           Sent straight to our patient coordinator — never a third-party site.
         </p>
 
-        <form class="pbh-insurance-form" method="post"
-          action="<?php echo esc_url(admin_url('admin-post.php')); ?>" novalidate>
-
-          <input type="hidden" name="action" value="pbh_insurance_submit">
-          <?php wp_nonce_field('pbh_insurance_submit', 'pbh_insurance_nonce'); ?>
-
-          <div class="pbh-insurance-field" data-field="full_name">
-            <label for="pbh-full-name">Full name <span>*</span></label>
-            <input type="text" id="pbh-full-name" name="full_name" autocomplete="name" required>
-            <p class="pbh-insurance-error">Enter your full name.</p>
-          </div>
-
-          <div class="pbh-insurance-field-row">
-            <div class="pbh-insurance-field" data-field="dob">
-              <label for="pbh-dob">Date of birth <span>*</span></label>
-              <input type="date" id="pbh-dob" name="dob" required>
-              <p class="pbh-insurance-error">Enter your date of birth.</p>
-            </div>
-            <div class="pbh-insurance-field" data-field="phone">
-              <label for="pbh-phone">Phone <span>*</span></label>
-              <input type="tel" id="pbh-phone" name="phone" autocomplete="tel" required>
-              <p class="pbh-insurance-error">Enter a callback number.</p>
-            </div>
-          </div>
-
-          <div class="pbh-insurance-field">
-            <label for="pbh-email">Email</label>
-            <input type="email" id="pbh-email" name="email" autocomplete="email">
-            <p class="pbh-insurance-hint">Optional — we'll use this if we can't reach you by phone.</p>
-          </div>
-
-          <div class="pbh-insurance-field" data-field="carrier">
-            <label for="pbh-carrier">Insurance carrier <span>*</span></label>
-            <select id="pbh-carrier" name="carrier" required>
-              <option value="" selected disabled>Select your carrier</option>
-              <option>Blue Cross Blue Shield of Minnesota</option>
-              <option>HealthPartners</option>
-              <option>Medica</option>
-              <option>UCare</option>
-              <option>Optum / UnitedHealthcare</option>
-              <option>Cigna / Evernorth</option>
-              <option>Medicare</option>
-              <option>Other / not listed</option>
-            </select>
-            <p class="pbh-insurance-error">Select your insurance carrier.</p>
-          </div>
-
-          <div class="pbh-insurance-field" data-field="member_id">
-            <label for="pbh-member-id">Member ID <span>*</span></label>
-            <input type="text" id="pbh-member-id" name="member_id" required>
-            <p class="pbh-insurance-hint">Found on the front of your insurance card.</p>
-            <p class="pbh-insurance-error">Enter your member ID.</p>
-          </div>
-
-          <div class="pbh-insurance-field" data-field="reason">
-            <label for="pbh-reason">Reason for visit <span>*</span></label>
-            <select id="pbh-reason" name="reason" required>
-              <option value="" selected disabled>Select a reason</option>
-              <option>Medication Management</option>
-              <option>NeuroStar TMS Therapy</option>
-              <option>Spravato (Esketamine)</option>
-              <option>ADHD Testing</option>
-              <option>Individual Psychotherapy</option>
-              <option>Not sure yet</option>
-            </select>
-            <p class="pbh-insurance-error">Let us know why you're visiting.</p>
-          </div>
-
-          <div class="pbh-insurance-field">
-            <label for="pbh-notes">Anything else we should know</label>
-            <textarea id="pbh-notes" name="notes" placeholder="Optional"></textarea>
-          </div>
-
-          <div class="pbh-insurance-consent" data-field="consent">
-            <input type="checkbox" id="pbh-consent" name="consent" value="1" required>
-            <label for="pbh-consent">
-              I authorize Pinnacle Behavioral Healthcare to contact my insurance carrier to verify benefits on my behalf,
-              and to reach me at the phone number or email above. <span>*</span>
-            </label>
-            <p class="pbh-insurance-error">You must authorize insurance verification.</p>
-          </div>
-
-          <button type="submit" class="pbh-insurance-submit">Request insurance verification</button>
-
-          <p class="pbh-insurance-form-foot">
-            Prefer to talk it through? <a href="tel:9523036832">Call (952) 303-6832</a>
-          </p>
-
-        </form>
+    <?php
+    echo do_shortcode(
+        '[contact-form-7 id="31879b7"]'
+    );
+    ?>
       </div>
     </div>
 

@@ -53,13 +53,7 @@ function pinnacle_theme_assets() {
         true
     );
 
-    wp_enqueue_script(
-        'pinnacle-appointment-form',
-        get_template_directory_uri() . '/assets/js/appointment-form.js',
-        [],
-        '1.0',
-        true
-    );
+
 
     wp_enqueue_script(
         'pinnacle-testimonials',

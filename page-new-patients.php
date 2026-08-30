@@ -97,118 +97,13 @@ get_header();
         <h2>New Patient Intake</h2>
         <p>Share a few details below. There's no wrong answer — this just helps us match you with the right provider.</p>
       </div>
-
-      <form class="pnp-form-panel" id="pnpIntakeForm" novalidate>
-        <?php wp_nonce_field('pnp_intake_form', 'pnp_intake_nonce'); ?>
-
-        <h3 class="pnp-form-heading">Your Information</h3>
-
-        <div class="pnp-field-row">
-          <div class="pnp-field">
-            <label for="pnp-full-name">Full Name</label>
-            <input type="text" id="pnp-full-name" name="full_name" placeholder="Jane Doe" autocomplete="name" required>
-          </div>
-          <div class="pnp-field">
-            <label for="pnp-dob">Date of Birth</label>
-            <input type="date" id="pnp-dob" name="dob" autocomplete="bday" required>
-          </div>
-        </div>
-
-        <div class="pnp-field-row">
-          <div class="pnp-field">
-            <label for="pnp-phone">Phone Number</label>
-            <input type="tel" id="pnp-phone" name="phone" placeholder="(952) 555-0100" autocomplete="tel" required>
-          </div>
-          <div class="pnp-field">
-            <label for="pnp-email">Email</label>
-            <input type="email" id="pnp-email" name="email" placeholder="jane@example.com" autocomplete="email" required>
-          </div>
-        </div>
-
-        <h3 class="pnp-form-heading pnp-form-heading-spaced">What Brings You In</h3>
-
-        <div class="pnp-field-row">
-          <div class="pnp-field">
-            <label for="pnp-concern">Primary Concern</label>
-            <select id="pnp-concern" name="concern">
-              <option>Depression</option>
-              <option>Anxiety Disorders</option>
-              <option>ADHD</option>
-              <option>Bipolar Disorder</option>
-              <option>Obsessive-Compulsive Disorder</option>
-              <option>Panic Disorder</option>
-              <option>Post-Traumatic Stress Disorder</option>
-              <option>Mood Disorders</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-
-          <div class="pnp-field">
-            <label for="pnp-service">Service You're Interested In</label>
-            <select id="pnp-service" name="service">
-              <option>Psychiatric Evaluation</option>
-              <option>Medication Management</option>
-              <option>Therapy</option>
-              <option>TMS Therapy</option>
-              <option>Spravato</option>
-              <option>ADHD Testing</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="pnp-field-row">
-          <div class="pnp-field">
-            <label for="pnp-seen-before">Seen a Mental Health Provider Before?</label>
-            <select id="pnp-seen-before" name="seen_before">
-              <option>Yes</option>
-              <option>No</option>
-            </select>
-          </div>
-
-          <div class="pnp-field">
-            <label for="pnp-format">Preferred Appointment Format</label>
-            <select id="pnp-format" name="appointment_format">
-              <option>No preference</option>
-              <option>In-person (Edina, MN)</option>
-              <option>Telehealth</option>
-            </select>
-          </div>
-        </div>
-
-        <h3 class="pnp-form-heading pnp-form-heading-spaced">Insurance &amp; Scheduling</h3>
-
-        <div class="pnp-field-row">
-          <div class="pnp-field">
-            <label for="pnp-insurance">Insurance Provider <span class="pnp-opt">(optional)</span></label>
-            <input type="text" id="pnp-insurance" name="insurance" placeholder="e.g., Blue Cross Blue Shield">
-          </div>
-
-          <div class="pnp-field">
-            <label for="pnp-pref-time">Preferred Days / Times</label>
-            <select id="pnp-pref-time" name="preferred_time">
-              <option>Mornings</option>
-              <option>Afternoons</option>
-              <option>Evenings</option>
-              <option>No preference</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="pnp-field-row">
-          <div class="pnp-field pnp-full-field">
-            <label for="pnp-notes">Anything Else We Should Know? <span class="pnp-opt">(optional)</span></label>
-            <textarea id="pnp-notes" name="notes" placeholder="Share anything that would help us prepare for your first visit."></textarea>
-          </div>
-        </div>
-
-        <div class="pnp-form-foot">
-          <button type="submit" class="pnp-btn pnp-btn-primary">Submit Intake Form</button>
-          <span class="pnp-note">We'll never share your information. A member of our team will follow up within 1 business day.</span>
-        </div>
-
-        <div class="pnp-form-status" id="pnpFormStatus" aria-live="polite"></div>
-      </form>
+   <div class="pnp-form-cf7">
+  <?php
+    echo do_shortcode(
+        '[contact-form-7 id="7632c34" title="New Patients Intake"]'
+    );
+    ?>
+    </div>
     </div>
   </section>
 

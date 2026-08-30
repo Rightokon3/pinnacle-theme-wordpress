@@ -36,59 +36,11 @@ $pbh_contact_status = isset($_GET['pbh_contact']) ? sanitize_key(wp_unslash($_GE
             <div class="pbh-contact-grid">
 
                 <div class="pbh-contact-form-side">
-                    <form class="pbh-contact-form" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
-                        <input type="hidden" name="action" value="pbh_contact_submit">
-                        <?php wp_nonce_field('pbh_contact_submit', 'pbh_contact_nonce'); ?>
-
-                        <div class="pbh-contact-field-row">
-                            <div class="pbh-contact-field">
-                                <label for="pbh-first-name">First Name<span>*</span></label>
-                                <input id="pbh-first-name" type="text" name="first_name" autocomplete="given-name" required>
-                            </div>
-                            <div class="pbh-contact-field">
-                                <label for="pbh-last-name">Last Name<span>*</span></label>
-                                <input id="pbh-last-name" type="text" name="last_name" autocomplete="family-name" required>
-                            </div>
-                        </div>
-
-                        <div class="pbh-contact-field-row">
-                            <div class="pbh-contact-field">
-                                <label for="pbh-phone">Phone Number<span>*</span></label>
-                                <input id="pbh-phone" type="tel" name="phone" autocomplete="tel" required>
-                            </div>
-                            <div class="pbh-contact-field">
-                                <label for="pbh-email">Email Address<span>*</span></label>
-                                <input id="pbh-email" type="email" name="email" autocomplete="email" required>
-                            </div>
-                        </div>
-
-                        <div class="pbh-contact-field">
-                            <label for="pbh-service">Choose Service<span>*</span></label>
-                            <select id="pbh-service" name="service" required>
-                                <option value="" selected disabled>Select a service</option>
-                                <option>Psychiatric Evaluation</option>
-                                <option>Medication Management</option>
-                                <option>Individual Therapy</option>
-                                <option>Adolescent &amp; Teen Care</option>
-                                <option>Telehealth</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-
-                        <div class="pbh-contact-field">
-                            <label for="pbh-message">Message<span>*</span></label>
-                            <textarea id="pbh-message" name="message" rows="2" required></textarea>
-                        </div>
-
-                        <button type="submit" class="pbh-contact-submit">
-                            Send Message
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
-                                <path d="M5 12h14M13 6l6 6-6 6"/>
-                            </svg>
-                        </button>
-
-                        <p class="pbh-contact-form-note">We typically respond within one business day.</p>
-                    </form>
+    <?php
+    echo do_shortcode(
+        '[contact-form-7 id="9b7d1ce" title="Contact Page Form"]'
+    );
+    ?>
                 </div>
 
                 <aside class="pbh-contact-info-side">
