@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Homepage — "What We Offer"
@@ -106,6 +107,7 @@ if (!function_exists('pinnacle_service_icon')) {
     aria-hidden="true"
     focusable="false"
 >
+
     <!-- Large tablet -->
     <circle
         cx="43"
@@ -165,16 +167,18 @@ if (!function_exists('pinnacle_service_icon')) {
         stroke-width="2.2"
         stroke-linecap="round"
     />
+
 </svg>
             ',
 
             'heart' => '
-              <svg
+<svg
     viewBox="0 0 80 80"
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
     focusable="false"
 >
+
     <!-- Person -->
     <circle
         cx="29"
@@ -242,16 +246,18 @@ if (!function_exists('pinnacle_service_icon')) {
         stroke-width="2"
         stroke-linecap="round"
     />
+
 </svg>
             ',
 
             'zap' => '
-              <svg
+<svg
     viewBox="0 0 80 80"
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
     focusable="false"
 >
+
     <!-- Head outline -->
     <path
         d="M31 67
@@ -307,16 +313,18 @@ if (!function_exists('pinnacle_service_icon')) {
         stroke-width="2.2"
         stroke-linecap="round"
     />
+
 </svg>
             ',
 
             'target' => '
-             <svg
+<svg
     viewBox="0 0 80 80"
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
     focusable="false"
 >
+
     <!-- Spray bottle -->
     <path
         d="M29 57
@@ -384,16 +392,18 @@ if (!function_exists('pinnacle_service_icon')) {
         stroke-width="1.8"
         stroke-linecap="round"
     />
+
 </svg>
             ',
 
             'check' => '
-             <svg
+<svg
     viewBox="0 0 80 80"
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
     focusable="false"
 >
+
     <!-- Head -->
     <path
         d="M31 67
@@ -460,6 +470,7 @@ if (!function_exists('pinnacle_service_icon')) {
         stroke-width="2"
         stroke-linecap="round"
     />
+
 </svg>
             ',
         ];
@@ -471,6 +482,7 @@ if (!function_exists('pinnacle_service_icon')) {
 }
 
 ?>
+
 
 <section
     id="services"
@@ -522,16 +534,82 @@ if (!function_exists('pinnacle_service_icon')) {
 
                     <?php
 
-                    $service_title = $service['title'] ?? '';
+                    $service_title =
+                        $service['title'] ?? '';
 
-                    $service_description = $service['description'] ?? '';
+                    $service_description =
+                        $service['description'] ?? '';
 
-                    $service_icon = $service['icon'] ?? 'pill';
+                    $service_icon =
+                        $service['icon'] ?? 'pill';
+
+
+                    /*
+                     * SERVICE LINK
+                     *
+                     * First use the ACF Link field.
+                     */
+                    $service_link = '';
+
+                    if (
+                        ! empty($service['link'])
+                        && is_array($service['link'])
+                        && ! empty($service['link']['url'])
+                    ) {
+                        $service_link =
+                            $service['link']['url'];
+                    }
+
+
+                    /*
+                     * FALLBACK LINKS
+                     *
+                     * Used when the ACF Link field
+                     * has not been filled in.
+                     */
+                    if (! $service_link) {
+
+                        $service_links = [
+
+                            'Medication Management' =>
+                                home_url(
+                                    '/medication-management/'
+                                ),
+
+                            'Individual Psychotherapy' =>
+                                home_url(
+                                    '/individual-psychotherapy/'
+                                ),
+
+                            'Pinnacle TMS' =>
+                                home_url(
+                                    '/tms-treatments/'
+                                ),
+
+                            'Spravato Treatment' =>
+                                home_url(
+                                    '/spravato/'
+                                ),
+
+                            'ADHD Assessment' =>
+                                home_url(
+                                    '/adhd-testing/'
+                                ),
+
+                        ];
+
+                        $service_link =
+                            $service_links[$service_title]
+                            ?? '#';
+                    }
 
                     ?>
 
+
                     <article
-                        id="<?php echo esc_attr(sanitize_title($service_title)); ?>"
+                        id="<?php echo esc_attr(
+                            sanitize_title($service_title)
+                        ); ?>"
                         class="services__item"
                     >
 
@@ -567,6 +645,25 @@ if (!function_exists('pinnacle_service_icon')) {
 
                         </p>
 
+
+                        <!-- SERVICE CTA -->
+
+                        <a
+                            href="<?php echo esc_url(
+                                $service_link
+                            ); ?>"
+                            class="services__item-button"
+                        >
+
+                            View Service
+
+                            <span aria-hidden="true">
+                                →
+                            </span>
+
+                        </a>
+
+
                     </article>
 
                 <?php endforeach; ?>
@@ -578,3 +675,4 @@ if (!function_exists('pinnacle_service_icon')) {
     </div>
 
 </section>
+
