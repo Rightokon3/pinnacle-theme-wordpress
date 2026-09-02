@@ -472,128 +472,15 @@ $blog_query = new WP_Query(
                         Contact Us
                     </h2>
 
-                    <form
-                        class="blog-contact-form"
-                        method="post"
-                        action=""
-                    >
+                 <?php
+if ( function_exists( 'do_shortcode' ) ) {
 
-                        <label>
+    echo do_shortcode(
+        '[contact-form-7 id="d8dbe66" title="Blog Contact form"]'
+    );
 
-                            <span class="sr-only">
-                                First Name
-                            </span>
-
-                            <input
-                                type="text"
-                                name="first_name"
-                                placeholder="First Name*"
-                                required
-                            >
-
-                        </label>
-
-
-                        <label>
-
-                            <span class="sr-only">
-                                Last Name
-                            </span>
-
-                            <input
-                                type="text"
-                                name="last_name"
-                                placeholder="Last Name*"
-                                required
-                            >
-
-                        </label>
-
-
-                        <label>
-
-                            <span class="sr-only">
-                                Phone Number
-                            </span>
-
-                            <input
-                                type="tel"
-                                name="phone"
-                                placeholder="Phone Number*"
-                                required
-                            >
-
-                        </label>
-
-
-                        <label>
-
-                            <span class="sr-only">
-                                Email Address
-                            </span>
-
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email Address*"
-                                required
-                            >
-
-                        </label>
-
-
-                        <label>
-
-                            <span class="sr-only">
-                                Message
-                            </span>
-
-                            <textarea
-                                name="message"
-                                placeholder="Message*"
-                                rows="4"
-                                required
-                            ></textarea>
-
-                        </label>
-
-
-                        <button
-                            type="submit"
-                            class="blog-contact-form__submit"
-                        >
-
-                            <span>
-                                SEND MESSAGE
-                            </span>
-
-                            <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                aria-hidden="true"
-                            >
-                                <line
-                                    x1="5"
-                                    y1="12"
-                                    x2="19"
-                                    y2="12"
-                                />
-
-                                <polyline
-                                    points="12 5 19 12 12 19"
-                                />
-
-                            </svg>
-
-                        </button>
-
-                    </form>
+}
+?>
 
                 </div>
 

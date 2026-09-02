@@ -309,6 +309,7 @@ if ( empty( $related_services ) ) {
     );
 }
 
+$contact_form_id = 'd4cdf40';
 ?>
 
 <main class="service-detail-page">
@@ -806,15 +807,15 @@ if ( empty( $related_services ) ) {
                     </h3>
 
 
-                    <?php
-                    /*
-                     * Reuse the site's existing contact form
-                     * template when available.
-                     */
-                    get_template_part(
-                        'template-parts/contact/contact-form'
-                    );
-                    ?>
+ <?php
+    if ( function_exists( 'do_shortcode' ) ) {
+
+        echo do_shortcode(
+            '[contact-form-7 id="' . esc_attr( $contact_form_id ) . '"]'
+        );
+
+    }
+    ?>
 
                 </div>
 
