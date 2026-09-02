@@ -73,17 +73,13 @@ $insurance_query = new WP_Query(
 );
 
 
-/*
- * =========================================================
- * CTA
- * =========================================================
- */
 
-$cta_heading = 'Book a Consultation';
 
-$cta_button_text = 'Schedule Consultation';
 
-$cta_button_link = home_url('/contact/');
+
+
+
+
 
 ?>
 
@@ -355,32 +351,7 @@ $cta_button_link = home_url('/contact/');
          CONSULTATION CTA
     ====================================================== -->
 
-    <section class="insurance-cta">
 
-        <div class="insurance-container insurance-cta__inner">
-
-            <h2 class="insurance-cta__title">
-                <?php echo esc_html($cta_heading); ?>
-            </h2>
-
-            <a
-                href="<?php echo esc_url($cta_button_link); ?>"
-                class="insurance-cta__button"
-            >
-
-                <span>
-                    <?php echo esc_html($cta_button_text); ?>
-                </span>
-
-                <span aria-hidden="true">
-                    →
-                </span>
-
-            </a>
-
-        </div>
-
-    </section>
 
 
     <!-- =====================================================
